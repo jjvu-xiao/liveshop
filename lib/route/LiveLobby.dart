@@ -85,22 +85,24 @@ class _LiveListState extends State {
     //  bus.on("tab", (args) {
     //   print(args);
     // });
-    return GestureDetector(
-      child:   ListView(
-        shrinkWrap: true,
-        physics:  NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(20.0),
-        children: _cards
-      ),
-      onHorizontalDragUpdate: (DragUpdateDetails details) {
-        print(details);
-        if (details.delta.dx > 18.0) {
-         Navigator.push(context, MaterialPageRoute(builder: (context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(children: <Widget>[
+          GestureDetector(
+            child: ListView(
+              shrinkWrap: true,
+              physics:  NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(20.0),
+              children: _cards
+            ),
+          onHorizontalDragUpdate: (DragUpdateDetails details) {
+            print(details);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
               return LoginRoute();
-          }));
-        }
-      },
-    );
+            }));
+          })
+      ]
+    ));
   }
 
   void _getData() {
