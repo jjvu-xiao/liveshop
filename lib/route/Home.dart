@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ioa/route/InfoRoute.dart';
 import 'package:ioa/route/LiveLobby.dart';
 import 'package:ioa/route/MsgRoute.dart';
+import 'package:ioa/route/lobbyRoute.dart';
 import 'package:ioa/ui/ListOptionsItem.dart';
 import 'package:ioa/ui/OASwiper.dart';
 import 'package:ioa/ui/SkuHomeList.dart';
@@ -22,7 +23,7 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
 
   List tabs = ['最新', '热门', '精选'];
 
-  List<Widget> mainMenu = [HomeMenuGridView(), LiveLobby(0), InfoRoute(), MsgRoute(), InfoRoute()];
+  List<Widget> mainMenu = [HomeMenuGridView(), LiveLobby(0), LobbyRoute(), MsgRoute(), InfoRoute()];
 
   var bus = EventBus();
 
