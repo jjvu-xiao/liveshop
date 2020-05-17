@@ -59,7 +59,7 @@ class LobbyRouteState extends State<LobbyRoute> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: Icon(Icons.bubble_chart),
+                  child: Icon(Icons.chat_bubble_outline),
                 )
               ],
             )

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ioa/route/CaretRoute.dart';
 import 'package:ioa/route/InfoRoute.dart';
 import 'package:ioa/route/LiveLobby.dart';
 import 'package:ioa/route/MsgRoute.dart';
@@ -23,7 +24,7 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
 
   List tabs = ['最新', '热门', '精选'];
 
-  List<Widget> mainMenu = [HomeMenuGridView(), LiveLobby(0), LobbyRoute(), MsgRoute(), InfoRoute()];
+  List<Widget> mainMenu = [HomeMenuGridView(), LiveLobby(0), LobbyRoute(), MsgRoute(), CaretRoute()];
 
   var bus = EventBus();
 
