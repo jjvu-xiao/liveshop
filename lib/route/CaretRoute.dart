@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+/**
+ * 购物车模块
+ * create by Xiao
+ * add by 2020-05-18
+ * update by 2020-05-18
+ */
 class CaretRoute extends StatefulWidget {
   @override
   _CaretRouteState createState() => _CaretRouteState();
@@ -16,46 +22,104 @@ class _CaretRouteState extends State<CaretRoute> {
     );
     List<Widget> skus = new List();
     for (var i = 0; i < 10; i++) {
-      Widget tmp = Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Checkbox(
-                  value: false,
-                  onChanged: null
-              ),
-            ),
+      Widget tmp = Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+            Expanded(flex: 1, child: Radio(value: false, onChanged: null)),
             Expanded(
                 flex: 9,
-                child:  ListTile(
-                    title: Text("MacBook Pro 2020"),
-                    leading: avatar,
-                    subtitle: Text(
-                        "￥14000",
-                        style: TextStyle(color: Colors.red)
-                    )
-                )
-            )
-          ]
+                child: ListTile(
+                  title: Text("Apple专卖店"),
+                  leading: Icon(Icons.laptop),
+                )),
+          ]),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  flex: 1,
+                  child: Radio(
+                      value: false,
+                      onChanged: null
+                  )
+              ),
+              Expanded(
+                  flex: 2,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: avatar,
+                  )
+              ),
+              Expanded(
+                  flex: 6,
+                  child: Column(
+                    children: <Widget>[
+                      DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.0), //3像素圆角
+                          ),
+                          child:  Padding(
+                              child:  Text(
+                                  '''Apple / 苹果 16英寸 MacBook Pro 2.6GHz 6核处理器'''
+                              ),
+                              padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0)
+                          )
+                      ),
+                      DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.0), //3像素圆角
+                          ),
+                          child:  Align(
+                              alignment: Alignment.centerLeft,
+                              child:  Padding(
+                                 padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+                                 child:  Text(
+                                     '''银色''',
+                                     style: TextStyle(
+                                       color: Colors.grey,
+                                     )
+                                 )
+                              )
+                          )
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child:  Padding(
+                                  padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+                                  child:  Text(
+                                      '''￥ 16000''',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      )
+                                  )
+                              )
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Row(
+                              children: <Widget>[
+                                FlatButton(onPressed: null, child: Icon(Icons.add)),
+                                Text("1"),
+                                FlatButton(onPressed: null, child: Icon(Icons.minimize))
+                              ],
+                            )
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+              )
+            ],
+          )
+        ]
       );
       skus.add(tmp);
     }
     return ListView(
-      children: <Widget>[
-        Card(
-          color: Colors.white,
-          elevation: 1.0,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))
-          ),
-          clipBehavior: Clip.antiAlias,
-          semanticContainer: false,
-          child: Column(
-            children: skus
-          )
-        )
-      ],
-    );
+      shrinkWrap: true,
+      children: skus,
+    ) ;
   }
-
 }
