@@ -5,11 +5,7 @@ import 'package:ioa/constant/OAConstant.dart';
 import 'package:ioa/ui/NewsButton.dart';
 import 'package:ioa/util/LogUtil.dart';
 
-/**
- * @Author Xiao
- * @Time 2020-04-29
- * @Decr 注册路由
- */
+/// 用户注册界面
 class RegisterRouter extends StatefulWidget {
 
   @override

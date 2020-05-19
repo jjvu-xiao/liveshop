@@ -4,7 +4,7 @@ import 'package:ioa/login.dart';
 import 'package:ioa/ui/CardWidget.dart';
 import 'package:ioa/util/EventBus.dart';
 import 'package:toast/toast.dart';
-
+/// 直播列表界面
 class LiveLobby extends StatefulWidget {
 
   int _selectedIndex = 0;

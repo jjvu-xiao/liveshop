@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/// 消息页
 class MsgRoute extends StatefulWidget {
   @override
   _MsgRouteState createState() => _MsgRouteState();
@@ -21,6 +21,7 @@ class _MsgRouteState extends State {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
+      color: Colors.white,
       child:
       ListView.separated(
         itemCount: 20,

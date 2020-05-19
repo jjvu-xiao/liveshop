@@ -12,14 +12,6 @@ class NewsConstant {
 
   static m.Color PRIMARY_COLOR = m.Colors.white;
   // 服务器地址
-//  static const String URL = "http://192.168.43.73:80/news/app/login";
-//  static const String URL = "http://192.168.1.44:8080/news/app/login";
-//  static const String URL = "http://192.168.191.1:8080/news/app/login";
-
-//  static const String URL = "http://118.25.130.181/news/app/login";
-
-//  static const String BASE_URL = "http://192.168.191.1:8080/news/app/";
-
   static const String BASE_URL = "http://118.25.130.181/news/app";
 
   static const int CONNECT_TIMEOUT = 300000;

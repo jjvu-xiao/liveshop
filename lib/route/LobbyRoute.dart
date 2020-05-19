@@ -1,6 +1,5 @@
-//
 import 'package:flutter/material.dart';
-
+/// 大厅界面
 class LobbyRoute extends StatefulWidget {
   @override
   LobbyRouteState createState() {

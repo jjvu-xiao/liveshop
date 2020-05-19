@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ioa/route/Home.dart';
+import 'package:ioa/route/HomeRoute.dart';
 import 'package:ioa/route/RegisterRouter.dart';
 import 'package:ioa/ui/LoadingDialog.dart';
 import 'package:ioa/ui/NewsButton.dart';

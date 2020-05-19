@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-/**
- * 购物车模块
- * create by Xiao
- * add by 2020-05-18
- * update by 2020-05-18
- */
+/// 购物车模块
+/// create by xiao
 class CaretRoute extends StatefulWidget {
   @override
   _CaretRouteState createState() => _CaretRouteState();

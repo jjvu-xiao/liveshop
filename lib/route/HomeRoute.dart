@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioa/route/CaretRoute.dart';
-import 'package:ioa/route/InfoRoute.dart';
-import 'package:ioa/route/LiveLobby.dart';
+import 'package:ioa/route/LiveRoute.dart';
 import 'package:ioa/route/MsgRoute.dart';
-import 'package:ioa/route/lobbyRoute.dart';
+import 'package:ioa/route/LobbyRoute.dart';
 import 'package:ioa/ui/ListOptionsItem.dart';
 import 'package:ioa/ui/OASwiper.dart';
 import 'package:ioa/ui/SkuHomeList.dart';
 import 'package:ioa/util/EventBus.dart';
 
+/// 首页模块
+///
 class ScaffoldRoute extends StatefulWidget {
   @override
   _ScaffoldRouteState createState() => _ScaffoldRouteState();
@@ -173,58 +174,16 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
             height: 150.0,
             child: SwiperPage(title: "热点新闻"),
           ),
-          Flex(direction: Axis.horizontal, children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: SizedBox(
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.mobile_screen_share),
-                      Text("充值中心"),
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 1,
-                child: SizedBox(
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.fastfood),
-                      Text("美食"),
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 1,
-                child: SizedBox(
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.card_travel),
-                      Text("旅行"),
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 1,
-                child: SizedBox(
-                  child: Column(
-                    children: <Widget>[
-                      Icon(Icons.mic),
-                      Text("娱乐"),
-                    ],
-                  ),
-                ))
-          ]),
-          Flex(
-            direction: Axis.horizontal,
-            children: <Widget>[
+          Container(
+            color: Colors.white,
+            child: Flex(direction: Axis.horizontal, children: <Widget>[
               Expanded(
                   flex: 1,
                   child: SizedBox(
                     child: Column(
                       children: <Widget>[
-                        Icon(Icons.videogame_asset),
-                        Text("游戏"),
+                        Icon(Icons.mobile_screen_share, color: Colors.red),
+                        Text("充值中心")
                       ],
                     ),
                   )),
@@ -233,8 +192,8 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
                   child: SizedBox(
                     child: Column(
                       children: <Widget>[
-                        Icon(Icons.accessibility),
-                        Text("生活"),
+                        Icon(Icons.fastfood, color: Colors.green),
+                        Text("美食")
                       ],
                     ),
                   )),
@@ -243,8 +202,8 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
                   child: SizedBox(
                     child: Column(
                       children: <Widget>[
-                        Icon(Icons.local_hospital),
-                        Text("健康"),
+                        Icon(Icons.card_travel, color: Colors.blue),
+                        Text("旅行"),
                       ],
                     ),
                   )),
@@ -253,44 +212,67 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
                   child: SizedBox(
                     child: Column(
                       children: <Widget>[
-                        Icon(Icons.school),
-                        Text("学习"),
+                        Icon(Icons.mic, color: Colors.lightBlue),
+                        Text("娱乐"),
                       ],
                     ),
-                  )),
-            ],
+                  ))
+            ])
           ),
           Container(
-            child: SkuHomeList(),
+            color: Colors.white,
+            child: Flex(
+                direction: Axis.horizontal,
+                children: <Widget>[
+                  Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.videogame_asset, color: Colors.yellow),
+                            Text("游戏"),
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.accessibility, color: Colors.blue),
+                            Text("生活"),
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.local_hospital, color: Colors.green),
+                            Text("健康"),
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.school, color: Colors.red),
+                            Text("学习"),
+                          ],
+                        ),
+                      )),
+                ],
+              )
+          ),
+          Container(
+            child: SkuHomeList()
           )
-        ]));
-//    ListView(
-//      shrinkWrap: true,
-//      children: <Widget>[CardWidgetList()],
-//    );
-
-//      ListView(
-//      shrinkWrap: true,
-//      children: <Widget>[
-//        Container(
-//          child: SwiperPage(title: "热点新闻"),
-//          height: 150.0,
-//        ),
-//        Container(
-//          color: Colors.white,
-//          child: Row(
-//            children: menu,
-//          ),
-//        ),
-//        Flex(
-//          direction: Axis.horizontal,
-//          children: <Widget>[
-//            Expanded(child:  CardWidget(), flex: 1),
-//            Expanded(child:  CardWidget(), flex: 1)
-//          ],
-//        ),
-//      ],
-//    );
+        ]
+      )
+    );
   }
 }
 
@@ -321,47 +303,20 @@ class MyDrawer extends StatelessWidget {
                       ClipOval(
                         child: Image.asset(
                           "images/me.jpg",
-                          width: 80,
+                          width: 80
                         ),
                       ),
-                      Text("杨小前"),
+                      Text("杨小前")
                     ],
                   )
                 ))),
             ListOptionItem(Icons.settings, "设置"),
-
             ListOptionItem(Icons.info, "信息"),
-
             ListOptionItem(Icons.local_laundry_service, "服务"),
-
-            ListOptionItem(Icons.collections, "收藏"),
-
-          ],
-        ),
-
-//        Column(
-//          children: <Widget>[
-//            Padding(
-//              padding: const EdgeInsets.only(top: 38.0),
-//              child: Row(
-//                children: <Widget>[
-//                  Center(
-//                    child:  Padding(
-//                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-//                      child: ClipOval(
-//                        child: Image.asset(
-//                          "images/me.jpg",
-//                          width: 80,
-//                        ),
-//                      ),
-//                    ),
-//                  )
-//                ],
-//              ),
-//            ),
-//          ],
-//        ),
-      ),
+            ListOptionItem(Icons.collections, "收藏")
+          ]
+        )
+      )
     );
   }
 }
