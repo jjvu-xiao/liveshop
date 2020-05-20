@@ -39,6 +39,7 @@ class LiveLobbyState extends State<LiveLobby> {
         child: Column(
           children: <Widget>[
             Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: LiveList(0),
             ),
           ],
@@ -111,8 +112,8 @@ class _LiveListState extends State {
           Flex(
               direction: Axis.horizontal,
               children: <Widget>[
-                Expanded(child: CardWidget(Image.asset("images/room0.png", width: 100.0,), "小喵的直播间"), flex: 1),
-                Expanded(child: CardWidget(Image.asset("images/room0.png", width: 100.0,), "小喵的直播间"), flex: 1),
+                Expanded(child: CardWidget(Image.asset("images/room0.png", width: 400.0,), "小喵的直播间"), flex: 1),
+                Expanded(child: CardWidget(Image.asset("images/room0.png", width: 400.0,), "小喵的直播间"), flex: 1),
               ]
           )
       );

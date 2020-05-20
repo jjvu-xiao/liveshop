@@ -18,7 +18,6 @@ class IOAApp extends StatelessWidget {
       title: 'OA移动平台',
       theme: ThemeData(
           primaryColor: Colors.white
-//        primarySwatch: Colors.blue,
       ),
       home: LoginRoute(),
     );

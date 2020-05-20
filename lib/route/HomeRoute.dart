@@ -6,11 +6,12 @@ import 'package:ioa/route/MsgRoute.dart';
 import 'package:ioa/route/LobbyRoute.dart';
 import 'package:ioa/ui/ListOptionsItem.dart';
 import 'package:ioa/ui/OASwiper.dart';
+import 'package:ioa/ui/RoundFormField.dart';
+import 'package:ioa/ui/SearchBar.dart';
 import 'package:ioa/ui/SkuHomeList.dart';
 import 'package:ioa/util/EventBus.dart';
 
 /// 首页模块
-///
 class ScaffoldRoute extends StatefulWidget {
   @override
   _ScaffoldRouteState createState() => _ScaffoldRouteState();
@@ -25,7 +26,13 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
 
   List tabs = ['最新', '热门', '精选'];
 
-  List<Widget> mainMenu = [HomeMenuGridView(), LiveLobby(0), LobbyRoute(), MsgRoute(), CaretRoute()];
+  List<Widget> mainMenu = [
+    HomeMenuGridView(),
+    LiveLobby(0),
+    LobbyRoute(),
+    MsgRoute(),
+    CaretRoute()
+  ];
 
   var bus = EventBus();
 
@@ -35,9 +42,22 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child:
-          Text("主页"),
-        ),
+            child: Flex(direction: Axis.horizontal, children: <Widget>[
+          Expanded(
+            child: RoundFormField(),
+//            child: TextField(
+//                decoration: InputDecoration(
+//                    hintText: "搜索",
+//                    contentPadding: EdgeInsets.all(10.0),
+//                    border: OutlineInputBorder(
+//                        borderRadius: BorderRadius.circular(15.0)
+//                    ))),
+            flex: 5,
+          ),
+          Expanded(
+              flex: 1,
+              child: IconButton(icon: Icon(Icons.camera_alt), onPressed: null))
+        ])),
         leading: Builder(builder: (context) {
           return IconButton(
               icon: Icon(Icons.menu),
@@ -46,10 +66,12 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
               });
         }),
         actions: <Widget>[
+//          searchBarDelegate()
           IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {},
-          ),
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(context: context, delegate: searchBarDelegate());
+              }),
         ],
         bottom: this._selectedIndex == 1
             ? TabBar(
@@ -57,9 +79,12 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
                 tabs: tabs.map((e) => Tab(text: e)).toList())
             : null,
       ),
+
       drawer: MyDrawer(),
       body: Container(
-        child: this._selectedIndex != 1 ? mainMenu[_selectedIndex] : LiveList(this._tabController.index),
+        child: this._selectedIndex != 1
+            ? mainMenu[_selectedIndex]
+            : LiveList(this._tabController.index),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -69,11 +94,24 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
         unselectedItemColor: Colors.black,
         selectedItemColor: Colors.blue,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("首页",)),
-          BottomNavigationBarItem(icon: Icon(Icons.videocam), title: Text("直播",)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text(
+                "首页",
+              )),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.videocam),
+              title: Text(
+                "直播",
+              )),
           BottomNavigationBarItem(icon: Icon(Icons.people), title: Text("广场")),
-          BottomNavigationBarItem(icon: Icon(Icons.chat), title: Text("消息",)),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), title: Text("购物车")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.chat),
+              title: Text(
+                "消息",
+              )),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), title: Text("购物车")),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -94,7 +132,6 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
 
   void _onAdd() {}
 
- 
   @override
   void dispose() {
     super.dispose();
@@ -127,43 +164,6 @@ class HomeMenuGridView extends StatefulWidget {
 }
 
 class _HomeMenuGridViewState extends State<HomeMenuGridView> {
-  List<Widget> menu = [
-    SizedBox(
-      width: 150.0,
-      height: 100.0,
-      child: Column(
-        children: <Widget>[
-          Icon(Icons.group),
-          Text("我的团队"),
-        ],
-      ),
-    ),
-    SizedBox(
-      width: 150.0,
-      height: 100.0,
-      child: Column(
-        children: <Widget>[
-          Icon(Icons.work),
-          Text("我的工作"),
-        ],
-      ),
-    ),
-    SizedBox(
-      width: 150.0,
-      height: 100.0,
-      child: Column(
-        children: <Widget>[
-          Icon(Icons.assistant_photo),
-          Text("打卡"),
-        ],
-      ),
-    ),
-  ]; //保存Icon数据
-
-  void initState() {
-    // _retrieveIcons();
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -175,53 +175,52 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
             child: SwiperPage(title: "热点新闻"),
           ),
           Container(
-            color: Colors.white,
-            child: Flex(direction: Axis.horizontal, children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Column(
-                      children: <Widget>[
-                        Icon(Icons.mobile_screen_share, color: Colors.red),
-                        Text("充值中心")
-                      ],
-                    ),
-                  )),
-              Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Column(
-                      children: <Widget>[
-                        Icon(Icons.fastfood, color: Colors.green),
-                        Text("美食")
-                      ],
-                    ),
-                  )),
-              Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Column(
-                      children: <Widget>[
-                        Icon(Icons.card_travel, color: Colors.blue),
-                        Text("旅行"),
-                      ],
-                    ),
-                  )),
-              Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Column(
-                      children: <Widget>[
-                        Icon(Icons.mic, color: Colors.lightBlue),
-                        Text("娱乐"),
-                      ],
-                    ),
-                  ))
-            ])
-          ),
+              color: Colors.white,
+              child: Flex(direction: Axis.horizontal, children: <Widget>[
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.mobile_screen_share, color: Colors.red),
+                          Text("充值中心")
+                        ],
+                      ),
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.fastfood, color: Colors.green),
+                          Text("美食")
+                        ],
+                      ),
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.card_travel, color: Colors.blue),
+                          Text("旅行"),
+                        ],
+                      ),
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.mic, color: Colors.lightBlue),
+                          Text("娱乐"),
+                        ],
+                      ),
+                    ))
+              ])),
           Container(
-            color: Colors.white,
-            child: Flex(
+              color: Colors.white,
+              child: Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[
                   Expanded(
@@ -265,14 +264,9 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
                         ),
                       )),
                 ],
-              )
-          ),
-          Container(
-            child: SkuHomeList()
-          )
-        ]
-      )
-    );
+              )),
+          Container(child: SkuHomeList())
+        ]));
   }
 }
 
@@ -288,35 +282,26 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Drawer(
-      child: MediaQuery.removePadding(
-        context: context,
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-                decoration: BoxDecoration(color: Colors.lightBlueAccent),
-                child:
-                Center(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: <Widget>[
-                      ClipOval(
-                        child: Image.asset(
-                          "images/me.jpg",
-                          width: 80
-                        ),
-                      ),
-                      Text("杨小前")
-                    ],
-                  )
-                ))),
-            ListOptionItem(Icons.settings, "设置"),
-            ListOptionItem(Icons.info, "信息"),
-            ListOptionItem(Icons.local_laundry_service, "服务"),
-            ListOptionItem(Icons.collections, "收藏")
-          ]
-        )
-      )
-    );
+        child: MediaQuery.removePadding(
+            context: context,
+            child: ListView(children: <Widget>[
+              DrawerHeader(
+                  decoration: BoxDecoration(color: Colors.lightBlueAccent),
+                  child: Center(
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Column(
+                            children: <Widget>[
+                              ClipOval(
+                                child: Image.asset("images/me.jpg", width: 80),
+                              ),
+                              Text("杨小前")
+                            ],
+                          )))),
+              ListOptionItem(Icons.settings, "设置"),
+              ListOptionItem(Icons.info, "信息"),
+              ListOptionItem(Icons.local_laundry_service, "服务"),
+              ListOptionItem(Icons.collections, "收藏")
+            ])));
   }
 }
