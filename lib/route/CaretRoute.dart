@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ioa/ui/AddSubtractInput.dart';
 
 /// 购物车模块
 /// create by xiao
@@ -94,13 +95,14 @@ class _CaretRouteState extends State<CaretRoute> {
                           ),
                           Align(
                             alignment: Alignment.centerRight,
-                            child: Row(
-                              children: <Widget>[
-                                FlatButton(onPressed: null, child: Icon(Icons.add)),
-                                Text("1"),
-                                FlatButton(onPressed: null, child: Icon(Icons.minimize))
-                              ],
-                            )
+                            child: AddSubtractInput()
+//                            Row(
+//                              children: <Widget>[
+//                                FlatButton(onPressed: null, child: Icon(Icons.add)),
+//                                Text("1"),
+//                                FlatButton(onPressed: null, child: Icon(Icons.minimize))
+//                              ],
+//                            )
                           )
                         ],
                       ),
