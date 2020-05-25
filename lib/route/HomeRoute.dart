@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioa/route/CaretRoute.dart';
+import 'package:ioa/route/EditInfoRoute.dart';
 import 'package:ioa/route/LiveRoute.dart';
 import 'package:ioa/route/MsgRoute.dart';
 import 'package:ioa/route/LobbyRoute.dart';
@@ -287,21 +288,35 @@ class MyDrawer extends StatelessWidget {
             child: ListView(children: <Widget>[
               DrawerHeader(
                   decoration: BoxDecoration(color: Colors.lightBlueAccent),
-                  child: Center(
+                  child: Container(
+                      alignment: Alignment.center,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Column(
-                            children: <Widget>[
-                              ClipOval(
-                                child: Image.asset("images/me.jpg", width: 80),
-                              ),
-                              Text("杨小前")
-                            ],
-                          )))),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                return EditInfoRoute();
+                              }));
+                            },
+                            child:  Column(
+                              children: <Widget>[
+                                ClipOval(
+                                  child: Image.asset("images/me.jpg", width: 80),
+                                ),
+                                Text("杨小前")
+                              ],
+                            )
+                          )
+
+                      )
+                  )
+              ),
               ListOptionItem(Icons.settings, "设置"),
               ListOptionItem(Icons.info, "信息"),
               ListOptionItem(Icons.local_laundry_service, "服务"),
               ListOptionItem(Icons.collections, "收藏")
-            ])));
+            ])
+        )
+    );
   }
 }

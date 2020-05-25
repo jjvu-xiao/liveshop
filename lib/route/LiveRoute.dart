@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioa/login.dart';
+import 'package:ioa/ui/BeautifulButton.dart';
 import 'package:ioa/ui/CardWidget.dart';
 import 'package:ioa/util/EventBus.dart';
 import 'package:toast/toast.dart';
@@ -99,7 +100,7 @@ class _LiveListState extends State {
           onHorizontalDragUpdate: (DragUpdateDetails details) {
             print(details);
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return LoginRoute();
+              return CustomPaintRoute();
             }));
           })
       ]
