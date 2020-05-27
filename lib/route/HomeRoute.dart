@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ioa/route/CaretRoute.dart';
 import 'package:ioa/route/EditInfoRoute.dart';
 import 'package:ioa/route/LiveRoute.dart';
@@ -37,6 +40,8 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
 
   var bus = EventBus();
 
+  File _image;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -46,18 +51,15 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
             child: Flex(direction: Axis.horizontal, children: <Widget>[
           Expanded(
             child: RoundFormField(),
-//            child: TextField(
-//                decoration: InputDecoration(
-//                    hintText: "搜索",
-//                    contentPadding: EdgeInsets.all(10.0),
-//                    border: OutlineInputBorder(
-//                        borderRadius: BorderRadius.circular(15.0)
-//                    ))),
             flex: 5,
           ),
           Expanded(
               flex: 1,
-              child: IconButton(icon: Icon(Icons.camera_alt), onPressed: null))
+              child: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  showSearch(context: context, delegate: searchBarDelegate());
+              }))
         ])),
         leading: Builder(builder: (context) {
           return IconButton(
@@ -67,12 +69,9 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
               });
         }),
         actions: <Widget>[
-//          searchBarDelegate()
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(context: context, delegate: searchBarDelegate());
-              }),
+          IconButton(icon: Icon(Icons.camera_alt), onPressed: () async {
+            _openCamera();
+          })
         ],
         bottom: this._selectedIndex == 1
             ? TabBar(
@@ -123,6 +122,11 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  Future _openCamera() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    print(image);
   }
 
   void _onItemTapped(int index) {
@@ -307,7 +311,6 @@ class MyDrawer extends StatelessWidget {
                               ],
                             )
                           )
-
                       )
                   )
               ),
