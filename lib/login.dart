@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +7,6 @@ import 'package:ioa/ui/LoadingDialog.dart';
 import 'package:ioa/ui/NewsButton.dart';
 import 'package:ioa/util/LogUtil.dart';
 import 'package:toast/toast.dart';
-import 'package:dio/dio.dart';
-
-import 'constant/OAConstant.dart';
 
 /**
  * 登录页面
@@ -30,8 +26,6 @@ class _LoginRouteState extends State<LoginRoute> {
   bool pwdShow = false; //密码是否显示明文
 
   GlobalKey _formKey = new GlobalKey<FormState>();
-
-  bool _nameAutoFocus = true;
 
   bool _showLoading = false;
 
@@ -71,9 +65,6 @@ class _LoginRouteState extends State<LoginRoute> {
                 prefixIcon: Icon(Icons.lock, color: Colors.black,),
               ),
               obscureText: true,
-//              enabledBorder: UnderlineInputBorder(
-//                borderSide: BorderSide(color: Colors.blue),
-//              ),
               validator: (v) {
                 return v.trim().length > 0 ? null : "密码不能为空";
               },
@@ -110,50 +101,19 @@ class _LoginRouteState extends State<LoginRoute> {
           ],
         ),
       ),
-
-//      TextField(
-//        controller: _unameController,
-//        autofocus: true,
-//        decoration: InputDecoration(
-//          labelText: '账号',
-//          hintText: '账号或邮箱或手机号',
-//          prefixIcon: Icon(Icons.person, color: Colors.black,),
-//          hintStyle: TextStyle(
-//            color: Colors.grey
-//          ),
-//          enabledBorder: UnderlineInputBorder(
-//            borderSide: BorderSide(color: Colors.blue),
-//          ),
-//        ),
-//      ),
-//      TextField(
-//        controller: _pwdController,
-//        decoration: InputDecoration(
-//          labelText: '密码',
-//          hintText: '登录密码',
-//          prefixIcon: Icon(Icons.lock, color: Colors.black,),
-//        ),
-//        obscureText: true,
-//      ),
     ];
     if (_showLoading)
       m.add(FutureBuilder(
         builder: _buildFuture,
         future: _login().then((value) {
-          LogUtil.v("登录获得的数据" + NewsConstant.CHAR_SEQUENCE + value.data.toString());
           setState(() {
             _showLoading = false;
             click--;
           });
-          if (value.data["retCode"] == 0) {
-            LogUtil.v("登录成功");
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return ScaffoldRoute();
-            }));
-          }
-          else {
-            Toast.show(value.data["retMsg"].toString(), context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
-          }
+          Toast.show("登录成功", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return ScaffoldRoute();
+          }));
         }),
       ));
     else if (!_showLoading && click > 0) m.removeAt(m.length - 1);
@@ -161,7 +121,6 @@ class _LoginRouteState extends State<LoginRoute> {
       appBar: AppBar(
         title: Text('登录'),
         centerTitle: true,
-//        leading: IconButton(icon: Icon(Icons.navigate_before), onPressed: null),
       ),
       body:
         Theme(data: Theme.of(context).copyWith(
@@ -172,22 +131,15 @@ class _LoginRouteState extends State<LoginRoute> {
             )
         ),
         child: Column(children: m))
-//      Column(children: m),
     );
   }
 
-  Future _login() async {
-    LogUtil.v(_unameController.text + ":" + _pwdController.text);
-    var jsonData = {
-      "loginname": _unameController.text,
-      "passwd": _pwdController.text
-    };
-    LogUtil.v(jsonData);
-    var dio = Dio();
-    dio.options.connectTimeout = NewsConstant.CONNECT_TIMEOUT;
-    dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
-    Response response = await dio.post(NewsConstant.BASE_URL + "/login", data: jsonData);
-    return response;
+  // 模拟登录功能
+  Future<String> _login() async {
+    return Future.delayed(Duration(seconds: 3), () {
+        LogUtil.e("登录成功");
+        return "登录成功";
+      });
   }
 
   Widget _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
