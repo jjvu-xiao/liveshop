@@ -29,8 +29,6 @@ APP效果展示
  ![用户大厅](readme/show3.JPG)
  ![首页](readme/show1.PNG)
  ![用户信息预览](readme/show2.PNG)
-  
---
 ***
 ## 如何运行代码？
 
