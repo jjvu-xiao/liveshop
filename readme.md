@@ -29,10 +29,10 @@ APP效果展示
  <center>登录页面</center>
  --
  ***
- ![主页](https://gitee.com/x745567172/liveshop/tree/master/readme/show1.png)
+ ![首页](https://images.gitee.com/uploads/images/2020/0529/164601_c5a7af82_5032734.png "show1.PNG")
 <center>首页</center>
 --
-![用户信息](https://gitee.com/x745567172/liveshop/tree/master/readme/show2.png)
+ ![用户信息预览](https://images.gitee.com/uploads/images/2020/0529/164622_1dc5d70d_5032734.png "show2.PNG")
 <center>用户信息</center>
 --
 ### 更多效果可以点击下载APP
