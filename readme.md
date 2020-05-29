@@ -25,7 +25,7 @@
 
 APP效果展示
 --
- ![登录页面](https://gitee.com/x745567172/liveshop/tree/master/readme/show.png)
+ ![登录页面](https://images.gitee.com/uploads/images/2020/0529/164424_de45df1f_5032734.png "show.PNG")
  <center>登录页面</center>
  --
  ***
