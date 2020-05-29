@@ -26,7 +26,7 @@
 APP效果展示
 --
  ![登录页面](readme/show.PNG)
- ![用户大厅](readme/show3.PNG)
+ ![用户大厅](readme/show3.JPG)
  ![首页](readme/show1.PNG)
  ![用户信息预览](readme/show2.PNG)
   
