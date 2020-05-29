@@ -25,14 +25,14 @@
 
 APP效果展示
 --
- ![登录页面](readme/show.png)
+ ![登录页面](./readme/show.png)
  <center>登录页面</center>
  --
  ***
- ![主页](readme/show1.png)
+ ![主页](./readme/show1.png)
 <center>首页</center>
 --
-![用户信息](readme/show2.png)
+![用户信息](./readme/show2.png)
 <center>用户信息</center>
 --
 ### 更多效果可以点击下载APP
