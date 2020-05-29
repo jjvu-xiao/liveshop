@@ -25,9 +25,9 @@
 
 APP效果展示
 --
- ![登录页面](https://github.com/jjva-xiao/ioa/blob/master/readme/show.png "show.PNG")
- ![首页](https://github.com/jjva-xiao/ioa/blob/master/readme/show1.png "show1.PNG")
- ![用户信息预览](https://github.com/jjva-xiao/ioa/blob/master/readme/show2.png "show2.PNG")
+ ![登录页面](readme/show.PNG)
+ ![首页](https://github.com/jjva-xiao/ioa/raw/master/readme/show.PNG)
+ ![用户信息预览](https://github.com/jjva-xiao/ioa/raw/master/readme/show.PNG)
 --
 ### 更多效果可以点击下载APP
 ***
