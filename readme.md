@@ -25,11 +25,18 @@
 
 APP效果展示
 --
+<<<<<<< HEAD
  ![登录页面](https://images.gitee.com/uploads/images/2020/0529/164424_de45df1f_5032734.png "show.PNG")
  ![首页](https://images.gitee.com/uploads/images/2020/0529/164601_c5a7af82_5032734.png "show1.PNG")
  ![用户信息预览](https://images.gitee.com/uploads/images/2020/0529/164622_1dc5d70d_5032734.png "show2.PNG")
 --
 ### 更多效果可以点击下载APP
+=======
+ ![登录页面](readme/show.PNG)
+ ![用户大厅](readme/show3.JPG)
+ ![首页](readme/show1.PNG)
+ ![用户信息预览](readme/show2.PNG)
+>>>>>>> 46c73f389e461669c921cbdf68a9a9d10e60cdf3
 ***
 ## 如何运行代码？
 
