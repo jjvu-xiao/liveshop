@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioa/route/HomeRoute.dart';
 import 'package:ioa/route/RegisterRouter.dart';
-import 'package:ioa/ui/LoadingDialog.dart';
-import 'package:ioa/ui/NewsButton.dart';
+import 'package:ioa/widget/LoadingDialog.dart';
+import 'package:ioa/widget/NewsButton.dart';
 import 'package:ioa/util/LogUtil.dart';
 import 'package:toast/toast.dart';
 

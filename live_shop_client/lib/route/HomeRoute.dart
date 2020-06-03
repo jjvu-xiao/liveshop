@@ -8,11 +8,11 @@ import 'package:ioa/route/EditInfoRoute.dart';
 import 'package:ioa/route/LiveRoute.dart';
 import 'package:ioa/route/MsgRoute.dart';
 import 'package:ioa/route/LobbyRoute.dart';
-import 'package:ioa/ui/ListOptionsItem.dart';
-import 'package:ioa/ui/OASwiper.dart';
-import 'package:ioa/ui/RoundFormField.dart';
-import 'package:ioa/ui/SearchBar.dart';
-import 'package:ioa/ui/SkuHomeList.dart';
+import 'package:ioa/widget/ListOptionsItem.dart';
+import 'package:ioa/widget/OASwiper.dart';
+import 'package:ioa/widget/RoundFormField.dart';
+import 'package:ioa/widget/SearchBar.dart';
+import 'package:ioa/widget/SkuHomeList.dart';
 import 'package:ioa/util/EventBus.dart';
 
 /// 首页模块

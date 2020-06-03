@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioa/login.dart';
-import 'package:ioa/ui/BeautifulButton.dart';
-import 'package:ioa/ui/CardWidget.dart';
+import 'package:ioa/widget/BeautifulButton.dart';
+import 'package:ioa/widget/CardWidget.dart';
 import 'package:ioa/util/EventBus.dart';
 import 'package:toast/toast.dart';
 /// 直播列表界面

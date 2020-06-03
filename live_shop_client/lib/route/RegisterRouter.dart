@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioa/constant/OAConstant.dart';
-import 'package:ioa/ui/NewsButton.dart';
+import 'package:ioa/widget/NewsButton.dart';
 import 'package:ioa/util/LogUtil.dart';
 
 /// 用户注册界面

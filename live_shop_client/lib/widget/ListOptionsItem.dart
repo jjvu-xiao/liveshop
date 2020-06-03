@@ -38,9 +38,9 @@ class ListOptionItemState extends State {
         title: Text(
           _content,
           style: TextStyle(
-            fontSize: NewsConstant.FONT_SIZE,
-            color: Colors.black87,
-            fontWeight: FontWeight.normal
+              fontSize: NewsConstant.FONT_SIZE,
+              color: Colors.black87,
+              fontWeight: FontWeight.normal
           ),
         ),
       ),
