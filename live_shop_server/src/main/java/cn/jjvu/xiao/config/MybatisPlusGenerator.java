@@ -1,4 +1,4 @@
-package cn.jjvu.xiao.config;
-
-public class MybatisPlusGenerator {
-}
+//package cn.jjvu.xiao.config;
+//
+//public class MybatisPlusGenerator {
+//}

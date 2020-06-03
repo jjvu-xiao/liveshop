@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--数据库驱动 -->
+    <properties resource="jdbc.properties" />
+    <!-- 用户相关 -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库连接-->
+        <jdbcConnection driverClass="${jdbc.driverClassName}"
+                        connectionURL="${jdbc.url}"
+                        userId= "${jdbc.username}"
+                        password= "${jdbc.password}">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+           NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="true" />
+        </javaTypeResolver>
+
+        <!--指定javaBean生成的位置 javaBean生成的位置-->
+        <javaModelGenerator targetPackage="cn.jjvu.xiao.pojo" targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="true" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--sql映射文件生成的位置-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--指定dao接口生成的位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.jjvu.xiao.dao"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--table是指定每个表的生成策略 生成对应表及类名-->
+        <table tableName="user" domainObjectName="User"/>
+
+    </context>
+</generatorConfiguration>

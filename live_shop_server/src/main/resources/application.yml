@@ -10,7 +10,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/oa?useUnicode=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=utf-8
+      url: jdbc:mysql://127.0.0.1:3306/live_shop?useUnicode=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=utf-8
       username: root
       password: 745567172
       max-active: 100
@@ -32,4 +32,21 @@ logging:
   level:
     #分包配置级别，即不同的目录下可以使用不同的级别
     cn.jjvu.xiao: trace
+    org.springframework.web: debug
+    org.springframework.transaction: debug
+    org.mybatis: debug
   file: C:/live_shop.log
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.jjvu.xiao.dao
+
+# PageHelper 分页器
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+#  params: count=countSql
+
+
