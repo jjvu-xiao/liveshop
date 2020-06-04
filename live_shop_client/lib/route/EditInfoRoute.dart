@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ioa/widget/ListOptionsItem.dart';
+import 'package:liveshop/widget/ListOptionsItem.dart';
 // 用户编辑信息界面
 class EditInfoRoute extends StatefulWidget {
 

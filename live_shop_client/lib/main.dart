@@ -3,13 +3,13 @@ import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ioa/login.dart';
+import 'package:liveshop/login.dart';
 
 import 'util/LogUtil.dart';
 
-void main() => runApp(new IOAApp());
+void main() => runApp(new App());
 
-class IOAApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

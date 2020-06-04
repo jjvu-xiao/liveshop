@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ioa/constant/OAConstant.dart';
-import 'package:ioa/widget/NewsButton.dart';
-import 'package:ioa/util/LogUtil.dart';
+import 'package:liveshop/constant/OAConstant.dart';
+import 'package:liveshop/widget/NewsButton.dart';
+import 'package:liveshop/util/LogUtil.dart';
 
 /// 用户注册界面
 class RegisterRouter extends StatefulWidget {
