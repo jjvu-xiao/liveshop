@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
-import 'package:ioa/constant/OAConstant.dart';
+import 'package:liveshop/constant/OAConstant.dart';
 
 /**
  *  块状圆角按钮

@@ -1,11 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ioa/route/HomeRoute.dart';
-import 'package:ioa/route/RegisterRouter.dart';
-import 'package:ioa/widget/LoadingDialog.dart';
-import 'package:ioa/widget/NewsButton.dart';
-import 'package:ioa/util/LogUtil.dart';
+import 'package:liveshop/route/HomeRoute.dart';
+import 'package:liveshop/route/RegisterRouter.dart';
+import 'package:liveshop/widget/LoadingDialog.dart';
+import 'package:liveshop/widget/NewsButton.dart';
+import 'package:liveshop/util/LogUtil.dart';
 import 'package:toast/toast.dart';
 
 /**

@@ -9,7 +9,9 @@ import cn.jjvu.xiao.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -53,5 +55,25 @@ public class UserServiceImpl implements UserService {
         criteria.andNameEqualTo(loginname);
         criteria.andPasswdEqualTo(passwd);
         return userMapper.selectByExample(example).get(0);
+    }
+
+    @Override
+    public User findByName(String username) {
+        return null;
+    }
+
+    @Override
+    public Set<String> findPermissions(String userName) {
+        return null;
+    }
+
+    @Override
+    public List<User> findUserRoles(Long userId) {
+        return null;
+    }
+
+    @Override
+    public File createUserExcelFile(int page, int size) {
+        return null;
     }
 }

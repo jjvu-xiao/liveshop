@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ioa/widget/AddSubtractInput.dart';
+import 'package:liveshop/widget/AddSubtractInput.dart';
 
 /// 购物车模块
 /// create by xiao

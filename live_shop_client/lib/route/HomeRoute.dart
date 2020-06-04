@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ioa/route/CaretRoute.dart';
-import 'package:ioa/route/EditInfoRoute.dart';
-import 'package:ioa/route/LiveRoute.dart';
-import 'package:ioa/route/MsgRoute.dart';
-import 'package:ioa/route/LobbyRoute.dart';
-import 'package:ioa/widget/ListOptionsItem.dart';
-import 'package:ioa/widget/OASwiper.dart';
-import 'package:ioa/widget/RoundFormField.dart';
-import 'package:ioa/widget/SearchBar.dart';
-import 'package:ioa/widget/SkuHomeList.dart';
-import 'package:ioa/util/EventBus.dart';
+import 'package:liveshop/route/CaretRoute.dart';
+import 'package:liveshop/route/EditInfoRoute.dart';
+import 'package:liveshop/route/LiveRoute.dart';
+import 'package:liveshop/route/MsgRoute.dart';
+import 'package:liveshop/route/LobbyRoute.dart';
+import 'package:liveshop/widget/ListOptionsItem.dart';
+import 'package:liveshop/widget/OASwiper.dart';
+import 'package:liveshop/widget/RoundFormField.dart';
+import 'package:liveshop/widget/SearchBar.dart';
+import 'package:liveshop/widget/SkuHomeList.dart';
+import 'package:liveshop/util/EventBus.dart';
 
 /// 首页模块
 class ScaffoldRoute extends StatefulWidget {

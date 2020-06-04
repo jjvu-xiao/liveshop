@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:ioa/model/basicModel.dart';
+import 'package:liveshop/model/basicModel.dart';
 
 import 'CardWidget.dart';
 
