@@ -41,7 +41,16 @@
         </javaClientGenerator>
 
         <!--table是指定每个表的生成策略 生成对应表及类名-->
-        <table tableName="user" domainObjectName="User"/>
-
+        <!--<table tableName="user" domainObjectName="User"/>-->
+        <!--<table tableName="config" domainObjectName="Config"/>-->
+        <!--<table tableName="dept" domainObjectName="Dept"/>-->
+        <!--<table tableName="dict" domainObjectName="Dict"/>-->
+        <!--<table tableName="log" domainObjectName="Log"/>-->
+        <!--<table tableName="login_log" domainObjectName="LoginLog"/>-->
+        <!--<table tableName="menu" domainObjectName="Menu"/>-->
+        <!--<table tableName="role" domainObjectName="Role"/>-->
+        <!--<table tableName="role_dept" domainObjectName="RoleDept"/>-->
+        <!--<table tableName="role_menu" domainObjectName="RoleMenu"/>-->
+        <!--<table tableName="User_role" domainObjectName="UserRole"/>-->
     </context>
 </generatorConfiguration>
