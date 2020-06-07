@@ -7,6 +7,7 @@ import 'package:liveshop/widget/LoadingDialog.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
 import 'package:toast/toast.dart';
+import 'package:liveshop/constant/OAConstant.dart';
 
 /**
  * 登录页面
@@ -98,6 +99,16 @@ class _LoginRouteState extends State<LoginRoute> {
                 ],
               ),
             ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Image.network(NewsConstant.basicUrl + "/captcha.jpg")
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
