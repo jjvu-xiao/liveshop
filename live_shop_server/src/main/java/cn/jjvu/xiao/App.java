@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Hello world!
  *
  */
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @MapperScan("cn.jjvu.xiao.dao")
 @SpringBootApplication
 public class App 
