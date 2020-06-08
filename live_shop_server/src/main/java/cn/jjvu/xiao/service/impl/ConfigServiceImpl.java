@@ -1,6 +1,7 @@
 package cn.jjvu.xiao.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import cn.jjvu.xiao.config.MybatisPageHelper;
 import cn.jjvu.xiao.core.model.PageRequest;
@@ -10,10 +11,12 @@ import cn.jjvu.xiao.pojo.Config;
 import cn.jjvu.xiao.pojo.ConfigExample;
 import cn.jjvu.xiao.service.ConfigService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 @Service
+@Transactional
 public class ConfigServiceImpl  implements ConfigService {
 
 	@Resource
@@ -28,16 +31,16 @@ public class ConfigServiceImpl  implements ConfigService {
 	}
 
 	@Override
-	public int delete(Config record) {
-		return configMapper.deleteByPrimaryKey(record.getId());
+	public int delete(Number id) {
+		return configMapper.deleteByPrimaryKey(id.intValue());
 	}
 
 	@Override
-	public int delete(List<Config> records) {
-		for(Config record:records) {
-			delete(record);
+	public int delete(Set<Number> ids) {
+		for (Number id: ids) {
+			configMapper.deleteByPrimaryKey(id.intValue());
 		}
-		return 1;
+		return ids.size();
 	}
 
 	@Override
