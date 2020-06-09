@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/route/RegisterRouter.dart';
 import 'package:liveshop/widget/LoadingDialog.dart';
@@ -76,6 +77,7 @@ class _LoginRouteState extends State<LoginRoute> {
                 children: <Widget>[
                   Expanded(
                     child: NewsBlockButton("登录", Colors.blue, () {
+                      EasyLoading.showProgress(0.3, status: "加载中......");
                       setState(() {
                         click++;
                         _showLoading = true;
@@ -121,7 +123,7 @@ class _LoginRouteState extends State<LoginRoute> {
             _showLoading = false;
             click--;
           });
-          Toast.show("登录成功", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
+//          Toast.show("登录成功", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return ScaffoldRoute();
           }));
@@ -163,6 +165,7 @@ class _LoginRouteState extends State<LoginRoute> {
         return Text('ConnectionState.active');
       case ConnectionState.waiting:
         LogUtil.v('waiting');
+        EasyLoading.show(status: 'loading...');
         return LoadingDialog(text: "加载中.....请稍等");
       case ConnectionState.done:
         print('done');

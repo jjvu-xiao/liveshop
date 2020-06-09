@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:liveshop/route/CaretRoute.dart';
 import 'package:liveshop/route/EditInfoRoute.dart';
@@ -44,6 +45,8 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
 
   @override
   Widget build(BuildContext context) {
+    EasyLoading.dismiss();
+    EasyLoading.dismiss();
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
