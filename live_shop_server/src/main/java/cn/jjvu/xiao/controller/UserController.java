@@ -1,8 +1,14 @@
 package cn.jjvu.xiao.controller;
 
+import cn.jjvu.xiao.core.model.HttpResult;
+import cn.jjvu.xiao.core.model.LoginBean;
+import cn.jjvu.xiao.core.security.JwtAuthenticatioToken;
 import cn.jjvu.xiao.dao.UserMapper;
 import cn.jjvu.xiao.pojo.User;
 import cn.jjvu.xiao.service.UserService;
+import cn.jjvu.xiao.utils.PasswordEncoder;
+import cn.jjvu.xiao.utils.PasswordUtils;
+import cn.jjvu.xiao.utils.SecurityUtils;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -11,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,15 +46,33 @@ public class UserController {
     @Resource
     private JavaMailSender mailService;
 
+    @Resource
+    private AuthenticationManager authenticationManager;
+
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/login")
-    public Object login(@RequestBody User user) {
-        User res = userService.login(user.getName(), user.getPasswd());
-        if (res == null)
-            return "Sorry";
-        else
-            return res;
+    public Object login(HttpServletRequest req, @RequestBody LoginBean loginBean) {
+        String username = loginBean.getAccount();
+        String passwd = loginBean.getPassword();
+        String captcha = loginBean.getCaptcha();
+        // 从Session中获取之前保存的验证码，跟前端传来的验证码进行验证
+        Object kaptcha = req.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        if (null == kaptcha) {
+            return HttpResult.error("验证码已经失效");
+        }
+        if (!captcha.equals(kaptcha)) {
+            return HttpResult.error("验证码不正确");
+        }
+        User res = userService.findByName(username);
+//        User res = username.
+        if (null == res)
+            return HttpResult.error("账号不存在");
+        else if (!PasswordUtils.matches(res.getSalt(), passwd, res.getPasswd()))
+            return HttpResult.error("密码不正确");
+        JwtAuthenticatioToken token = SecurityUtils.login(req, username, passwd, authenticationManager);
+        return HttpResult.ok(token);
     }
 
     @GetMapping("captcha.jpg")

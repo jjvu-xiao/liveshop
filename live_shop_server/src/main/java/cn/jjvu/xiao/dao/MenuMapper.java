@@ -27,4 +27,6 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
+
+    List<Menu> findByUserName(@Param(value="userName") String userName);
 }

@@ -2,14 +2,18 @@ package cn.jjvu.xiao.service.impl;
 
 import cn.jjvu.xiao.core.model.PageRequest;
 import cn.jjvu.xiao.core.model.PageResult;
+import cn.jjvu.xiao.dao.MenuMapper;
 import cn.jjvu.xiao.dao.UserMapper;
+import cn.jjvu.xiao.pojo.Menu;
 import cn.jjvu.xiao.pojo.User;
 import cn.jjvu.xiao.pojo.UserExample;
+import cn.jjvu.xiao.service.MenuService;
 import cn.jjvu.xiao.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private MenuService menuService;
 
     @Override
     public int save(User record) {
@@ -62,12 +69,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByName(String username) {
-        return null;
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andNameEqualTo(username);
+        return userMapper.selectByExample(example).get(0);
     }
 
     @Override
     public Set<String> findPermissions(String userName) {
-        return null;
+        Set<String> perms = new HashSet<>();
+        List<Menu> sysMenus = menuService.findByUser(userName);
+        for(Menu sysMenu:sysMenus) {
+            if(sysMenu.getPerms() != null && !"".equals(sysMenu.getPerms())) {
+                perms.add(sysMenu.getPerms());
+            }
+        }
+        return perms;
     }
 
     @Override

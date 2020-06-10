@@ -5,6 +5,7 @@ import cn.jjvu.xiao.core.model.PageResult;
 import cn.jjvu.xiao.dao.DictMapper;
 import cn.jjvu.xiao.pojo.Dict;
 import cn.jjvu.xiao.service.DictService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ public class DictServiceImpl implements DictService {
         return null;
     }
 
+    @PreAuthorize("hasAuthority('sys:dict:add')")
     @Override
     public int save(Dict record) {
         if (record.getId() == null || record.getId() == 0) {

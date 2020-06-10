@@ -335,4 +335,15 @@
       del_flag = #{delFlag,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT DISTINCT m.*
+    FROM
+        `user` AS u
+        INNER JOIN user_role AS ur ON u.id = ur.user_id
+        INNER JOIN role_menu AS rm ON ur.role_id = rm.role_id
+        INNER JOIN menu AS m ON m.id = rm.menu_id
+    WHERE
+        u.NAME = #{userName,jdbcType=BIGINT}
+    ORDER BY m.id;
+  </select>
 </mapper>

@@ -15,27 +15,27 @@ public class JwtUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String username;
-    private String password;
+	private String name;
+    private String passwd;
     private String salt;
     private Collection<? extends GrantedAuthority> authorities;
 
-    JwtUserDetails(String username, String password, String salt, Collection<? extends GrantedAuthority> authorities) {
-        this.username = username;
-        this.password = password;
+    JwtUserDetails(String name, String passwd, String salt, Collection<? extends GrantedAuthority> authorities) {
+        this.name = name;
+        this.passwd = passwd;
         this.salt = salt;
         this.authorities = authorities;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return name;
     }
 
     @JsonIgnore
     @Override
     public String getPassword() {
-        return password;
+        return passwd;
     }
 
     public String getSalt() {

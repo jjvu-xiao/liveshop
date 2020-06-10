@@ -30,14 +30,11 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> findByUser(String userName) {
-//        MenuExample example = new MenuExample();
-//        if(userName == null || "".equals(userName) || LiveShopConstants.ADMIN.equalsIgnoreCase(userName)) {
-//            return menuMapper.selectByExample(new MenuExample());
-//        }
-//        MenuExample.Criteria criteria = example.createCriteria();
-//        criteria.and
-//        return sysMenuMapper.findByUserName(userName);
-        return null;
+        MenuExample example = new MenuExample();
+        if(userName == null || "".equals(userName) || LiveShopConstants.ADMIN.equalsIgnoreCase(userName)) {
+            return menuMapper.selectByExample(example);
+        }
+        return menuMapper.findByUserName(userName);
     }
 
     @Override
