@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:liveshop/route/CaretRoute.dart';
 import 'package:liveshop/route/EditInfoRoute.dart';
 import 'package:liveshop/route/LiveRoute.dart';
@@ -128,8 +128,8 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
   }
 
   Future _openCamera() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    print(image);
+//    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    print('');
   }
 
   void _onItemTapped(int index) {

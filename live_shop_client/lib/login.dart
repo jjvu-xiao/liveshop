@@ -2,12 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/route/RegisterRouter.dart';
 import 'package:liveshop/widget/LoadingDialog.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
-import 'package:toast/toast.dart';
 import 'package:liveshop/constant/OAConstant.dart';
 
 /**
@@ -37,7 +37,7 @@ class _LoginRouteState extends State<LoginRoute> {
   Widget build(BuildContext context) {
     // TODO: implement build
     List<Widget> m = <Widget>[
-      Form(
+     Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
@@ -78,6 +78,7 @@ class _LoginRouteState extends State<LoginRoute> {
                   Expanded(
                     child: NewsBlockButton("登录", Colors.blue, () {
                       EasyLoading.showProgress(0.3, status: "加载中......");
+                      _login();
                       setState(() {
                         click++;
                         _showLoading = true;
@@ -123,8 +124,13 @@ class _LoginRouteState extends State<LoginRoute> {
             _showLoading = false;
             click--;
           });
-//          Toast.show("登录成功", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Fluttertoast.showToast(
+            msg: "登录成功",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1
+          );
+          Navigator.push(context, MaterialPageRoute(maintainState: false, builder: (context) {
             return ScaffoldRoute();
           }));
         }),
@@ -143,7 +149,9 @@ class _LoginRouteState extends State<LoginRoute> {
               hintStyle: TextStyle(color: Colors.grey),
             )
         ),
-        child: Column(children: m))
+        child: FlutterEasyLoading(
+            child: Column(children: m))
+        )
     );
   }
 

@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:liveshop/login.dart';
 import 'package:liveshop/widget/BeautifulButton.dart';
 import 'package:liveshop/widget/CardWidget.dart';
 import 'package:liveshop/util/EventBus.dart';
-import 'package:toast/toast.dart';
 /// 直播列表界面
 class LiveLobby extends StatefulWidget {
 
