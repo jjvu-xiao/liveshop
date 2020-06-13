@@ -1,6 +1,4 @@
 
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -35,13 +33,11 @@ class _LoginRouteState extends State<LoginRoute> {
 
   int click = 0;
 
-  Timer _timer;
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     List<Widget> m = <Widget>[
-      Form(
+     Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
@@ -82,7 +78,7 @@ class _LoginRouteState extends State<LoginRoute> {
                   Expanded(
                     child: NewsBlockButton("登录", Colors.blue, () {
                       EasyLoading.showProgress(0.3, status: "加载中......");
-                      _timer?.cancel();
+                      _login();
                       setState(() {
                         click++;
                         _showLoading = true;
@@ -126,16 +122,15 @@ class _LoginRouteState extends State<LoginRoute> {
         future: _login().then((value) {
           setState(() {
             _showLoading = false;
-            EasyLoading.dismiss();
             click--;
           });
           Fluttertoast.showToast(
-              msg: "登录成功",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1
+            msg: "登录成功",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1
           );
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.push(context, MaterialPageRoute(maintainState: false, builder: (context) {
             return ScaffoldRoute();
           }));
         }),
@@ -154,14 +149,15 @@ class _LoginRouteState extends State<LoginRoute> {
               hintStyle: TextStyle(color: Colors.grey),
             )
         ),
-        child: Column(children: m))
+        child: FlutterEasyLoading(
+            child: Column(children: m))
+        )
     );
   }
 
   // 模拟登录功能
   Future<String> _login() async {
     return Future.delayed(Duration(seconds: 3), () {
-        EasyLoading.dismiss();
         LogUtil.e("登录成功");
         return "登录成功";
       });
@@ -177,8 +173,7 @@ class _LoginRouteState extends State<LoginRoute> {
         return Text('ConnectionState.active');
       case ConnectionState.waiting:
         LogUtil.v('waiting');
-        if (_showLoading)
-          EasyLoading.show(status: 'loading...');
+        EasyLoading.show(status: 'loading...');
         return LoadingDialog(text: "加载中.....请稍等");
       case ConnectionState.done:
         print('done');

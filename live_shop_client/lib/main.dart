@@ -18,7 +18,7 @@ class App extends StatelessWidget {
     // TODO: implement build
     LogUtil.init(isDebug: true);
     return MaterialApp(
-        title: 'OA移动平台',
+        title: '绿源直播',
         theme: ThemeData(
             primaryColor: Colors.white
         ),
