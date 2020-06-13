@@ -1,13 +1,15 @@
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/route/RegisterRouter.dart';
 import 'package:liveshop/widget/LoadingDialog.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
-import 'package:toast/toast.dart';
 import 'package:liveshop/constant/OAConstant.dart';
 
 /**
@@ -32,6 +34,8 @@ class _LoginRouteState extends State<LoginRoute> {
   bool _showLoading = false;
 
   int click = 0;
+
+  Timer _timer;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +82,7 @@ class _LoginRouteState extends State<LoginRoute> {
                   Expanded(
                     child: NewsBlockButton("登录", Colors.blue, () {
                       EasyLoading.showProgress(0.3, status: "加载中......");
+                      _timer?.cancel();
                       setState(() {
                         click++;
                         _showLoading = true;
@@ -121,9 +126,15 @@ class _LoginRouteState extends State<LoginRoute> {
         future: _login().then((value) {
           setState(() {
             _showLoading = false;
+            EasyLoading.dismiss();
             click--;
           });
-//          Toast.show("登录成功", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
+          Fluttertoast.showToast(
+              msg: "登录成功",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1
+          );
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return ScaffoldRoute();
           }));
@@ -150,6 +161,7 @@ class _LoginRouteState extends State<LoginRoute> {
   // 模拟登录功能
   Future<String> _login() async {
     return Future.delayed(Duration(seconds: 3), () {
+        EasyLoading.dismiss();
         LogUtil.e("登录成功");
         return "登录成功";
       });
@@ -165,7 +177,8 @@ class _LoginRouteState extends State<LoginRoute> {
         return Text('ConnectionState.active');
       case ConnectionState.waiting:
         LogUtil.v('waiting');
-        EasyLoading.show(status: 'loading...');
+        if (_showLoading)
+          EasyLoading.show(status: 'loading...');
         return LoadingDialog(text: "加载中.....请稍等");
       case ConnectionState.done:
         print('done');

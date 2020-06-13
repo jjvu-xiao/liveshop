@@ -17,14 +17,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     LogUtil.init(isDebug: true);
-    return FlutterEasyLoading(
-      child:  MaterialApp(
+    return MaterialApp(
         title: 'OA移动平台',
         theme: ThemeData(
             primaryColor: Colors.white
         ),
-        home: LoginRoute(),
-      )
+        home: LoginRoute()
     );
   }
 
