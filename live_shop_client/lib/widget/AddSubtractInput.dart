@@ -13,6 +13,10 @@ class _AddSubtractInputState extends State {
 
   int item = 0;
 
+  int max = 100;
+
+  int min = 0;
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 750, height: 1334);
@@ -36,8 +40,9 @@ class _AddSubtractInputState extends State {
 
     return InkWell(
       onTap: (){
-        setState(() {
-          this.item --;
+        if (this.item > this.min)
+          setState(() {
+            this.item --;
         });
 //        Provide.value<CartProvide>(context).addOrReduceAction(item, 'reduce');
       },
@@ -59,9 +64,10 @@ class _AddSubtractInputState extends State {
   Widget _addBtn(context){
     return InkWell(
       onTap: (){
-        setState(() {
-          this.item ++;
-        });
+        if (this.item < this.max)
+          setState(() {
+            this.item ++;
+          });
 //        Provide.value<CartProvide>(context).addOrReduceAction(item, 'add');
       },
       child: Container(

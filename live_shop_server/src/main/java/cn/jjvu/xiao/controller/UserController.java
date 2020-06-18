@@ -3,10 +3,8 @@ package cn.jjvu.xiao.controller;
 import cn.jjvu.xiao.core.model.HttpResult;
 import cn.jjvu.xiao.core.model.LoginBean;
 import cn.jjvu.xiao.core.security.JwtAuthenticatioToken;
-import cn.jjvu.xiao.dao.UserMapper;
 import cn.jjvu.xiao.pojo.User;
 import cn.jjvu.xiao.service.UserService;
-import cn.jjvu.xiao.utils.PasswordEncoder;
 import cn.jjvu.xiao.utils.PasswordUtils;
 import cn.jjvu.xiao.utils.SecurityUtils;
 import com.google.code.kaptcha.Constants;
@@ -14,7 +12,6 @@ import com.google.code.kaptcha.Producer;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -72,7 +69,11 @@ public class UserController {
         else if (!PasswordUtils.matches(res.getSalt(), passwd, res.getPasswd()))
             return HttpResult.error("密码不正确");
         JwtAuthenticatioToken token = SecurityUtils.login(req, username, passwd, authenticationManager);
-        return HttpResult.ok(token);
+        Map<String, Object> callback = new HashMap<>();
+        callback.put("token", token);
+        callback.put("user", res);
+        logger.debug("用户\t" + res.getName() + "登录成功");
+        return HttpResult.ok(callback);
     }
 
     @GetMapping("captcha.jpg")
