@@ -63,7 +63,6 @@ public class UserController {
             return HttpResult.error("验证码不正确");
         }
         User res = userService.findByName(username);
-//        User res = username.
         if (null == res)
             return HttpResult.error("账号不存在");
         else if (!PasswordUtils.matches(res.getSalt(), passwd, res.getPasswd()))
@@ -77,7 +76,7 @@ public class UserController {
     }
 
     @GetMapping("captcha.jpg")
-    public void captcha(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+    public void captcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
         // 生成文字验证码
@@ -92,7 +91,7 @@ public class UserController {
     }
 
     @GetMapping("validateEmail")
-    public Object validateEmail(HttpServletRequest req) throws ServletException, IOException {
+    public Object validateEmail(HttpServletRequest req) {
         String email = req.getParameter("email");
         String random = (int) ((Math.random() * 9 + 1) * 100000) + "";
         SimpleMailMessage message = new SimpleMailMessage();
