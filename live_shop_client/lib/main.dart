@@ -4,6 +4,7 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:liveshop/login.dart';
 
 import 'util/LogUtil.dart';
@@ -25,7 +26,15 @@ class App extends StatelessWidget {
           ),
           home: FlutterEasyLoading(
               child: LoginRoute()
-          )
+          ),
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+        supportedLocales: [
+          const Locale('zh', 'CH'),
+          const Locale('en', 'US'),
+        ]
       )
     );
   }
