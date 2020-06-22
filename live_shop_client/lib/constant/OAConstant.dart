@@ -22,5 +22,5 @@ class NewsConstant {
 
   static const double FONT_SIZE = 14.0;
 
-  static const basicUrl = "http://192.168.1.28:85";
+  static const basicUrl = "http://192.168.179.1:85";
 }

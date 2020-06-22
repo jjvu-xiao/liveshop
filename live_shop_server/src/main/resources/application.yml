@@ -10,7 +10,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/live_shop?useUnicode=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=utf-8
+#      &?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf-8autoReconnect=true
+      url: jdbc:mysql://127.0.0.1:3306/live_shop?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
       username: root
       password: 745567172
       max-active: 100
@@ -28,10 +29,21 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
   mail:
     host: smtp.163.com
-    port: 465
+    port: 25
     default-encoding: UTF-8
-    username: m18779334084@163.com
-    password: Xhb745567172
+    username: 
+    password: 123
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: 123
+    lettuce:
+      pool:
+        max-active: 16
+        min-idle: 8
+        max-idle: 10
+        max-wait: -1
 
 
 

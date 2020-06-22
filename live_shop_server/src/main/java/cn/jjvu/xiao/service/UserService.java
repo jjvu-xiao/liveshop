@@ -1,5 +1,6 @@
 package cn.jjvu.xiao.service;
 
+import cn.jjvu.xiao.pojo.LoginLog;
 import cn.jjvu.xiao.pojo.User;
 
 import java.io.File;
@@ -8,7 +9,7 @@ import java.util.Set;
 
 public interface UserService extends CrudService<User> {
 
-    User login(String loginname, String passwd);
+    User login(String loginname, String passwd, LoginLog loginLog);
 
     User findByName(String username);
 

@@ -3,6 +3,7 @@ package cn.jjvu.xiao.controller;
 import cn.jjvu.xiao.core.model.HttpResult;
 import cn.jjvu.xiao.core.model.LoginBean;
 import cn.jjvu.xiao.core.security.JwtAuthenticatioToken;
+import cn.jjvu.xiao.pojo.LoginLog;
 import cn.jjvu.xiao.pojo.User;
 import cn.jjvu.xiao.service.UserService;
 import cn.jjvu.xiao.utils.PasswordUtils;
@@ -12,6 +13,8 @@ import com.google.code.kaptcha.Producer;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,19 +47,22 @@ public class UserController {
     @Resource
     private JavaMailSender mailService;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @Resource
     private AuthenticationManager authenticationManager;
-
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/login")
-    public Object login(HttpServletRequest req, @RequestBody LoginBean loginBean) {
+    public Object login(HttpSession session, HttpServletRequest req, @RequestBody LoginBean loginBean) {
         String username = loginBean.getAccount();
         String passwd = loginBean.getPassword();
         String captcha = loginBean.getCaptcha();
         // 从Session中获取之前保存的验证码，跟前端传来的验证码进行验证
-        Object kaptcha = req.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+//        Object kaptcha = session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        Object kaptcha = stringRedisTemplate.opsForValue().get(Constants.KAPTCHA_SESSION_KEY);
         if (null == kaptcha) {
             return HttpResult.error("验证码已经失效");
         }
@@ -67,6 +74,9 @@ public class UserController {
             return HttpResult.error("账号不存在");
         else if (!PasswordUtils.matches(res.getSalt(), passwd, res.getPasswd()))
             return HttpResult.error("密码不正确");
+        LoginLog loginLog = new LoginLog();
+        loginLog.setIp(SecurityUtils.getIRealIPAddr(req));
+        res = userService.login(username, passwd, loginLog);
         JwtAuthenticatioToken token = SecurityUtils.login(req, username, passwd, authenticationManager);
         Map<String, Object> callback = new HashMap<>();
         callback.put("token", token);
@@ -76,22 +86,23 @@ public class UserController {
     }
 
     @GetMapping("captcha.jpg")
-    public void captcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public void captcha(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
         // 生成文字验证码
         String text = producer.createText();
         // 生成图片验证码
         BufferedImage image = producer.createImage(text);
-        // 保存到验证码到 session
-        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        // 保存到验证码到 session - Redis
+        stringRedisTemplate.opsForValue().set(Constants.KAPTCHA_SESSION_KEY, text);
+//        session.setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
     }
 
     @GetMapping("validateEmail")
-    public Object validateEmail(HttpServletRequest req) {
+    public Object validateEmail(HttpServletRequest req) throws ServletException, IOException {
         String email = req.getParameter("email");
         String random = (int) ((Math.random() * 9 + 1) * 100000) + "";
         SimpleMailMessage message = new SimpleMailMessage();

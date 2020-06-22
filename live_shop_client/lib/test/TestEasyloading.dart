@@ -105,6 +105,7 @@
 //                      _timer?.cancel();
 //                      _timer = Timer.periodic(const Duration(milliseconds: 100),
 //                              (Timer timer) {
+//                            showDatePicker(context: null, initialDate: null, firstDate: null, lastDate: null)
 //                            EasyLoading.showProgress(_progress,
 //                                status: '${(_progress * 100).toStringAsFixed(0)}%');
 //                            _progress += 0.03;
