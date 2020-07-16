@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:liveshop/model/LoginModel.dart';
 import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/route/RegisterRouter.dart';
+import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
 import 'package:liveshop/constant/OAConstant.dart';
@@ -113,27 +117,37 @@ class _LoginRouteState extends State<LoginRoute> {
                             )
                           )
                       ),
-                      Expanded(
-                          child: FlatButton(
-                            child: Text("重新获取"),
-                            onPressed: () {
-                              setState(() {
-                              });
-                            },
-                          )
-                      ),
+                      // Expanded(
+                      //     child: FlatButton(
+                      //       child: Text("重新获取",  style: TextStyle(
+                      //           color: Colors.blue,
+                      //           fontSize: 18.0,
+                      //           height: 1.2,
+                      //           fontFamily: "宋体",
+                      //           decoration:TextDecoration.underline,
+                      //           decorationStyle: TextDecorationStyle.wavy
+                      //       )),
+                      //       onPressed: () {
+                      //         setState(() {
+                      //           this.click ++;
+                      //           captchaImage = Image.network(NewsConstant.basicUrl + "/captcha.jpg?click=" + this.click.toString());
+                      //         });
+                      //       },
+                      //     )
+                      // ),
                       Expanded(
                         child:  InkWell(
                           onTap: () {
                             setState(() {
-                              print("重新获取");
+                                this.click ++;
+                                captchaImage = Image.network(NewsConstant.basicUrl + "/captcha.jpg?click=" + this.click.toString());
                             });
                           },
                           child: captchaImage
                         )
                       )
-                    ],
-                  ),
+                    ]
+                  )
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -153,41 +167,95 @@ class _LoginRouteState extends State<LoginRoute> {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: NewsBlockButton("注册", Colors.red, () {
+                        child: NewsBlockButton("游客进入", Colors.red, () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return RegisterRouter();
+                            return HomeRoute();
                           }));
-                        }),
+                        })
+                      )
+                    ]
+                  )
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                return RegisterRouter();
+                              }));
+                            },
+                            child: Text(
+                              "注册",
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18.0,
+                                height: 1.2,
+                                decoration: TextDecoration.underline,
+                              )
+                            )
+                          )
                       ),
-                    ],
-                  ),
+                      Expanded(
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                return RegisterRouter();
+                              }));
+                            },
+                            child: Text(
+                              "忘记密码",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18.0,
+                                height: 1.2,
+                                decoration: TextDecoration.underline,
+                              )
+                            )
+                          )
+                      )
+                    ]
+                  )
                 )
-            ],
-          ),
+            ]
+          )
         ))
     );
   }
 
   // 登录功能
-  Future<String> _login() async {
+  _login() async {
     var loginname = _unameController.text.trim();
     var passwd = _pwdController.text.trim();
     var captcha = _captchaController.text.trim();
     Dio dio = Dio();
-    Response response = await dio.post(NewsConstant.basicUrl + "/login",
+    // HttpUtil util = HttpUtil();
+    // util.init();
+    Response response = await Dio().post(NewsConstant.basicUrl + "/login",
         data:{"account" : loginname, "password" : passwd, "captcha" : captcha});
-    String callback = response.data.toString();
-    LogUtil.v(callback);
-    EasyLoading.showSuccess('登录成功');
-    Future.delayed(Duration(seconds: 1), () {
+
+    // Map<String, dynamic> response = await util.post("/login", {"account" : loginname, "password" : passwd, "captcha" : captcha});
+    // Map<String, dynamic> callback = await HttpManager.post("/login", {"account" : loginname, "password" : passwd, "captcha" : captcha});
+    
+    // callback.then( 
+    // String callback = response.data;
+    LogUtil.v(response.data['msg']);
+    // LogUtil.v(callback.toString());
+    if (response.data['code'] == 200)
+      EasyLoading.showSuccess(response.data['msg']);
+    else {
+      EasyLoading.showError(response.data['msg']);
+      return;
+    }
+    await Future.delayed(Duration(seconds: 1), () {
       EasyLoading.dismiss();
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return ScaffoldRoute();
+        return HomeRoute();
       }));
-      LogUtil.e("登录成功");
-      return "登录成功";
     });
-
-    return "success";
+    // return "success";
   }
 }

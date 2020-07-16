@@ -82,7 +82,7 @@ public class UserController {
         callback.put("token", token);
         callback.put("user", res);
         logger.debug("用户\t" + res.getName() + "登录成功");
-        return HttpResult.ok(callback);
+        return HttpResult.ok(callback, "登录成功");
     }
 
     @GetMapping("captcha.jpg")

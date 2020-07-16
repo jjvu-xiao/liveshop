@@ -34,9 +34,9 @@ class _RegisterRouterState extends State<RegisterRouter> {
           TextField(
             controller: _telController,
             decoration: InputDecoration(
-              labelText: '手机号',
-              hintText: '请输入绑定的手机号',
-              prefixIcon: Icon(Icons.mobile_screen_share),
+              labelText: '邮箱号',
+              hintText: '请输入要注册的邮箱号',
+              prefixIcon: Icon(Icons.email),
               suffixIcon: FlatButton(
                 color: Colors.blue,
                 highlightColor: Colors.blue[700],
@@ -102,7 +102,7 @@ class _RegisterRouterState extends State<RegisterRouter> {
     var dio = Dio();
     dio.options.connectTimeout = NewsConstant.CONNECT_TIMEOUT;
     dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
-    Response response = await dio.post(NewsConstant.BASE_URL + "/validateSubmit",
+    Response response = await dio.post(NewsConstant.BASE_URL + "/validateEmail",
         data: jsonData);
     LogUtil.v("received " + response.data);
     return response;

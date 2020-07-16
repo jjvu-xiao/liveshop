@@ -1,9 +1,12 @@
+import 'dart:collection';
+
 import 'package:flutter/widgets.dart';
 
 class BasicModel {
-  int retCode;
-  String retMsg;
-  BasicModel({this.retCode, this.retMsg});
+  int code;
+  String msg;
+  // HashMap 
+  BasicModel({this.code, this.msg});
 }
 
 class SkuModel {

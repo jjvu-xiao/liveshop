@@ -37,6 +37,7 @@ dependencies:
 #  multi_image_picker: ^4.3.6
 #  image_picker: ^0.5.4+3
   flutter_easyloading: ^1.1.0
+  json_serializable: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -17,12 +17,12 @@ import 'package:liveshop/widget/SkuHomeList.dart';
 import 'package:liveshop/util/EventBus.dart';
 
 /// 首页模块
-class ScaffoldRoute extends StatefulWidget {
+class HomeRoute extends StatefulWidget {
   @override
-  _ScaffoldRouteState createState() => _ScaffoldRouteState();
+  _HomeRouteState createState() => _HomeRouteState();
 }
 
-class _ScaffoldRouteState extends State<ScaffoldRoute>
+class _HomeRouteState extends State<HomeRoute>
     with SingleTickerProviderStateMixin {
   //当前选中的导航
   int _selectedIndex = 0;

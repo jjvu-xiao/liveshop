@@ -38,6 +38,13 @@ public class HttpResult {
         return r;
     }
 
+    public static HttpResult ok(Object data, String msg) {
+        HttpResult r = new HttpResult();
+        r.setData(data);
+        r.setMsg(msg);
+        return r;
+    }
+
     public static HttpResult ok() {
         return new HttpResult();
     }
@@ -66,4 +73,12 @@ public class HttpResult {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "HttpResult{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
