@@ -60,6 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/captcha.jpg**").permitAll()
             // 服务监控
             .antMatchers("/actuator/**").permitAll()
+            .antMatchers("/validateEmail").permitAll()
+            .antMatchers("/register*").permitAll()
             // 其他所有请求需要身份认证
             .anyRequest().authenticated();
         // 退出登录处理器

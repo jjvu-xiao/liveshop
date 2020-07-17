@@ -52,5 +52,6 @@
         <!--<table tableName="role_dept" domainObjectName="RoleDept"/>-->
         <!--<table tableName="role_menu" domainObjectName="RoleMenu"/>-->
         <!--<table tableName="User_role" domainObjectName="UserRole"/>-->
+        <!--<table tableName="customer" domainObjectName="Customer"/>-->
     </context>
 </generatorConfiguration>

@@ -1,12 +1,11 @@
 package cn.jjvu.xiao.service.impl;
 
-import cn.jjvu.xiao.core.model.LiveShopConstants;
+import cn.jjvu.xiao.core.constant.LiveShopContants;
 import cn.jjvu.xiao.core.model.PageRequest;
 import cn.jjvu.xiao.core.model.PageResult;
 import cn.jjvu.xiao.dao.MenuMapper;
 import cn.jjvu.xiao.pojo.Menu;
 import cn.jjvu.xiao.pojo.MenuExample;
-import cn.jjvu.xiao.pojo.UserExample;
 import cn.jjvu.xiao.service.MenuService;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> findByUser(String userName) {
         MenuExample example = new MenuExample();
-        if(userName == null || "".equals(userName) || LiveShopConstants.ADMIN.equalsIgnoreCase(userName)) {
+        if(userName == null || "".equals(userName) || LiveShopContants.ADMIN.equalsIgnoreCase(userName)) {
             return menuMapper.selectByExample(example);
         }
         return menuMapper.findByUserName(userName);

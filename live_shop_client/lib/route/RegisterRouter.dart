@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:liveshop/constant/OAConstant.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
@@ -87,12 +88,17 @@ class _RegisterRouterState extends State<RegisterRouter> {
     var dio = Dio();
     dio.options.connectTimeout = NewsConstant.CONNECT_TIMEOUT;
     dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
-    Response response = await dio.post(NewsConstant.BASE_URL + "/registerUser",
-        data: jsonData);
+    Response response = await dio.post(NewsConstant.basicUrl + "/validateEmail",
+        data: _telController.text);
+    if (response.data['code'] == 200)
+      EasyLoading.showSuccess(response.data['msg']);
+    else {
+      EasyLoading.showError(response.data['msg']);
+    }
     return response;
   }
 
-  Future _submitCode() async {
+  _submitCode() async {
     LogUtil.v("Start submit Validate Code");
     var jsonData = {
       "email" : _telController.text,
@@ -102,9 +108,14 @@ class _RegisterRouterState extends State<RegisterRouter> {
     var dio = Dio();
     dio.options.connectTimeout = NewsConstant.CONNECT_TIMEOUT;
     dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
-    Response response = await dio.post(NewsConstant.BASE_URL + "/validateEmail",
-        data: jsonData);
+    Response response = await dio.post(NewsConstant.basicUrl  + "/registerByEmail",
+        data: _codeController.text);
     LogUtil.v("received " + response.data);
-    return response;
+    if (response.data['code'] == 200)
+      EasyLoading.showSuccess(response.data['msg']);
+    else {
+      EasyLoading.showError(response.data['msg']);
+    }
+    // return response;
   }
 }

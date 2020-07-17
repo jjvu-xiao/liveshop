@@ -12,4 +12,10 @@ public class LiveShopContants {
      */
     public static final String ADMIN = "admin";
 
+    public static final String EMAIL_CODE = "email";
+
+    public static final String CAPTCHA_CODE  = "captcha";
+
+    public static final String EMAIL_SAVE = "email_save";
+
 }
