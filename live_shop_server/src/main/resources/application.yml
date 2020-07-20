@@ -30,13 +30,13 @@ spring:
     host: smtp.163.com
     port: 25
     default-encoding: UTF-8
-    username: m18779334084@163.com
-    password: Xhb745567172
+    username: 
+    password: 
   redis:
     database: 0
-    host: 118.25.130.181
+    host: 
     port: 6379
-    password: 745567172
+    password: 
     lettuce:
       pool:
         max-active: 16
