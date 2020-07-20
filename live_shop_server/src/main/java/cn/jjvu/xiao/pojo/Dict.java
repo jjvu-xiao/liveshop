@@ -123,4 +123,12 @@ public class Dict {
     public void setDelFlag(Byte delFlag) {
         this.delFlag = delFlag;
     }
+
+	@Override
+	public String toString() {
+		return "Dict [id=" + id + ", value=" + value + ", label=" + label + ", type=" + type + ", description="
+				+ description + ", sort=" + sort + ", createBy=" + createBy + ", createTime=" + createTime
+				+ ", lastUpdateBy=" + lastUpdateBy + ", lastUpdateTime=" + lastUpdateTime + ", remarks=" + remarks
+				+ ", delFlag=" + delFlag + "]";
+	}
 }

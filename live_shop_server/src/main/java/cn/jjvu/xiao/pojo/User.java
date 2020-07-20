@@ -152,4 +152,13 @@ public class User {
     public void setDelFlag(Byte delFlag) {
         this.delFlag = delFlag;
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", nickName=" + nickName + ", avatar=" + avatar + ", passwd="
+				+ passwd + ", salt=" + salt + ", email=" + email + ", mobile=" + mobile + ", status=" + status
+				+ ", deptId=" + deptId + ", createBy=" + createBy + ", createTime=" + createTime + ", lastUpdateBy="
+				+ lastUpdateBy + ", lastUpdateTime=" + lastUpdateTime + ", delFlag=" + delFlag + "]";
+	}
+    
 }

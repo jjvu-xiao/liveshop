@@ -162,4 +162,14 @@ public class Customer {
     public void setBirth(Date birth) {
         this.birth = birth;
     }
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", nickname=" + nickname + ", loginname=" + loginname + ", passwd=" + passwd
+				+ ", createBy=" + createBy + ", createTime=" + createTime + ", lastUpdateBy=" + lastUpdateBy
+				+ ", lastUpdateTime=" + lastUpdateTime + ", avatar=" + avatar + ", salt=" + salt + ", status=" + status
+				+ ", delFlag=" + delFlag + ", email=" + email + ", mobile=" + mobile + ", sex=" + sex + ", birth="
+				+ birth + "]";
+	}
+    
 }

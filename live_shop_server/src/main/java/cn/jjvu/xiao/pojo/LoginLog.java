@@ -82,4 +82,12 @@ public class LoginLog {
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
+
+	@Override
+	public String toString() {
+		return "LoginLog [id=" + id + ", userName=" + userName + ", status=" + status + ", ip=" + ip + ", createBy="
+				+ createBy + ", createTime=" + createTime + ", lastUpdateBy=" + lastUpdateBy + ", lastUpdateTime="
+				+ lastUpdateTime + "]";
+	}
+    
 }

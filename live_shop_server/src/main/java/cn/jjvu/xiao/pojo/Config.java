@@ -122,4 +122,13 @@ public class Config {
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Config [id=" + id + ", value=" + value + ", label=" + label + ", type=" + type + ", description="
+				+ description + ", sort=" + sort + ", createBy=" + createBy + ", createTime=" + createTime
+				+ ", lastUpdateBy=" + lastUpdateBy + ", lastUpdateTime=" + lastUpdateTime + ", remarks=" + remarks
+				+ ", delFlag=" + delFlag + "]";
+	}
+    
 }

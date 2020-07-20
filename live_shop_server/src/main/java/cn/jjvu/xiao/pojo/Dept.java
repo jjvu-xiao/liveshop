@@ -92,4 +92,12 @@ public class Dept {
     public void setDelFlag(Byte delFlag) {
         this.delFlag = delFlag;
     }
+
+	@Override
+	public String toString() {
+		return "Dept [id=" + id + ", name=" + name + ", parentId=" + parentId + ", orderNum=" + orderNum + ", createBy="
+				+ createBy + ", createTime=" + createTime + ", lastUpdateBy=" + lastUpdateBy + ", lastUpdateTime="
+				+ lastUpdateTime + ", delFlag=" + delFlag + "]";
+	}
+    
 }

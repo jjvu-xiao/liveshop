@@ -222,4 +222,77 @@ public class UserController {
         logService.save(log);
         return isSucess ? HttpResult.ok(msg) : HttpResult.error(msg);
     }
+    
+    
+    /**
+     * 修改移动端客户信息
+     * @param customer 客户信息
+     * @return 提示信息
+     */
+    @PostMapping(value = "/profile")
+    public Object profile(@RequestBody Customer customer, HttpServletRequest req) {
+    	String ip = SecurityUtils.getIRealIPAddr(req);
+    	Date now = new Date();
+    	boolean isSuccess = false;
+    	Log log = new Log();
+    	String msg;
+    	int count = customerService.save(customer);
+    	String loginname = customer.getLoginname();
+    	log.setCreateBy(loginname);
+		log.setCreateTime(now);
+		log.setIp(ip);
+		log.setLastUpdateBy(loginname);
+		log.setLastUpdateTime(now);
+		log.setUserName(loginname);
+		log.setParams(customer.toString());
+		log.setMethod("profile");
+    	if (count > 0) {
+    		msg = "修改成功";
+    		isSuccess = true;
+    	}
+    	else {
+    		msg = "修改失败";
+    	}
+    	log.setOperation(msg);
+    	log.setTime(System.currentTimeMillis() - now.getTime());
+    	logService.save(log);
+    	return isSuccess ? HttpResult.ok(customer, "修改成功") : HttpResult.error("修改失败");
+    }
+    
+    /**
+     * 根据编号获取用户信息
+     * @param id 用户编号
+     * @return 返回用户的所有信息
+     */
+    @PostMapping("/getInfo")
+    public Object getInfo(@RequestBody Long id, HttpServletRequest req) {
+    	String ip = SecurityUtils.getIRealIPAddr(req);
+    	Date now = new Date();
+    	boolean isSuccess = false;
+    	Log log = new Log();
+    	String msg;
+    	String loginname = null; 
+    	Customer customer = null;
+    	if (null != id) {
+    		customer = customerService.findById(id);
+        	loginname = customer.getLoginname();
+        	msg = "获得用户信息成功";
+			isSuccess = true;
+    	}
+    	else {
+    		msg = "用户不能为空";
+    	}
+    	log.setCreateBy(loginname);
+		log.setCreateTime(now);
+		log.setIp(ip);
+		log.setLastUpdateBy(loginname);
+		log.setLastUpdateTime(now);
+		log.setUserName(loginname);
+		log.setParams(id.toString());
+		log.setMethod("getInfo");
+		log.setOperation(msg);
+    	log.setTime(System.currentTimeMillis() - now.getTime());
+    	logService.save(log);
+    	return isSuccess ? HttpResult.ok(customer, msg) : HttpResult.error(msg);
+    }
 }
