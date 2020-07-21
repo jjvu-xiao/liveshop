@@ -1,3 +1,6 @@
+
+import {baseUrl} from '@/utils/global'
+
 export default {
     method: 'get',
     // URL的前缀 IP地址或者域名

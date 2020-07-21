@@ -5,7 +5,7 @@
  */
 
 // 服务端地址
-export const baseUrl = "http://localhost:80/livesshop"
+export const baseUrl = "http://127.0.0.1:85/"
 
 export default {
     baseUrl
