@@ -1,5 +1,5 @@
 <template>
-  <div id="main-container" class="main-container" :class="'position-left'">
+  <div id="main-container" class="main-container" :class="$store.state.app.collapse?'position-collapse-left':'position-left'">
     <!-- 标签页 -->
     <div class="tab-container"></div>
     <!-- 主内容区域 -->

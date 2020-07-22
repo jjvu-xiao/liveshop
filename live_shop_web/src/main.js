@@ -9,7 +9,7 @@ import ElementUI from 'element-ui';
 import i18n from '@/i18n'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.min.css'
-
+import store from '@/store'
 
 Vue.use(ElementUI);
 
@@ -24,6 +24,7 @@ new Vue({
   el: '#app',
   i18n,
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

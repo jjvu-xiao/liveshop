@@ -25,10 +25,7 @@ class App extends StatelessWidget {
           theme: ThemeData(
               primaryColor: Colors.white
           ),
-          home: FlutterEasyLoading(
-              child: LoginRoute()
-              // child: HomeRoute(),
-          ),
+          home: LoginRoute(),
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

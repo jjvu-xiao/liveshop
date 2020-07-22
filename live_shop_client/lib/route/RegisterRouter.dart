@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:liveshop/constant/OAConstant.dart';
+import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
 
@@ -68,6 +69,7 @@ class _RegisterRouterState extends State<RegisterRouter> {
               children: <Widget>[
                 Expanded(
                   child: NewsBlockButton("注册", Colors.blue, () {
+                    EasyLoading.show(status: "加载中");
                     _submitCode();
                   }),
                 ),
@@ -109,13 +111,18 @@ class _RegisterRouterState extends State<RegisterRouter> {
     dio.options.connectTimeout = NewsConstant.CONNECT_TIMEOUT;
     dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
     Response response = await dio.post(NewsConstant.basicUrl  + "/registerByEmail",
-        data: _codeController.text);
-    LogUtil.v("received " + response.data);
+        data: jsonData);
+    EasyLoading.dismiss();
+    LogUtil.v(response.data);
     if (response.data['code'] == 200)
       EasyLoading.showSuccess(response.data['msg']);
     else {
       EasyLoading.showError(response.data['msg']);
     }
+    await Future.delayed(Duration(seconds: 3));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return HomeRoute();
+    }));
     // return response;
   }
 }

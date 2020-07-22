@@ -190,7 +190,7 @@ public class UserController {
             msg = "请输入正确的邮箱";
             log.setOperation(msg);
         }
-        if (null == correctCode) {
+        else if (null == correctCode) {
             msg = "未发送邮件或者邮件已经过期";
             log.setOperation(msg);
         }
