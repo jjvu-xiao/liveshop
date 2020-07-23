@@ -21,15 +21,15 @@ class HttpUtil {
 
   
   /// 通用的GET请求，数据类型默认为URL参数
-  // static get(url, params) async {
-  //   Response response = await _dio.get(url, queryParameters: params);
-  //   return response.data;
-  // }
+  get(url, params) async {
+     Response response = await _dio.get(url, queryParameters: params);
+     return response.data;
+   }
 
   /// 通用的POST请求，数据类型默认为JSON格式
   post(url, params) async {
     LogUtil.v(params.runtimeType.toString());
-    Response response = await _dio.post(url, data: params.toString());
+    Response response = await _dio.post(url, data: params);
     return response.data;
   }
 

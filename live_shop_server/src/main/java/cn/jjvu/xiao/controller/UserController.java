@@ -142,6 +142,7 @@ public class UserController {
         long startTime = System.currentTimeMillis();
         String msg = null;
         boolean isSucess = false;
+        email = email.trim();
         if (!ILiveShopStringUtils.isValidEmail(email)) {
             msg = "请输入正确的邮箱";
             return HttpResult.error(msg);

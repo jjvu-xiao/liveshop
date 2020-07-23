@@ -139,6 +139,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_cupertino_date_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_cupertino_date_picker
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
+    source: hosted
+    version: "1.0.26+2"
   flutter_easyloading:
     dependency: "direct main"
     description:
@@ -158,6 +165,15 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
     source: hosted
     version: "0.0.3"
+  flutter_picker:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: e95d121f54faba889fbf8a850c86dd5cf4aa5c5a
+      url: "git://github.com/yangyxd/flutter_picker.git"
+    source: git
+    version: "1.1.5"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -436,3 +452,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.5.0 <3.0.0"
+  flutter: ">=0.4.1 <2.0.0"

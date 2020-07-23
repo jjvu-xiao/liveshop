@@ -1,9 +1,15 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:liveshop/constant/OAConstant.dart';
+import 'package:liveshop/route/EditInfoRoute.dart';
 import 'package:liveshop/route/HomeRoute.dart';
+import 'package:liveshop/route/ProfileRoute.dart';
+import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
 
@@ -92,7 +98,7 @@ class _RegisterRouterState extends State<RegisterRouter> {
     dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
     Response response = await dio.post(NewsConstant.basicUrl + "/validateEmail",
         data: _telController.text);
-    if (response.data['code'] == 200)
+    if (response.data['code'] == "200")
       EasyLoading.showSuccess(response.data['msg']);
     else {
       EasyLoading.showError(response.data['msg']);
@@ -101,28 +107,34 @@ class _RegisterRouterState extends State<RegisterRouter> {
   }
 
   _submitCode() async {
+    bool isSuccess = false;
     LogUtil.v("Start submit Validate Code");
     var jsonData = {
       "email" : _telController.text,
       "code" : _codeController.text
     };
     LogUtil.v(jsonData);
-    var dio = Dio();
-    dio.options.connectTimeout = NewsConstant.CONNECT_TIMEOUT;
-    dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
-    Response response = await dio.post(NewsConstant.basicUrl  + "/registerByEmail",
-        data: jsonData);
-    EasyLoading.dismiss();
-    LogUtil.v(response.data);
-    if (response.data['code'] == 200)
-      EasyLoading.showSuccess(response.data['msg']);
-    else {
-      EasyLoading.showError(response.data['msg']);
+    var dio = HttpUtil();
+    dio.init();
+    String j = await dio.post(NewsConstant.basicUrl  + "/registerByEmail", jsonData);
+    Map data = jsonDecode(j);
+    LogUtil.v(data.runtimeType);
+    LogUtil.v(data['code']);
+    if (data["code"] == 200) {
+      EasyLoading.showSuccess(data['msg']);
+      isSuccess = true;
     }
-    await Future.delayed(Duration(seconds: 3));
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return HomeRoute();
-    }));
-    // return response;
+    else {
+      EasyLoading.showError(data['msg']);
+
+    }
+    await Future.delayed(Duration(seconds: 1));
+      EasyLoading.dismiss();
+      if (isSuccess)
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return EditInfoRoute();
+        }));
+      else
+        return;
   }
 }

@@ -38,6 +38,9 @@ dependencies:
 #  image_picker: ^0.5.4+3
   flutter_easyloading: ^1.1.0
   json_serializable: ^2.0.0
+  flutter_picker:
+    git: git://github.com/yangyxd/flutter_picker.git
+  flutter_cupertino_date_picker: ^1.0.26+2
 
 dev_dependencies:
   flutter_test:

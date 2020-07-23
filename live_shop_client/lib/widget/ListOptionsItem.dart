@@ -8,24 +8,32 @@ class ListOptionItem  extends StatefulWidget {
 
   String _content;
 
-  ListOptionItem(mainIcon, content) {
+  Function onClick;
+
+  ListOptionItem(mainIcon, content, onClick) {
     this._mainIcon = mainIcon;
     this._content = content;
+    this.onClick = onClick;
   }
 
   @override
-  ListOptionItemState createState() => ListOptionItemState(_mainIcon, _content);
+  ListOptionItemState createState() => ListOptionItemState(_mainIcon, _content, onClick);
 }
 
-class ListOptionItemState extends State {
+class ListOptionItemState extends State<ListOptionItem> {
 
   m.IconData _mainIcon;
 
   String _content;
 
-  ListOptionItemState(mainIcon, content) {
+  Function onClick;
+
+  bool isActive = false;
+
+  ListOptionItemState(mainIcon, content, onClick) {
     this._mainIcon = mainIcon;
     this._content = content;
+    this.onClick = onClick;
   }
 
   @override
@@ -43,16 +51,17 @@ class ListOptionItemState extends State {
               fontWeight: FontWeight.normal
           ),
         ),
+        onTap: this.onClick
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: !isActive ? Colors.white : Colors.lightBlue,
         border: Border(
           bottom: BorderSide(
             width: 1,
             color: Colors.blue, //边框颜色
           ),
         ),
-      ),
+      )
     );
   }
 

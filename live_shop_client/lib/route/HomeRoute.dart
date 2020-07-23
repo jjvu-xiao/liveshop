@@ -9,6 +9,7 @@ import 'package:liveshop/route/EditInfoRoute.dart';
 import 'package:liveshop/route/LiveRoute.dart';
 import 'package:liveshop/route/MsgRoute.dart';
 import 'package:liveshop/route/LobbyRoute.dart';
+import 'package:liveshop/util/LogUtil.dart';
 import 'package:liveshop/widget/ListOptionsItem.dart';
 import 'package:liveshop/widget/OASwiper.dart';
 import 'package:liveshop/widget/RoundFormField.dart';
@@ -317,10 +318,10 @@ class MyDrawer extends StatelessWidget {
                       )
                   )
               ),
-              ListOptionItem(Icons.settings, "设置"),
-              ListOptionItem(Icons.info, "信息"),
-              ListOptionItem(Icons.local_laundry_service, "服务"),
-              ListOptionItem(Icons.collections, "收藏")
+              ListOptionItem(Icons.settings, "设置", () {LogUtil.v("点击了头像");}),
+              ListOptionItem(Icons.info, "信息", () {LogUtil.v("点击了头像");}),
+              ListOptionItem(Icons.local_laundry_service, "服务", () {LogUtil.v("点击了头像");}),
+              ListOptionItem(Icons.collections, "收藏", () {LogUtil.v("点击了头像");})
             ])
         )
     );
