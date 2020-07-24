@@ -41,6 +41,9 @@ dependencies:
   flutter_picker:
     git: git://github.com/yangyxd/flutter_picker.git
   flutter_cupertino_date_picker: ^1.0.26+2
+  font_awesome_flutter: ^8.8.1 #字体图标
+#  photo: ^0.4.8  #相册多图选择
+  image_picker: ^0.6.0  #相机拍照，单图选择
 
 dev_dependencies:
   flutter_test:

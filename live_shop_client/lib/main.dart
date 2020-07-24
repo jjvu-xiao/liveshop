@@ -1,4 +1,3 @@
-import 'dart:core' as c;
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
@@ -6,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:liveshop/login.dart';
-import 'package:liveshop/route/HomeRoute.dart';
-
-import 'util/LogUtil.dart';
+import 'package:liveshop/util/HttpUtil.dart';
+import 'package:liveshop/util/LogUtil.dart';
 
 
 
 void main() => runApp(new App());
 
+/// 初始化日志工具，网络请求日志，loading进度条，国际化
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     LogUtil.init(isDebug: true);
+    HttpUtil.init();
     return FlutterEasyLoading(
       child:  MaterialApp(
           title: '绿源直播',

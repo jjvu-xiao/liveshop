@@ -1,14 +1,9 @@
-import 'dart:collection';
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:liveshop/constant/OAConstant.dart';
 import 'package:liveshop/route/EditInfoRoute.dart';
-import 'package:liveshop/route/HomeRoute.dart';
-import 'package:liveshop/route/ProfileRoute.dart';
 import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
@@ -75,7 +70,6 @@ class _RegisterRouterState extends State<RegisterRouter> {
               children: <Widget>[
                 Expanded(
                   child: NewsBlockButton("注册", Colors.blue, () {
-                    EasyLoading.show(status: "加载中");
                     _submitCode();
                   }),
                 ),
@@ -87,39 +81,36 @@ class _RegisterRouterState extends State<RegisterRouter> {
     );
   }
 
+  /// 发送邮箱地址到服务端，服务端会发送验证码到用户的邮箱
   Future _getCode() async {
-    LogUtil.v("Start get Validate Code");
+    LogUtil.v("开始获取验证码");
     var jsonData = {
       "email" : _telController.text
     };
     LogUtil.v(jsonData);
-    var dio = Dio();
-    dio.options.connectTimeout = NewsConstant.CONNECT_TIMEOUT;
-    dio.options.receiveTimeout = NewsConstant.RECEIVE_TIMEOUT;
-    Response response = await dio.post(NewsConstant.basicUrl + "/validateEmail",
-        data: _telController.text);
-    if (response.data['code'] == "200")
-      EasyLoading.showSuccess(response.data['msg']);
+    String callback = await HttpUtil.post(url: "/validateEmail", data: _telController.text);
+    Map data = jsonDecode(callback);
+    if (data['code'] == 200)
+      EasyLoading.showSuccess(data['msg']);
     else {
-      EasyLoading.showError(response.data['msg']);
+      EasyLoading.showError(data['msg']);
     }
-    return response;
+    return data;
   }
 
+  /// 提交验证码数据，将输入框中的验证码发送到服务器，判断code是否为200
+  /// 当200的时候，显示信息，并且跳转到用户信息编辑界面
+  /// 不为200的时候，只显示报错信息
   _submitCode() async {
     bool isSuccess = false;
-    LogUtil.v("Start submit Validate Code");
+    LogUtil.v("提交注册用户的邮箱与邮箱验证码");
     var jsonData = {
       "email" : _telController.text,
       "code" : _codeController.text
     };
-    LogUtil.v(jsonData);
-    var dio = HttpUtil();
-    dio.init();
-    String j = await dio.post(NewsConstant.basicUrl  + "/registerByEmail", jsonData);
-    Map data = jsonDecode(j);
+    String callback = await HttpUtil.post(url: "/registerByEmail", data: jsonData);
+    Map data = jsonDecode(callback);
     LogUtil.v(data.runtimeType);
-    LogUtil.v(data['code']);
     if (data["code"] == 200) {
       EasyLoading.showSuccess(data['msg']);
       isSuccess = true;
@@ -129,7 +120,6 @@ class _RegisterRouterState extends State<RegisterRouter> {
 
     }
     await Future.delayed(Duration(seconds: 1));
-      EasyLoading.dismiss();
       if (isSuccess)
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return EditInfoRoute();

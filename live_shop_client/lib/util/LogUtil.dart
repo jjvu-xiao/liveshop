@@ -1,8 +1,10 @@
+/// 日志打印工具
 class LogUtil {
   static const String _TAG_DEF = "###Xiao###";
   static bool debuggable = false; //是否是debug模式,true: log v 不输出.
   static String TAG = _TAG_DEF;
 
+  /// 初始化日志工具配置
   static void init({bool isDebug = false, String tag = _TAG_DEF}) {
     debuggable = isDebug;
     TAG = tag;

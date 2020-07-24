@@ -12,7 +12,7 @@ class AppConstants {
 
   static m.Color PRIMARY_COLOR = m.Colors.white;
   // 服务器地址
-  static const String BASE_URL = "";
+  static const String BASE_URL = "http://192.168.179.1:85";
 
   static const int CONNECT_TIMEOUT = 300000;
 
