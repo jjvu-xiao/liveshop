@@ -1,20 +1,15 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-// import 'package:liveshop/model/LoginModel.dart';
 import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/route/RegisterRouter.dart';
-import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
 import 'package:liveshop/constant/OAConstant.dart';
 
-/**
- * 登录页面
- */
+/// 登录页面
 class LoginRoute extends StatefulWidget {
   @override
   _LoginRouteState createState() => _LoginRouteState();

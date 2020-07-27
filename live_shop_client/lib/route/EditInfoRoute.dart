@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:liveshop/common/AppConstants.dart';
 import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/util/LogUtil.dart';
+import 'package:liveshop/widget/CommonBottomSheet.dart';
 
 // 用户编辑信息界面
 class EditInfoRoute extends StatefulWidget {
@@ -29,49 +30,33 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
   List<DateTimePickerLocale> _locales = DateTimePickerLocale.values;
 
   String _format = 'yyyy-MMMM-dd';
+
   TextEditingController _formatCtrl = TextEditingController();
 
   DateTime _dateTime;
 
   File _image;
 
-  Future getImage() async {
+//  bool active = false;
+
+  Future openCamera() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;
+      LogUtil.v(_image.lengthSync());
     });
   }
 
-//  @override
-//  Future initState() async {
-//    super.initState();
-//    cameras = await availableCameras();
-//    controller = CameraController(cameras[0], ResolutionPreset.medium);
-//    controller.initialize().then((_) {
-//      if (!mounted) {
-//        return;
-//      }
-//      setState(() {});
-//    });
-//  }
-
-//  @override
-//  void dispose() {
-//    controller?.dispose();
-//    super.dispose();
-//  }
-
+  Future selectImage() async {
+      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        _image = image;
+        LogUtil.v(_image.lengthSync());
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
-//    if (!controller.value.isInitialized) {
-//      return Container();
-//    }
-//    return AspectRatio(
-//        aspectRatio:
-//        controller.value.aspectRatio,
-//        child: CameraPreview(controller));
-
     return Scaffold(
       appBar: AppBar(
         title: Text("个人信息"),
@@ -106,11 +91,35 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                       ),
                       onTap: () {
                         LogUtil.v("点击了头像");
-                        getImage();
-                      }
+                        showDialog(
+                          barrierDismissible: true,//是否点击空白区域关闭对话框,默认为true，可以关闭
+                          context: context,
+                          builder: (BuildContext context) {
+                          var list = List();
+                          list.add('拍照');
+                          list.add('选择相册');
+                          return CommonBottomSheet(
+                            list: list,
+                            onItemClickListener: (index) async {
+                              LogUtil.v(index);
+                              switch (index) {
+                                case 1:
+                                  openCamera();
+                                  break;
+                                case 2:
+                                  selectImage();
+                                  Navigator.pop(context);
+                                  break;
+                                default:
+                                  Navigator.pop(context);
+                              }
+                            }
+                          );
+                        }
+                      );
+                    }
                   )
               ),
-
               Card(
                   color: Colors.white,
                   elevation: 1.0,
