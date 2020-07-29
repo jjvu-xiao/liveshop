@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveshop/common/AppConstants.dart';
 /// 大厅界面
 class LobbyRoute extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class LobbyRouteState extends State<LobbyRoute> {
   double _width = 200.0; //通过修改图片宽度来达到缩放效果
 
   Widget avatar = Image.asset(
-    "images/my.jpg",
+    AppConstants.NATIVE_IMAGE_PATH + "my.jpg",
     width: 50.0,
     height: 50.0,
   );

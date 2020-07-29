@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveshop/common/AppConstants.dart';
 /// 消息页
 class MsgRoute extends StatefulWidget {
   @override
@@ -7,7 +8,7 @@ class MsgRoute extends StatefulWidget {
 
 class _MsgRouteState extends State {
   Widget avatar = Image.asset(
-    "images/my.jpg",
+    AppConstants.NATIVE_IMAGE_PATH + "my.jpg",
     width: 50.0,
     height: 50.0,
   );

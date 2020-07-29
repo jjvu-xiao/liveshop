@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:liveshop/common/AppConstants.dart';
 //import 'package:image_picker/image_picker.dart';
 import 'package:liveshop/route/CaretRoute.dart';
 import 'package:liveshop/route/EditInfoRoute.dart';
@@ -279,9 +280,7 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
   }
 }
 
-/**
- * 侧边栏
- */
+/// 侧边滑动栏
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
     Key key,
@@ -309,7 +308,7 @@ class MyDrawer extends StatelessWidget {
                             child:  Column(
                               children: <Widget>[
                                 ClipOval(
-                                  child: Image.asset("images/me.jpg", width: 80),
+                                  child: Image.asset(AppConstants.NATIVE_IMAGE_PATH + "me.jpg", width: 80),
                                 ),
                                 Text("杨小前")
                               ],

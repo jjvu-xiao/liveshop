@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-
+import 'package:liveshop/common/AppConstants.dart';
+/// 主页轮播图
+/// XiaoHongBing
 class SwiperPage extends StatefulWidget {
   SwiperPage({Key key, this.title}) : super(key: key);
 
@@ -13,9 +15,9 @@ class SwiperPage extends StatefulWidget {
 class _SwiperPageState extends State<SwiperPage> {
 
   List<Map> data = [
-    {"url": "images/swipe1.png"},
-    {"url": "images/swipe1.png"},
-    {"url": "images/swipe1.png"},
+    {"url": AppConstants.NATIVE_IMAGE_PATH + "swipe1.png"},
+    {"url": AppConstants.NATIVE_IMAGE_PATH + "swipe1.png"},
+    {"url": AppConstants.NATIVE_IMAGE_PATH + "swipe1.png"},
   ];
 
   @override

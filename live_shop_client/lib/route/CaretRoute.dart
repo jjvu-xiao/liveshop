@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liveshop/common/AppConstants.dart';
 import 'package:liveshop/widget/AddSubtractInput.dart';
 
 /// 购物车模块
@@ -13,7 +14,7 @@ class _CaretRouteState extends State<CaretRoute> {
   Widget build(BuildContext context) {
     // TODO: implement build
     Widget avatar = Image.asset(
-      "images/macbookpro.jpg",
+      AppConstants.NATIVE_IMAGE_PATH + "macbookpro.jpg",
       width: 100.0,
       height: 100.0,
     );

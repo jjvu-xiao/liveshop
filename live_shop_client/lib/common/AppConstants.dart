@@ -21,6 +21,10 @@ class AppConstants {
   static const String CHAR_SEQUENCE = "\t";
 
   static const double FONT_SIZE = 14.0;
+
+  // 本地的图片路径前缀
+  static const String NATIVE_IMAGE_PATH = "assets/images/";
+
   // 基础服务器地址
   static const basicUrl = "http://192.168.179.1:85";
 }

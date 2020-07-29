@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:liveshop/common/AppConstants.dart';
 import 'package:liveshop/widget/BeautifulButton.dart';
 import 'package:liveshop/widget/CardWidget.dart';
 import 'package:liveshop/util/EventBus.dart';
@@ -111,8 +112,8 @@ class _LiveListState extends State {
           Flex(
               direction: Axis.horizontal,
               children: <Widget>[
-                Expanded(child: CardWidget(Image.asset("images/room0.png", width: 400.0,), "小喵的直播间"), flex: 1),
-                Expanded(child: CardWidget(Image.asset("images/room0.png", width: 400.0,), "小喵的直播间"), flex: 1),
+                Expanded(child: CardWidget(Image.asset(AppConstants.NATIVE_IMAGE_PATH + "room0.png", width: 400.0,), "小喵的直播间"), flex: 1),
+                Expanded(child: CardWidget(Image.asset(AppConstants.NATIVE_IMAGE_PATH + "room0.png", width: 400.0,), "小喵的直播间"), flex: 1),
               ]
           )
       );

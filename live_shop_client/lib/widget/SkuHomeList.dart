@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:liveshop/common/AppConstants.dart';
 import 'package:liveshop/model/basicModel.dart';
 
 import 'CardWidget.dart';
@@ -42,7 +43,7 @@ class _SkuHomeListState extends State<SkuHomeList> {
 
   void _getData() {
     for (int i = 0; i < 6; i++) {
-      String imagePath = "images/phone$i.png";
+      String imagePath = AppConstants.NATIVE_IMAGE_PATH + "phone$i.png";
       var image = Image.asset(imagePath, width: 100.0,);
       String title = "iphone${i+1}";
       var sku = SkuModel(image: image, title: title);

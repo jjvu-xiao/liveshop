@@ -2,9 +2,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:liveshop/common/AppConstants.dart';
 import 'package:liveshop/route/HomeRoute.dart';
 import 'package:liveshop/util/LogUtil.dart';
@@ -35,9 +37,44 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
 
   DateTime _dateTime;
 
+  // 选择的头像图片
   File _image;
 
-//  bool active = false;
+  // 昵称
+  TextEditingController _nicknameController = new TextEditingController();
+
+  // 默认的头像（缓存在本地的图片）
+  String _imagePath = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
+
+  // 昵称
+  String _nickname = "杨小前";
+
+  // 性别，默认为男
+  int _sex = 1;
+
+  // 生日
+  DateTime _birthday = DateTime.now();
+
+  var formatter = DateFormat('yyyy-MM-dd');
+
+  String _birth = "2019-11-15";
+
+  bool active = false;
+
+  FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {//有焦点
+        active = true;
+      }
+      else{ //失去焦点
+        active = false;
+        _nickname = _nicknameController.text.trim();
+      }
+    });
+  }
 
   Future openCamera() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -52,6 +89,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
       setState(() {
         _image = image;
         LogUtil.v(_image.lengthSync());
+        _imagePath = _image.path;
       });
   }
 
@@ -70,55 +108,50 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
           ),
           child: ListView(
             children: <Widget>[
-              Card(
-                  color: Colors.white,
-                  elevation: 1.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  semanticContainer: false,
-                  child: ListTile(
-                      leading: Icon(FontAwesomeIcons.user, color: Colors.black),
-                      trailing: Icon(FontAwesomeIcons.camera),
-                      title: Text(
-                        "头像",
-                        style: TextStyle(
-                            fontSize: AppConstants.FONT_SIZE,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.normal
-                        ),
-                      ),
-                      onTap: () {
-                        LogUtil.v("点击了头像");
-                        showDialog(
+              Column(
+                children: <Widget>[
+                  InkWell(
+                    child: ClipOval (
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        color: Colors.white,
+          //                      child: Icon(FontAwesomeIcons.camera),
+                        child: Image.asset(_imagePath, width: 150),
+                      )
+                    ),
+                    onTap: (){
+                      LogUtil.v("点击了头像");
+                      showDialog(
                           barrierDismissible: true,//是否点击空白区域关闭对话框,默认为true，可以关闭
                           context: context,
                           builder: (BuildContext context) {
-                          var list = List();
-                          list.add('拍照');
-                          list.add('选择相册');
-                          return CommonBottomSheet(
-                            list: list,
-                            onItemClickListener: (index) async {
-                              LogUtil.v(index);
-                              switch (index) {
-                                case 1:
-                                  openCamera();
-                                  break;
-                                case 2:
-                                  selectImage();
-                                  Navigator.pop(context);
-                                  break;
-                                default:
-                                  Navigator.pop(context);
-                              }
-                            }
-                          );
-                        }
+                            var list = List();
+                            list.add('拍照');
+                            list.add('选择相册');
+                            return CommonBottomSheet(
+                                list: list,
+                                onItemClickListener: (index) async {
+                                  LogUtil.v(index);
+                                  switch (index) {
+                                    case 1:
+                                      openCamera();
+                                      break;
+                                    case 2:
+                                      selectImage();
+                                      Navigator.pop(context);
+                                      break;
+                                    default:
+                                      Navigator.pop(context);
+                                  }
+                                }
+                            );
+                          }
                       );
                     }
                   )
+//                  Text("杨小前")
+                ]
               ),
               Card(
                   color: Colors.white,
@@ -129,10 +162,14 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                   clipBehavior: Clip.antiAlias,
                   semanticContainer: false,
                   child: ListTile(
-                      leading: Icon(FontAwesomeIcons.laughBeam, color: Colors.black),
+                      leading: Icon(Icons.person, color: Colors.black),
                       trailing: Icon(Icons.arrow_forward_ios),
-                      title: Text(
-                        "昵称",
+                      title: active ?
+                      TextField(
+                        focusNode: _focusNode
+                      ) :
+                      Text(
+                        _nickname,
                         style: TextStyle(
                             fontSize: AppConstants.FONT_SIZE,
                             color: Colors.black87,
@@ -140,6 +177,9 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                         ),
                       ),
                       onTap: () {
+                        setState(() {
+                          active = true;
+                        });
                         LogUtil.v("点击了昵称");
                       }
                   )
@@ -157,16 +197,16 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                       leading: Icon(FontAwesomeIcons.birthdayCake, color: Colors.black),
                       trailing: Icon(FontAwesomeIcons.calendar),
                       title: Text(
-                        "生日",
+                        _birth,
                         style: TextStyle(
                             fontSize: AppConstants.FONT_SIZE,
                             color: Colors.black87,
                             fontWeight: FontWeight.normal
                         ),
                       ),
-                      onTap: () {
+                      onTap: () async {
                         LogUtil.v("点击了生日");
-                        DatePicker.showDatePicker(
+                        var birth = await DatePicker.showDatePicker(
                             context,
                             onMonthChangeStartWithFirstDate: true,
                             pickerTheme: DateTimePickerTheme(
@@ -178,13 +218,12 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                             initialDateTime: _dateTime,
                             dateFormat: _format,
                             locale: _locale
-                          // return DatePicker.showDatePicker({
-                          //     context,
-                          //     DATETIME_PICKER_LOCALE_DEFAULT,
-                          //     DateTimePickerMode.date
-                          // });
                         );
-                      }
+//                        print(birth);
+//                        setState(() {
+//                          _datetime=date;
+//                        });
+                    }
                   )
               ),
 
@@ -199,17 +238,32 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                   child: ListTile(
                       leading: Icon(FontAwesomeIcons.genderless, color: Colors.black),
                       trailing: Icon(Icons.arrow_forward_ios),
-                      title: Text(
-                        "性别",
-                        style: TextStyle(
-                            fontSize: AppConstants.FONT_SIZE,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.normal
-                        ),
-                      ),
-                      onTap: () {
-                        LogUtil.v("点击了性别");
-                      }
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("男："),
+                          Radio(
+                            value: 1,
+                            groupValue: this._sex,
+                            onChanged: (value) {
+                              setState(() {
+                                this._sex = value;
+                              });
+                            },
+                          ),
+                          SizedBox(width: 20),
+                          Text("女："),
+                          Radio(
+                            value: 2,
+                            groupValue: this._sex,
+                            onChanged: (value) {
+                              setState(() {
+                                this._sex = value;
+                              });
+                            },
+                          )
+                        ],
+                      )
                   )
               ),
 
@@ -267,5 +321,13 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
         )
       )
     );
+  }
+
+  //页面销毁
+  @override
+  void dispose() {
+    super.dispose();
+    //释放
+    _focusNode.dispose();
   }
 }
