@@ -2,6 +2,8 @@ package cn.jjvu.xiao.pojo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Customer {
     private Long id;
 
@@ -33,6 +35,7 @@ public class Customer {
 
     private Boolean sex;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     public Long getId() {

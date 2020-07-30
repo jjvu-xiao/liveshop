@@ -2,7 +2,6 @@ package cn.jjvu.xiao.config;
 
 import cn.jjvu.xiao.core.security.JwtAuthenticationFilter;
 import cn.jjvu.xiao.core.security.JwtAuthenticationProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -62,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/actuator/**").permitAll()
             .antMatchers("/validateEmail").permitAll()
             .antMatchers("/register*").permitAll()
+            .antMatchers("/profile*").permitAll()
             // 其他所有请求需要身份认证
             .anyRequest().authenticated();
         // 退出登录处理器

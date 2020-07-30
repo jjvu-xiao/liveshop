@@ -24,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public int save(Customer record) {
-        return null != record.getId() ? customerMapper.insertSelective(record) : this.update(record);
+        return null == record.getId() ? customerMapper.insertSelective(record) : this.update(record);
     }
 
     @Override

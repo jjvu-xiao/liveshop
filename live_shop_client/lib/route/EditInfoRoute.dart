@@ -1,18 +1,22 @@
 
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:liveshop/common/AppConstants.dart';
 import 'package:liveshop/route/HomeRoute.dart';
+import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/util/LogUtil.dart';
 import 'package:liveshop/widget/CommonBottomSheet.dart';
 
-// 用户编辑信息界面
+/// 用户编辑信息界面
 class EditInfoRoute extends StatefulWidget {
 
   @override
@@ -20,20 +24,24 @@ class EditInfoRoute extends StatefulWidget {
 
 }
 
-const String MIN_DATETIME = '2010-05-12';
-const String MAX_DATETIME = '2021-11-25';
-const String INIT_DATETIME = '2019-05-17';
+
 
 class _EditInfoRouteState extends State<EditInfoRoute> {
 
-  bool _showTitle = true;
+  String _MIN_DATETIME;
 
+  String _MAX_DATETIME;
+
+  String _INIT_DATETIME;
+
+  bool _showTitle = true;
   DateTimePickerLocale _locale = DateTimePickerLocale.zh_cn;
+
   List<DateTimePickerLocale> _locales = DateTimePickerLocale.values;
 
-  String _format = 'yyyy-MMMM-dd';
+  String _format = 'yyyy-MM-dd';
 
-  TextEditingController _formatCtrl = TextEditingController();
+  TextEditingController _birthdayController = TextEditingController();
 
   DateTime _dateTime;
 
@@ -41,7 +49,10 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
   File _image;
 
   // 昵称
-  TextEditingController _nicknameController = new TextEditingController();
+  TextEditingController _nicknameController = TextEditingController();
+
+  // 手机号
+  TextEditingController _mobileController = TextEditingController();
 
   // 默认的头像（缓存在本地的图片）
   String _imagePath = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
@@ -52,28 +63,36 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
   // 性别，默认为男
   int _sex = 1;
 
-  // 生日
-  DateTime _birthday = DateTime.now();
+  // 当前日期
+  DateTime now;
 
-  var formatter = DateFormat('yyyy-MM-dd');
+  var _formatter = DateFormat('yyyy-MM-dd');
 
   String _birth = "2019-11-15";
 
   bool active = false;
 
-  FocusNode _focusNode = FocusNode();
+  int activedIndex = 0;
 
+//  FocusNode _focusNode = FocusNode();
+
+  /// 获取当前的日期并格式化'yyyy-MM-dd'的格式
+  /// 设置日期选择控件的最小日期，最大日期，默认选中日期，其中最大日期，默认选中日期为今天
   @override
   void initState() {
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {//有焦点
-        active = true;
-      }
-      else{ //失去焦点
-        active = false;
-        _nickname = _nicknameController.text.trim();
-      }
-    });
+    _MIN_DATETIME =  '2010-05-12';
+    now = DateTime.now();
+    _MAX_DATETIME = _formatter.format(now);
+    _INIT_DATETIME = _MAX_DATETIME;
+//    _focusNode.addListener(() {
+//      if (_focusNode.hasFocus) {//有焦点
+//        active = true;
+//      }
+//      else{ //失去焦点
+//        active = false;
+//        _nickname = _nicknameController.text.trim();
+//      }
+//    });
   }
 
   Future openCamera() async {
@@ -104,7 +123,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
         context: context,
         child: DecoratedBox(
           decoration: BoxDecoration(
-          color: Color.fromARGB( 	245,245,245, 245)
+          color: Color.fromARGB(245,245,245,245)
           ),
           child: ListView(
             children: <Widget>[
@@ -116,8 +135,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                         height: 150,
                         width: 150,
                         color: Colors.white,
-          //                      child: Icon(FontAwesomeIcons.camera),
-                        child: Image.asset(_imagePath, width: 150),
+                        child: Image.asset(_imagePath, width: 150)
                       )
                     ),
                     onTap: (){
@@ -150,7 +168,6 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                       );
                     }
                   )
-//                  Text("杨小前")
                 ]
               ),
               Card(
@@ -164,9 +181,9 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                   child: ListTile(
                       leading: Icon(Icons.person, color: Colors.black),
                       trailing: Icon(Icons.arrow_forward_ios),
-                      title: active ?
+                      title: activedIndex == 1 ?
                       TextField(
-                        focusNode: _focusNode
+                        controller: _nicknameController
                       ) :
                       Text(
                         _nickname,
@@ -178,7 +195,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                       ),
                       onTap: () {
                         setState(() {
-                          active = true;
+                          activedIndex = 1;
                         });
                         LogUtil.v("点击了昵称");
                       }
@@ -206,23 +223,29 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                       ),
                       onTap: () async {
                         LogUtil.v("点击了生日");
-                        var birth = await DatePicker.showDatePicker(
+                        DatePicker.showDatePicker(
                             context,
                             onMonthChangeStartWithFirstDate: true,
                             pickerTheme: DateTimePickerTheme(
                                 showTitle: _showTitle,
-                                confirm: Text('custom Done', style: TextStyle(color: Colors.red))
+                                confirm: Text('确定', style: TextStyle(color: Colors.red))
                             ),
-                            minDateTime: DateTime.parse(MIN_DATETIME),
-                            maxDateTime: DateTime.parse(MAX_DATETIME),
-                            initialDateTime: _dateTime,
+                            minDateTime: DateTime.parse(_MIN_DATETIME),
+                            maxDateTime: DateTime.parse(_MAX_DATETIME),
+                            initialDateTime: DateTime.parse(_INIT_DATETIME),
                             dateFormat: _format,
-                            locale: _locale
+                            locale: _locale,
+                            onChange: (DateTime dateTime, List<int> selectedIndex) {
+                              LogUtil.v("改变的日期$dateTime\t$selectedIndex");
+                            },
+                            onConfirm: (DateTime dateTime, List<int> selectedIndex) {
+                              String selectedBirth = _formatter.format(dateTime);
+                              setState(() {
+                                _birth = selectedBirth;
+                              });
+                              LogUtil.v("选中的日期$selectedBirth");
+                            }
                         );
-//                        print(birth);
-//                        setState(() {
-//                          _datetime=date;
-//                        });
                     }
                   )
               ),
@@ -278,15 +301,21 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                   child: ListTile(
                       leading: Icon(FontAwesomeIcons.mobile, color: Colors.black),
                       trailing: Icon(Icons.arrow_forward_ios),
-                      title: Text(
+                      title: activedIndex == 2 ?
+                      Text(
                         "电话",
                         style: TextStyle(
                             fontSize: AppConstants.FONT_SIZE,
                             color: Colors.black87,
                             fontWeight: FontWeight.normal
                         ),
+                      ) :
+                      TextField(
+                        controller: _mobileController,
                       ),
+
                       onTap: () {
+                        activedIndex = 2;
                         LogUtil.v("点击了手机号码");
                       }
                   )
@@ -295,9 +324,10 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
               GestureDetector(
                 onTap: (){
                   LogUtil.v("点击继续");
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return HomeRoute();
-                  }));
+                  submitProfile();
+//                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                    return HomeRoute();
+//                  }));
                 },
                 child: DecoratedBox(
                     decoration: BoxDecoration(
@@ -328,6 +358,34 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
   void dispose() {
     super.dispose();
     //释放
-    _focusNode.dispose();
+//    _focusNode.dispose();
+  }
+
+  void submitProfile() async {
+    EasyLoading.show(status: "加载中");
+    var nickname = _nicknameController.text.trim();
+    var birth = _birth;
+    var sex = _sex;
+    var mobile = _mobileController.text.trim();
+    FormData formData = FormData.from({"nickname" : nickname, "birth" : birth, "sex" : sex, "mobile" : mobile,
+      "avator": UploadFileInfo(_image, "avator.jpg")
+    });
+    String callback = await HttpUtil.post(url: AppConstants.BASE_URL + "/profile",
+        data:formData);
+    Map data = jsonDecode(callback);
+    LogUtil.v(data['msg']);
+    if (data['code'] == 200) {
+      EasyLoading.showSuccess(data['msg']);
+    }
+    else {
+      EasyLoading.showError(data['msg']);
+      return;
+    }
+    await Future.delayed(Duration(seconds: 1), () {
+      EasyLoading.dismiss();
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return HomeRoute();
+      }));
+    });
   }
 }

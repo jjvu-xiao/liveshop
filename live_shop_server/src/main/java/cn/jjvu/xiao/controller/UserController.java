@@ -15,6 +15,11 @@ import cn.jjvu.xiao.utils.ILiveShopStringUtils;
 import cn.jjvu.xiao.utils.PasswordUtils;
 import cn.jjvu.xiao.utils.SecurityUtils;
 import com.google.code.kaptcha.Producer;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +31,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -34,9 +41,12 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -231,13 +241,15 @@ public class UserController {
      * @return 提示信息
      */
     @PostMapping(value = "/profile")
-    public Object profile(@RequestBody Customer customer, HttpServletRequest req) {
+    public Object profile(HttpServletRequest req, Customer customer, @RequestParam("avator")MultipartFile avator) {
     	String ip = SecurityUtils.getIRealIPAddr(req);
     	Date now = new Date();
     	boolean isSuccess = false;
     	Log log = new Log();
-    	String msg;
-    	int count = customerService.save(customer);
+    	String msg;  	   	
+    	customer.setCreateTime(now);
+    	customer.setLastUpdateTime(now);
+    	int count = customerService.save(customer);    	
     	String loginname = customer.getLoginname();
     	log.setCreateBy(loginname);
 		log.setCreateTime(now);
@@ -254,10 +266,13 @@ public class UserController {
     	else {
     		msg = "修改失败";
     	}
+    	if (avator.isEmpty()) {
+    		msg = "上传头像失败";
+    	} 	
     	log.setOperation(msg);
     	log.setTime(System.currentTimeMillis() - now.getTime());
     	logService.save(log);
-    	return isSuccess ? HttpResult.ok(customer, "修改成功") : HttpResult.error("修改失败");
+    	return isSuccess ? HttpResult.ok(customer, "保存成功") : HttpResult.error("保存失败");
     }
     
     /**
@@ -296,4 +311,5 @@ public class UserController {
     	logService.save(log);
     	return isSuccess ? HttpResult.ok(customer, msg) : HttpResult.error(msg);
     }
+    
 }
