@@ -1,5 +1,6 @@
 package cn.jjvu.xiao.controller;
 
+import cn.jjvu.xiao.config.FastDFSClient;
 import cn.jjvu.xiao.core.constant.LiveShopContants;
 import cn.jjvu.xiao.core.model.HttpResult;
 import cn.jjvu.xiao.core.model.LoginBean;
@@ -16,14 +17,11 @@ import cn.jjvu.xiao.utils.PasswordUtils;
 import cn.jjvu.xiao.utils.SecurityUtils;
 import com.google.code.kaptcha.Producer;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -41,12 +39,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -80,6 +75,13 @@ public class UserController {
 
     @Resource
     private CustomerService customerService;
+    
+    @Autowired
+	private FastDFSClient fdfsClient;
+    
+    @Value("${upload.url}")
+    private String FILE_UPLOAD_URL;
+
 
     /**
      * 获取用户登录IP，在从Redis数据库中取出相对应的图片验证码，比较用户是否为机器人
@@ -247,6 +249,22 @@ public class UserController {
     	boolean isSuccess = false;
     	Log log = new Log();
     	String msg;  	   	
+    	try {
+    		String originalName = avator.getOriginalFilename();
+            logger.debug("编辑个人信息", "头像上传文件原名称：" + originalName);
+            String extName = originalName.substring(originalName.lastIndexOf(".") + 1);
+            byte[] bytes = avator.getBytes();
+            String token = fdfsClient.uploadFile(bytes, extName);
+            String path = token.replaceAll("group1/M00/", "data/");
+			String url = FILE_UPLOAD_URL + "/" + path;
+			customer.setAvatar(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	customer.setCreateTime(now);
     	customer.setLastUpdateTime(now);
     	int count = customerService.save(customer);    	

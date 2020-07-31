@@ -160,6 +160,12 @@
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
         </dependency>
+        <!-- FastDFS文件存储 -->
+        <dependency>
+		    <groupId>org.csource</groupId>
+		    <artifactId>fastdfs-client-java</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
     </dependencies>
 
     <build>

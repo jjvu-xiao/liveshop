@@ -45,8 +45,6 @@ spring:
         max-idle: 10
 #        max-wait:
 
-
-
 # slf4j日志配置
 logging:
   # 配置级别
@@ -69,5 +67,9 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
 #  params: count=countSql
+
+# 文件服务器
+upload:
+  url: 127.0.0.1
 
 

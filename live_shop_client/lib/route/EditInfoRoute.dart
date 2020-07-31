@@ -55,7 +55,9 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
   TextEditingController _mobileController = TextEditingController();
 
   // 默认的头像（缓存在本地的图片）
-  String _imagePath = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
+//  String _imagePath = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
+
+  String _imagePath;
 
   // 昵称
   String _nickname = "杨小前";
@@ -99,7 +101,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;
-      LogUtil.v(_image.lengthSync());
+      LogUtil.v(_image.path);
     });
   }
 
@@ -107,8 +109,9 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
       setState(() {
         _image = image;
-        LogUtil.v(_image.lengthSync());
         _imagePath = _image.path;
+        LogUtil.v(_image.path);
+
       });
   }
 
@@ -129,7 +132,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  InkWell(
+                  GestureDetector(
                     child: ClipOval (
                       child: Container(
                         height: 150,
@@ -156,7 +159,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
                                       openCamera();
                                       break;
                                     case 2:
-                                      selectImage();
+                                      await selectImage();
                                       Navigator.pop(context);
                                       break;
                                     default:
