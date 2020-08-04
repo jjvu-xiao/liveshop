@@ -298,8 +298,8 @@ public class UserController {
      * @param id 用户编号
      * @return 返回用户的所有信息
      */
-    @PostMapping("/getInfo")
-    public Object getInfo(@RequestBody Long id, HttpServletRequest req) {
+    @GetMapping("/getInfo")
+    public Object getInfo(@RequestParam Long id, HttpServletRequest req) {
     	String ip = SecurityUtils.getIRealIPAddr(req);
     	Date now = new Date();
     	boolean isSuccess = false;
@@ -328,6 +328,5 @@ public class UserController {
     	log.setTime(System.currentTimeMillis() - now.getTime());
     	logService.save(log);
     	return isSuccess ? HttpResult.ok(customer, msg) : HttpResult.error(msg);
-    }
-    
+    } 
 }

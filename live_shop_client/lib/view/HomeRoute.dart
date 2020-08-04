@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:liveshop/common/AppConstants.dart';
-//import 'package:image_picker/image_picker.dart';
-import 'package:liveshop/route/CaretRoute.dart';
-import 'package:liveshop/route/EditInfoRoute.dart';
-import 'package:liveshop/route/LiveRoute.dart';
-import 'package:liveshop/route/MsgRoute.dart';
-import 'package:liveshop/route/LobbyRoute.dart';
+import 'package:liveshop/view/CaretRoute.dart';
+import 'package:liveshop/view/EditInfoRoute.dart';
+import 'package:liveshop/view/LiveRoute.dart';
+import 'package:liveshop/view/MsgRoute.dart';
+import 'package:liveshop/view/LobbyRoute.dart';
 import 'package:liveshop/util/LogUtil.dart';
 import 'package:liveshop/widget/ListOptionsItem.dart';
 import 'package:liveshop/widget/OASwiper.dart';
@@ -130,8 +130,9 @@ class _HomeRouteState extends State<HomeRoute>
   }
 
   Future _openCamera() async {
-//    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    print('');
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    _image = image;
+    LogUtil.v(_image.path, tag: "主页");
   }
 
   void _onItemTapped(int index) {

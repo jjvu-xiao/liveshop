@@ -11,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:liveshop/common/AppConstants.dart';
-import 'package:liveshop/route/HomeRoute.dart';
+import 'package:liveshop/view/HomeRoute.dart';
 import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/util/LogUtil.dart';
 import 'package:liveshop/widget/CommonBottomSheet.dart';
@@ -55,9 +55,9 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
   TextEditingController _mobileController = TextEditingController();
 
   // 默认的头像（缓存在本地的图片）
-//  String _imagePath = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
+  String _imagePath = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
 
-  String _imagePath;
+//  String _imagePath;
 
   // 昵称
   String _nickname = "杨小前";
@@ -133,13 +133,19 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
               Column(
                 children: <Widget>[
                   GestureDetector(
-                    child: ClipOval (
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        color: Colors.white,
-                        child: Image.asset(_imagePath, width: 150)
-                      )
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          ClipOval (
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              color: Colors.white,
+                              child: Image.asset(_imagePath, width: 150)
+                            )
+                          ),
+                        ],
+                      ),
                     ),
                     onTap: (){
                       LogUtil.v("点击了头像");

@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:liveshop/route/EditInfoRoute.dart';
+import 'package:liveshop/route/NavigatorUtil.dart';
+import 'package:liveshop/view/EditInfoRoute.dart';
 import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
@@ -121,6 +122,7 @@ class _RegisterRouterState extends State<RegisterRouter> {
     }
     await Future.delayed(Duration(seconds: 1));
       if (isSuccess)
+//        NavigatorUtil.jump(context, "/")
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return EditInfoRoute();
         }));

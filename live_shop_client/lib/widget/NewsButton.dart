@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as m;
-import 'package:liveshop/constant/OAConstant.dart';
+import 'package:liveshop/common/AppConstants.dart';
 
 /**
  *  块状圆角按钮
@@ -9,11 +8,11 @@ class NewsBlockButton extends StatefulWidget {
   String _text = "确定";
 
   // 当前显示颜色
-  m.Color showColor = NewsConstant.primaryColor;
+  Color showColor = AppConstants.primaryColor;
 
   var _pressFunction;
 
-  NewsBlockButton(String text, m.Color showColor, pressFunction) {
+  NewsBlockButton(String text, Color showColor, pressFunction) {
     this._text = text;
     this.showColor = showColor;
     this._pressFunction = pressFunction;
@@ -25,7 +24,7 @@ class NewsBlockButton extends StatefulWidget {
 }
 
 class _NewsBlockButton extends State<NewsBlockButton> {
-  _NewsBlockButton(String text, m.Color showColor, _pressFunction) {
+  _NewsBlockButton(String text, Color showColor, _pressFunction) {
     this._text = text;
     this.showColor = showColor;
     this._pressFunction = _pressFunction;
@@ -34,7 +33,7 @@ class _NewsBlockButton extends State<NewsBlockButton> {
   String _text;
 
   // 当前显示颜色
-  m.Color showColor;
+  Color showColor;
 
   // 点击处理
   var _pressFunction;

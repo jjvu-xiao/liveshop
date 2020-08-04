@@ -6,14 +6,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:liveshop/common/AppConstants.dart';
-import 'package:liveshop/route/HomeRoute.dart';
-import 'package:liveshop/route/RegisterRouter.dart';
-import 'package:liveshop/route/Router.dart';
+import 'package:liveshop/route/NavigatorUtil.dart';
+import 'package:liveshop/view/HomeRoute.dart';
+import 'package:liveshop/view/RegisterRouter.dart';
+import 'package:liveshop/route/Routers.dart';
 import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
-import 'package:liveshop/constant/OAConstant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// 登录页面
 class LoginRoute extends StatefulWidget {
@@ -41,11 +42,13 @@ class _LoginRouteState extends State<LoginRoute> {
 
   bool _nameAutoFocus = true;
 
+  static const String TAG = "用户登录";
+
   /// 获取图片验证码
   /// 自动填充上一次登录的用户名，填充后将焦点定位到密码输入框
   @override
   void initState() {
-    captchaImage = Image.network(NewsConstant.basicUrl + "/captcha.jpg");
+    captchaImage = Image.network(AppConstants.basicUrl + "/captcha.jpg");
     _getLastLogin().then((lastLoginname) {
       if (null != lastLoginname) {
         _unameController.text = lastLoginname;
@@ -137,7 +140,7 @@ class _LoginRouteState extends State<LoginRoute> {
                           onTap: () {
                             setState(() {
                                 this.click ++;
-                                captchaImage = Image.network(NewsConstant.basicUrl + "/captcha.jpg?click=" + this.click.toString());
+                                captchaImage = Image.network(AppConstants.basicUrl + "/captcha.jpg?click=" + this.click.toString());
                             });
                           },
                           child: captchaImage
@@ -164,9 +167,10 @@ class _LoginRouteState extends State<LoginRoute> {
                     children: <Widget>[
                       Expanded(
                         child: NewsBlockButton("游客进入", Colors.red, () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return HomeRoute();
-                          }));
+//                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                            return HomeRoute();
+//                          }));
+                          NavigatorUtil.jump(context, '/index');
                         })
                       )
                     ]
@@ -179,9 +183,10 @@ class _LoginRouteState extends State<LoginRoute> {
                       Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                return RegisterRouter();
-                              }));
+                              NavigatorUtil.jump(context, '/register');
+//                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                                return RegisterRouter();
+//                              }));
                             },
                             child: Text(
                               "注册",
@@ -224,8 +229,11 @@ class _LoginRouteState extends State<LoginRoute> {
 
   /// 登录功能
   /// 提交前先验证每个字段是否合法
-  /// 登录成功时，将登录的账号记录在本地
+  /// 登录成功时，将登录的账号信息记录在本地，并传递给主页面
+  /// 登陆失败时，则显示提示信息
   void _login() async {
+    String databasesPath = await getDatabasesPath();
+    LogUtil.v(databasesPath ,tag: TAG);
     if ((_formKey.currentState as FormState).validate()) {
       EasyLoading.show(status: "加载中");
       var loginname = _unameController.text.trim();
@@ -234,6 +242,8 @@ class _LoginRouteState extends State<LoginRoute> {
       String callback = await HttpUtil.post(url: AppConstants.BASE_URL + "/login",
           data:{"account" : loginname, "password" : passwd, "captcha" : captcha});
       Map data = jsonDecode(callback);
+      Map userInfo = data['data'];
+      LogUtil.v(userInfo, tag: "用户登录");
       LogUtil.v(data['msg']);
       if (data['code'] == 200) {
         EasyLoading.showSuccess(data['msg']);
@@ -249,9 +259,12 @@ class _LoginRouteState extends State<LoginRoute> {
 //        .then((result) {
 //          LogUtil.v(result);
 //        });
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return HomeRoute();
-        }));
+//        Navigator.push(context, MaterialPageRoute(builder: (context) {
+//          return HomeRoute();
+//        }));
+
+        NavigatorUtil.jump(context, '/index');
+
       });
     }
   }

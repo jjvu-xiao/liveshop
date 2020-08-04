@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as m;
-import 'package:liveshop/constant/OAConstant.dart';
+import 'package:liveshop/common/AppConstants.dart';
 
 class ListOptionItem  extends StatefulWidget {
 
-  m.IconData _mainIcon;
+  IconData _mainIcon;
 
   String _content;
 
@@ -22,7 +21,7 @@ class ListOptionItem  extends StatefulWidget {
 
 class ListOptionItemState extends State<ListOptionItem> {
 
-  m.IconData _mainIcon;
+  IconData _mainIcon;
 
   String _content;
 
@@ -46,7 +45,7 @@ class ListOptionItemState extends State<ListOptionItem> {
         title: Text(
           _content,
           style: TextStyle(
-              fontSize: NewsConstant.FONT_SIZE,
+              fontSize: AppConstants.FONT_SIZE,
               color: Colors.black87,
               fontWeight: FontWeight.normal
           ),
@@ -64,5 +63,4 @@ class ListOptionItemState extends State<ListOptionItem> {
       )
     );
   }
-
 }
