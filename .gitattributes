@@ -1,0 +1,4 @@
+*.java linguist-language=dart
+*.html linguist-language=dart
+*.vue linguist-language=dart
+*.css linguist-language=dart
