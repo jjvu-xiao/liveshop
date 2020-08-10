@@ -89,7 +89,7 @@ class _RegisterRouterState extends State<RegisterRouter> {
       "email" : _telController.text
     };
     LogUtil.v(jsonData);
-    String callback = await HttpUtil.post(url: "/validateEmail", data: _telController.text);
+    String callback = await HttpUtil.post(url: "/sso/validateEmail", data: _telController.text);
     Map data = jsonDecode(callback);
     if (data['code'] == 200)
       EasyLoading.showSuccess(data['msg']);
@@ -109,7 +109,7 @@ class _RegisterRouterState extends State<RegisterRouter> {
       "email" : _telController.text,
       "code" : _codeController.text
     };
-    String callback = await HttpUtil.post(url: "/registerByEmail", data: jsonData);
+    String callback = await HttpUtil.post(url: "/sso/registerByEmail", data: jsonData);
     Map data = jsonDecode(callback);
     LogUtil.v(data.runtimeType);
     if (data["code"] == 200) {

@@ -1,15 +1,12 @@
 
 import 'dart:convert';
 
-import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:liveshop/common/AppConstants.dart';
 import 'package:liveshop/route/NavigatorUtil.dart';
-import 'package:liveshop/view/HomeRoute.dart';
 import 'package:liveshop/view/RegisterRouter.dart';
-import 'package:liveshop/route/Routers.dart';
 import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/widget/NewsButton.dart';
 import 'package:liveshop/util/LogUtil.dart';
@@ -48,7 +45,7 @@ class _LoginRouteState extends State<LoginRoute> {
   /// 自动填充上一次登录的用户名，填充后将焦点定位到密码输入框
   @override
   void initState() {
-    captchaImage = Image.network(AppConstants.basicUrl + "/captcha.jpg");
+    captchaImage = Image.network(AppConstants.basicUrl + "/sso/captcha.jpg");
     _getLastLogin().then((lastLoginname) {
       if (null != lastLoginname) {
         _unameController.text = lastLoginname;
@@ -140,7 +137,7 @@ class _LoginRouteState extends State<LoginRoute> {
                           onTap: () {
                             setState(() {
                                 this.click ++;
-                                captchaImage = Image.network(AppConstants.basicUrl + "/captcha.jpg?click=" + this.click.toString());
+                                captchaImage = Image.network(AppConstants.basicUrl + "/sso/captcha.jpg?click=" + this.click.toString());
                             });
                           },
                           child: captchaImage
@@ -239,7 +236,7 @@ class _LoginRouteState extends State<LoginRoute> {
       var loginname = _unameController.text.trim();
       var passwd = _pwdController.text.trim();
       var captcha = _captchaController.text.trim();
-      String callback = await HttpUtil.post(url: AppConstants.BASE_URL + "/login",
+      String callback = await HttpUtil.post(url: AppConstants.BASE_URL + "/sso/login",
           data:{"account" : loginname, "password" : passwd, "captcha" : captcha});
       Map data = jsonDecode(callback);
       Map userInfo = data['data'];
@@ -247,7 +244,8 @@ class _LoginRouteState extends State<LoginRoute> {
       LogUtil.v(data['msg']);
       if (data['code'] == 200) {
         EasyLoading.showSuccess(data['msg']);
-        _saveLastLogin();
+        await _saveLastLogin();
+        await _saveUserInfo(userInfo);
       }
       else {
         EasyLoading.showError(data['msg']);
@@ -283,5 +281,13 @@ class _LoginRouteState extends State<LoginRoute> {
     String loginname = _unameController.text.trim();
     prefs.setString("lastLoginname", loginname);
     LogUtil.v("账号\t$loginname\t登录成功", tag: "用户登录");
+  }
+
+  /// 保存登陆后的用户信息
+   void _saveUserInfo(Map userInfo) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jsonUserInfo = jsonEncode(userInfo);
+    prefs.setString("userInfo", jsonUserInfo);
+    LogUtil.v(jsonUserInfo, tag: "用户登录");
   }
 }

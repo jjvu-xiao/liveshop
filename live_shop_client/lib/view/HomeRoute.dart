@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -17,11 +18,17 @@ import 'package:liveshop/widget/RoundFormField.dart';
 import 'package:liveshop/widget/SearchBar.dart';
 import 'package:liveshop/widget/SkuHomeList.dart';
 import 'package:liveshop/util/EventBus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// 首页模块
 class HomeRoute extends StatefulWidget {
+
+  String userInfo;
+
+  HomeRoute({userInfo});
+
   @override
-  _HomeRouteState createState() => _HomeRouteState();
+  _HomeRouteState createState({userInfo}) => _HomeRouteState();
 }
 
 class _HomeRouteState extends State<HomeRoute>
@@ -45,10 +52,12 @@ class _HomeRouteState extends State<HomeRoute>
 
   File _image;
 
+  String userInfo;
+
   @override
   Widget build(BuildContext context) {
     EasyLoading.dismiss();
-    EasyLoading.dismiss();
+//    EasyLoading.dismiss();
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -85,7 +94,7 @@ class _HomeRouteState extends State<HomeRoute>
             : null,
       ),
 
-      drawer: MyDrawer(),
+      drawer: MyDrawer(userInfo),
       body: Container(
         child: this._selectedIndex != 1
             ? mainMenu[_selectedIndex]
@@ -166,6 +175,7 @@ class _HomeRouteState extends State<HomeRoute>
         default:
       }
     });
+
   }
 }
 
@@ -282,13 +292,45 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
 }
 
 /// 侧边滑动栏
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({
-    Key key,
+class MyDrawer extends StatefulWidget {
+
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+
+  MyDrawer(String userInfo, {
+    Key key
   }) : super(key: key);
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+
+  String avatar = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
+
+  String nickname = "杨小前";
+
+  String userInfo;
+
+
+  @override
+  void initState() {
+    _getInfo();
+  }
+
+  void _getInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userInfo = prefs.getString("userInfo");
+    Map data = jsonDecode(userInfo);
+    Map user = data['user'];
+    setState(() {
+      this.avatar = user['avatar'];
+      this.nickname = user['nickName'];
+      LogUtil.v(nickname);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+//    _getInfo();
     // TODO: implement build
     return Drawer(
         child: MediaQuery.removePadding(
@@ -301,27 +343,39 @@ class MyDrawer extends StatelessWidget {
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                return EditInfoRoute();
-                              }));
-                            },
-                            child:  Column(
-                              children: <Widget>[
-                                ClipOval(
-                                  child: Image.asset(AppConstants.NATIVE_IMAGE_PATH + "me.jpg", width: 80),
-                                ),
-                                Text("杨小前")
-                              ],
-                            )
+                              onTap: () {
+                                Navigator.push(
+                                    context, MaterialPageRoute(builder: (
+                                    context) {
+                                  return EditInfoRoute();
+                                }));
+                              },
+                              child: Column(
+                                children: <Widget>[
+                                  ClipOval(
+                                    child: Image.network(avatar, width: 80),
+//                                  child: Image.asset(AppConstants.NATIVE_IMAGE_PATH + "me.jpg", width: 80)
+                                  ),
+//                                Text("杨小前")
+                                  Text(nickname)
+                                ],
+                              )
                           )
                       )
                   )
               ),
-              ListOptionItem(Icons.settings, "设置", () {LogUtil.v("点击了头像");}),
-              ListOptionItem(Icons.info, "信息", () {LogUtil.v("点击了头像");}),
-              ListOptionItem(Icons.local_laundry_service, "服务", () {LogUtil.v("点击了头像");}),
-              ListOptionItem(Icons.collections, "收藏", () {LogUtil.v("点击了头像");})
+              ListOptionItem(Icons.settings, "设置", () {
+                LogUtil.v("点击了头像");
+              }),
+              ListOptionItem(Icons.info, "信息", () {
+                LogUtil.v("点击了头像");
+              }),
+              ListOptionItem(Icons.local_laundry_service, "服务", () {
+                LogUtil.v("点击了头像");
+              }),
+              ListOptionItem(Icons.collections, "收藏", () {
+                LogUtil.v("点击了头像");
+              })
             ])
         )
     );

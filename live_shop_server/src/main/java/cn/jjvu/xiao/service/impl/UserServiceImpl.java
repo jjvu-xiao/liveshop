@@ -3,7 +3,6 @@ package cn.jjvu.xiao.service.impl;
 import cn.jjvu.xiao.core.model.PageRequest;
 import cn.jjvu.xiao.core.model.PageResult;
 import cn.jjvu.xiao.dao.LoginLogMapper;
-import cn.jjvu.xiao.dao.MenuMapper;
 import cn.jjvu.xiao.dao.UserMapper;
 import cn.jjvu.xiao.pojo.LoginLog;
 import cn.jjvu.xiao.pojo.Menu;

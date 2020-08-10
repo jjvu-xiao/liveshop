@@ -1,16 +1,16 @@
 import 'dart:core';
-
-import 'package:flutter/material.dart' as m;
+import 'package:flutter/material.dart';
 
 class AppConstants {
   // 主题颜色
-  static m.Color primaryColor = m.Colors.blue;
+  static Color primaryColor = Colors.blue;
   // 被激活时的颜色
-  static m.Color activeColor = m.Colors.red;
+  static Color activeColor = Colors.red;
   // 曾经访问过的颜色
-  static m.Color visitedColor = m.Colors.grey;
+  static Color visitedColor = Colors.grey;
 
-  static m.Color PRIMARY_COLOR = m.Colors.white;
+  static Color PRIMARY_COLOR = Colors.white;
+
   // 服务器地址
   static const String BASE_URL = "http://192.168.179.1:85";
 

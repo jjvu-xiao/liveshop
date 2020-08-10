@@ -27,8 +27,8 @@ class HttpUtil {
 
   
   /// 通用的GET请求，数据类型默认为URL参数
-  static get({url, params}) async {
-     Response response = await _dio.get(url, queryParameters: params);
+  static get({url, params, options}) async {
+     Response response = await _dio.get(url, queryParameters: params, options: options);
      return response.data;
   }
 

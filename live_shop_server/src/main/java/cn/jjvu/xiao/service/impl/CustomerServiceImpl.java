@@ -3,12 +3,17 @@ package cn.jjvu.xiao.service.impl;
 import cn.jjvu.xiao.core.model.PageRequest;
 import cn.jjvu.xiao.core.model.PageResult;
 import cn.jjvu.xiao.dao.CustomerMapper;
+import cn.jjvu.xiao.dao.LogMapper;
 import cn.jjvu.xiao.pojo.Customer;
+import cn.jjvu.xiao.pojo.CustomerExample;
+import cn.jjvu.xiao.pojo.Log;
 import cn.jjvu.xiao.service.CustomerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -21,6 +26,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Resource
     private CustomerMapper customerMapper;
+    
+    @Resource
+    private LogMapper logMapper;
 
     @Override
     public int save(Customer record) {
@@ -60,4 +68,24 @@ public class CustomerServiceImpl implements CustomerService {
     public PageResult findPage(PageRequest pageRequest) {
         return null;
     }
+
+	@Override
+	public Customer login(String loginname, String passwd, Log loginLog) {
+		CustomerExample example = new CustomerExample();
+		CustomerExample.Criteria criteria = example.createCriteria();
+		criteria.andLoginnameEqualTo(loginname);
+		Customer customer = customerMapper.selectByExample(example).get(0);
+		Date now = new Date();
+        loginLog.setCreateTime(now);
+        loginLog.setLastUpdateTime(now);
+        loginLog.setMethod("login");   
+        loginLog.setParams("登录账号：" + loginname + "密码：" + passwd);
+        if (null != customer) {
+        	loginLog.setOperation("登录成功");
+        }
+        else {
+        	loginLog.setOperation("登录失败");
+        }
+        return customer;
+	}
 }

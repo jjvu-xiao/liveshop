@@ -14,6 +14,7 @@ import 'package:liveshop/view/RegisterRouter.dart';
 /// 首页
 Handler indexPageHander = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+//    String userInfo = params['userInfo'].first;
     return HomeRoute();
   },
 );

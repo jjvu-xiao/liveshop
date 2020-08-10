@@ -6,10 +6,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
-
+/**
+ * 验证码配置
+ * @author xiao
+ *
+ */
 @Configuration
 public class KaptchaConfig {
 
+	/**
+	 * 设置验证码
+	 * 验证码没有干扰线条，字体颜色为黑色，5个字母
+	 * @return	返回验证码配置
+	 */
     @Bean
     public DefaultKaptcha producer() {
         Properties properties = new Properties();
