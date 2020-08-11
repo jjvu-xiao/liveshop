@@ -542,52 +542,62 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByEqualTo(Date value) {
+        public Criteria andLastUpdateByEqualTo(String value) {
             addCriterion("last_update_by =", value, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByNotEqualTo(Date value) {
+        public Criteria andLastUpdateByNotEqualTo(String value) {
             addCriterion("last_update_by <>", value, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByGreaterThan(Date value) {
+        public Criteria andLastUpdateByGreaterThan(String value) {
             addCriterion("last_update_by >", value, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByGreaterThanOrEqualTo(Date value) {
+        public Criteria andLastUpdateByGreaterThanOrEqualTo(String value) {
             addCriterion("last_update_by >=", value, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByLessThan(Date value) {
+        public Criteria andLastUpdateByLessThan(String value) {
             addCriterion("last_update_by <", value, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByLessThanOrEqualTo(Date value) {
+        public Criteria andLastUpdateByLessThanOrEqualTo(String value) {
             addCriterion("last_update_by <=", value, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByIn(List<Date> values) {
+        public Criteria andLastUpdateByLike(String value) {
+            addCriterion("last_update_by like", value, "lastUpdateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdateByNotLike(String value) {
+            addCriterion("last_update_by not like", value, "lastUpdateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdateByIn(List<String> values) {
             addCriterion("last_update_by in", values, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByNotIn(List<Date> values) {
+        public Criteria andLastUpdateByNotIn(List<String> values) {
             addCriterion("last_update_by not in", values, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByBetween(Date value1, Date value2) {
+        public Criteria andLastUpdateByBetween(String value1, String value2) {
             addCriterion("last_update_by between", value1, value2, "lastUpdateBy");
             return (Criteria) this;
         }
 
-        public Criteria andLastUpdateByNotBetween(Date value1, Date value2) {
+        public Criteria andLastUpdateByNotBetween(String value1, String value2) {
             addCriterion("last_update_by not between", value1, value2, "lastUpdateBy");
             return (Criteria) this;
         }
@@ -1169,6 +1179,146 @@ public class CustomerExample {
 
         public Criteria andBirthNotBetween(Date value1, Date value2) {
             addCriterionForJDBCDate("birth not between", value1, value2, "birth");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureIsNull() {
+            addCriterion("signature is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureIsNotNull() {
+            addCriterion("signature is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureEqualTo(String value) {
+            addCriterion("signature =", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotEqualTo(String value) {
+            addCriterion("signature <>", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureGreaterThan(String value) {
+            addCriterion("signature >", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureGreaterThanOrEqualTo(String value) {
+            addCriterion("signature >=", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureLessThan(String value) {
+            addCriterion("signature <", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureLessThanOrEqualTo(String value) {
+            addCriterion("signature <=", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureLike(String value) {
+            addCriterion("signature like", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotLike(String value) {
+            addCriterion("signature not like", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureIn(List<String> values) {
+            addCriterion("signature in", values, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotIn(List<String> values) {
+            addCriterion("signature not in", values, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureBetween(String value1, String value2) {
+            addCriterion("signature between", value1, value2, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotBetween(String value1, String value2) {
+            addCriterion("signature not between", value1, value2, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityIsNull() {
+            addCriterion("location_city is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityIsNotNull() {
+            addCriterion("location_city is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityEqualTo(String value) {
+            addCriterion("location_city =", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityNotEqualTo(String value) {
+            addCriterion("location_city <>", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityGreaterThan(String value) {
+            addCriterion("location_city >", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityGreaterThanOrEqualTo(String value) {
+            addCriterion("location_city >=", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityLessThan(String value) {
+            addCriterion("location_city <", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityLessThanOrEqualTo(String value) {
+            addCriterion("location_city <=", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityLike(String value) {
+            addCriterion("location_city like", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityNotLike(String value) {
+            addCriterion("location_city not like", value, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityIn(List<String> values) {
+            addCriterion("location_city in", values, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityNotIn(List<String> values) {
+            addCriterion("location_city not in", values, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityBetween(String value1, String value2) {
+            addCriterion("location_city between", value1, value2, "locationCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationCityNotBetween(String value1, String value2) {
+            addCriterion("location_city not between", value1, value2, "locationCity");
             return (Criteria) this;
         }
     }

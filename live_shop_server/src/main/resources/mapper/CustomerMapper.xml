@@ -8,7 +8,7 @@
     <result column="passwd" property="passwd" jdbcType="VARCHAR" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="last_update_by" property="lastUpdateBy" jdbcType="TIMESTAMP" />
+    <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR" />
     <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
     <result column="avatar" property="avatar" jdbcType="VARCHAR" />
     <result column="salt" property="salt" jdbcType="VARCHAR" />
@@ -18,6 +18,8 @@
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="BIT" />
     <result column="birth" property="birth" jdbcType="DATE" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="location_city" property="locationCity" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,7 +81,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, nickname, loginname, passwd, create_by, create_time, last_update_by, last_update_time, 
-    avatar, salt, status, del_flag, email, mobile, sex, birth
+    avatar, salt, status, del_flag, email, mobile, sex, birth, signature, location_city
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.jjvu.xiao.pojo.CustomerExample" >
     select
@@ -116,14 +118,14 @@
       passwd, create_by, create_time, 
       last_update_by, last_update_time, avatar, 
       salt, status, del_flag, 
-      email, mobile, sex, birth
-      )
+      email, mobile, sex, birth, 
+      signature, location_city)
     values (#{id,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, #{loginname,jdbcType=VARCHAR}, 
       #{passwd,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateBy,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR}, 
+      #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR}, 
       #{salt,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{delFlag,jdbcType=TINYINT}, 
-      #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{birth,jdbcType=DATE}
-      )
+      #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{birth,jdbcType=DATE}, 
+      #{signature,jdbcType=VARCHAR}, #{locationCity,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.jjvu.xiao.pojo.Customer" >
     insert into customer
@@ -176,6 +178,12 @@
       <if test="birth != null" >
         birth,
       </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="locationCity != null" >
+        location_city,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -197,7 +205,7 @@
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastUpdateBy != null" >
-        #{lastUpdateBy,jdbcType=TIMESTAMP},
+        #{lastUpdateBy,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateTime != null" >
         #{lastUpdateTime,jdbcType=TIMESTAMP},
@@ -225,6 +233,12 @@
       </if>
       <if test="birth != null" >
         #{birth,jdbcType=DATE},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCity != null" >
+        #{locationCity,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -256,7 +270,7 @@
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.lastUpdateBy != null" >
-        last_update_by = #{record.lastUpdateBy,jdbcType=TIMESTAMP},
+        last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
       </if>
       <if test="record.lastUpdateTime != null" >
         last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
@@ -285,6 +299,12 @@
       <if test="record.birth != null" >
         birth = #{record.birth,jdbcType=DATE},
       </if>
+      <if test="record.signature != null" >
+        signature = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationCity != null" >
+        location_city = #{record.locationCity,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -298,7 +318,7 @@
       passwd = #{record.passwd,jdbcType=VARCHAR},
       create_by = #{record.createBy,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      last_update_by = #{record.lastUpdateBy,jdbcType=TIMESTAMP},
+      last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
       avatar = #{record.avatar,jdbcType=VARCHAR},
       salt = #{record.salt,jdbcType=VARCHAR},
@@ -307,7 +327,9 @@
       email = #{record.email,jdbcType=VARCHAR},
       mobile = #{record.mobile,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=BIT},
-      birth = #{record.birth,jdbcType=DATE}
+      birth = #{record.birth,jdbcType=DATE},
+      signature = #{record.signature,jdbcType=VARCHAR},
+      location_city = #{record.locationCity,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -331,7 +353,7 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastUpdateBy != null" >
-        last_update_by = #{lastUpdateBy,jdbcType=TIMESTAMP},
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateTime != null" >
         last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
@@ -360,6 +382,12 @@
       <if test="birth != null" >
         birth = #{birth,jdbcType=DATE},
       </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCity != null" >
+        location_city = #{locationCity,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -370,7 +398,7 @@
       passwd = #{passwd,jdbcType=VARCHAR},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_by = #{lastUpdateBy,jdbcType=TIMESTAMP},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       avatar = #{avatar,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
@@ -379,7 +407,9 @@
       email = #{email,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=BIT},
-      birth = #{birth,jdbcType=DATE}
+      birth = #{birth,jdbcType=DATE},
+      signature = #{signature,jdbcType=VARCHAR},
+      location_city = #{locationCity,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

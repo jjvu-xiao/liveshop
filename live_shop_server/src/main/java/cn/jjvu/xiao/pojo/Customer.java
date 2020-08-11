@@ -15,10 +15,12 @@ public class Customer {
 
     private String createBy;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
-    private Date lastUpdateBy;
+    private String lastUpdateBy;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date lastUpdateTime;
 
     private String avatar;
@@ -35,8 +37,11 @@ public class Customer {
 
     private Boolean sex;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birth;
+
+    private String signature;
+
+    private String locationCity;
 
     public Long getId() {
         return id;
@@ -86,12 +91,12 @@ public class Customer {
         this.createTime = createTime;
     }
 
-    public Date getLastUpdateBy() {
+    public String getLastUpdateBy() {
         return lastUpdateBy;
     }
 
-    public void setLastUpdateBy(Date lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
+    public void setLastUpdateBy(String lastUpdateBy) {
+        this.lastUpdateBy = lastUpdateBy == null ? null : lastUpdateBy.trim();
     }
 
     public Date getLastUpdateTime() {
@@ -166,13 +171,19 @@ public class Customer {
         this.birth = birth;
     }
 
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", nickname=" + nickname + ", loginname=" + loginname + ", passwd=" + passwd
-				+ ", createBy=" + createBy + ", createTime=" + createTime + ", lastUpdateBy=" + lastUpdateBy
-				+ ", lastUpdateTime=" + lastUpdateTime + ", avatar=" + avatar + ", salt=" + salt + ", status=" + status
-				+ ", delFlag=" + delFlag + ", email=" + email + ", mobile=" + mobile + ", sex=" + sex + ", birth="
-				+ birth + "]";
-	}
-    
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature == null ? null : signature.trim();
+    }
+
+    public String getLocationCity() {
+        return locationCity;
+    }
+
+    public void setLocationCity(String locationCity) {
+        this.locationCity = locationCity == null ? null : locationCity.trim();
+    }
 }

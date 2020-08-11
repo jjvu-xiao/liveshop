@@ -11,7 +11,7 @@
  Target Server Version : 50645
  File Encoding         : 65001
 
- Date: 30/07/2020 17:15:26
+ Date: 11/08/2020 17:12:33
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `customer`  (
   `passwd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
   `create_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `last_update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `last_update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `last_update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
   `salt` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '加密盐',
@@ -58,19 +58,46 @@ CREATE TABLE `customer`  (
   `mobile` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号码',
   `sex` bit(1) NOT NULL DEFAULT b'1' COMMENT '性别',
   `birth` date NULL DEFAULT NULL COMMENT '生日',
+  `signature` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '这个人很懒什么都没有留下来' COMMENT '用户的个性签名',
+  `location_city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '中国' COMMENT '用户所在城市',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of customer
 -- ----------------------------
-INSERT INTO `customer` VALUES (1, '不会降龙的乔峰', '1446778774', '1234', NULL, '2020-07-17 12:16:29', '2020-07-30 17:01:49', '2020-07-17 12:16:29', NULL, NULL, 0, 0, NULL, NULL, b'1', NULL);
-INSERT INTO `customer` VALUES (2, NULL, NULL, NULL, NULL, '2020-07-17 14:22:25', NULL, '2020-07-17 14:22:25', NULL, NULL, 0, 0, NULL, NULL, b'1', NULL);
-INSERT INTO `customer` VALUES (3, 'baadad', NULL, NULL, NULL, '2020-07-30 16:58:57', NULL, '2020-07-30 16:58:57', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30');
-INSERT INTO `customer` VALUES (4, 'xiao', NULL, NULL, NULL, '2020-07-30 16:59:55', NULL, '2020-07-30 16:59:55', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30');
-INSERT INTO `customer` VALUES (5, 'xiao', NULL, NULL, NULL, '2020-07-30 17:03:19', NULL, '2020-07-30 17:03:19', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30');
-INSERT INTO `customer` VALUES (6, 'xiao', NULL, NULL, NULL, '2020-07-30 17:03:35', NULL, '2020-07-30 17:03:35', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30');
-INSERT INTO `customer` VALUES (7, 'xiao', NULL, NULL, NULL, '2020-07-30 17:04:04', NULL, '2020-07-30 17:04:04', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30');
+INSERT INTO `customer` VALUES (1, '不会降龙的乔峰', '1446778774', '1234', NULL, '2020-07-17 12:16:29', '2020-07-30 17:01:49', '2020-07-17 12:16:29', 'http://118.25.130.181/data/00/00/rBEADl8j2a6AMUAfAAC7SmqwtG0986.jpg', NULL, 0, 0, 'm18779334084@163.com', '18779334084', b'1', '2020-07-30', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (2, NULL, NULL, NULL, NULL, '2020-07-17 14:22:25', NULL, '2020-07-17 14:22:25', NULL, NULL, 0, 0, NULL, NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (3, 'baadad', NULL, NULL, NULL, '2020-07-30 16:58:57', NULL, '2020-07-30 16:58:57', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (4, 'xiao', NULL, NULL, NULL, '2020-07-30 16:59:55', NULL, '2020-07-30 16:59:55', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (5, 'xiao', NULL, NULL, NULL, '2020-07-30 17:03:19', NULL, '2020-07-30 17:03:19', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (6, 'xiao', NULL, NULL, NULL, '2020-07-30 17:03:35', NULL, '2020-07-30 17:03:35', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (7, 'xiao', NULL, NULL, NULL, '2020-07-30 17:04:04', NULL, '2020-07-30 17:04:04', NULL, NULL, 0, 0, NULL, '18779334084', b'1', '2020-07-30', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (8, NULL, '745567172@qq.com', NULL, NULL, '2020-07-31 16:41:37', NULL, '2020-07-31 16:41:37', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (9, '乔峰', NULL, NULL, NULL, '2020-07-31 16:42:23', NULL, '2020-07-31 16:42:23', 'http://118.25.130.181/data/00/00/rBEADl8j2XCANRzNAAC7SmqwtG0802.jpg', NULL, 0, 0, NULL, '15970356433', b'1', '2017-07-31', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (10, '乔峰', NULL, NULL, NULL, '2020-07-31 16:43:27', NULL, '2020-07-31 16:43:27', 'http://118.25.130.181/data/00/00/rBEADl8j2a6AMUAfAAC7SmqwtG0986.jpg', NULL, 0, 0, NULL, '15970356433', b'1', '2017-07-31', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (11, '乔峰', NULL, NULL, NULL, '2020-07-31 16:48:31', NULL, '2020-07-31 16:48:31', '118.25.130.181/data/00/00/rBEADl8j2t2AbgAPAAArUOsiBNw115.jpg', NULL, 0, 0, NULL, '15970356433', b'1', '2017-07-31', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (12, '乔峰', NULL, NULL, NULL, '2020-07-31 16:59:30', NULL, '2020-07-31 16:59:30', '118.25.130.181/data/00/00/rBEADl8j3XCAacfuAAC7SmqwtG0107.jpg', NULL, 0, 0, NULL, '15970356433', b'1', '2017-07-31', '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (13, NULL, '745567172@qq.com', NULL, NULL, '2020-08-03 12:21:50', NULL, '2020-08-03 12:21:50', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (14, NULL, '745567172@qq.com', NULL, NULL, '2020-08-03 12:24:00', NULL, '2020-08-03 12:24:00', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (15, NULL, '745567172@qq.com', NULL, NULL, '2020-08-03 13:51:41', NULL, '2020-08-03 13:51:41', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (16, NULL, '745567172@qq.com', NULL, NULL, '2020-08-10 11:22:08', NULL, '2020-08-10 11:22:08', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (17, NULL, '745567172@qq.com', NULL, NULL, '2020-08-10 11:22:39', NULL, '2020-08-10 11:22:39', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (18, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 09:43:11', NULL, '2020-08-11 09:43:11', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (19, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 10:04:25', NULL, '2020-08-11 10:04:25', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (20, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 11:01:47', NULL, '2020-08-11 11:01:47', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (21, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 11:44:38', NULL, '2020-08-11 11:44:38', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (22, '每分每秒', '745567172@qq.com', NULL, NULL, '2020-08-11 14:36:07', NULL, '2020-08-11 14:36:07', '118.25.130.181/data/00/00/rBEADl8yPF2AHKsEAAArUOsiBNw463.jpg', NULL, 0, 0, NULL, '15970356433', b'0', '2017-09-01', '这个让人很懒，什么都没有留下dg', '中国');
+INSERT INTO `customer` VALUES (23, '每分每秒', NULL, NULL, NULL, '2020-08-11 14:41:11', NULL, '2020-08-11 14:41:11', '118.25.130.181/data/00/00/rBEADl8yPYaASasHAAArUOsiBNw981.jpg', NULL, 0, 0, NULL, '15970356433', b'0', '2017-09-01', '这个让人很懒，什么都没有留下dg', '中国');
+INSERT INTO `customer` VALUES (24, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 14:55:28', NULL, '2020-08-11 14:55:28', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (25, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 15:05:58', NULL, '2020-08-11 15:05:58', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (26, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 15:21:39', NULL, '2020-08-11 15:21:39', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (27, 'Miss Wu', NULL, '7758521', 'email', '2020-08-11 15:32:15', 'email', '2020-08-11 15:32:15', 'http://118.25.130.181/data/00/00/rBEADl8ySYGAKgl3AAC7SmqwtG0022.jpg', NULL, 0, 0, '745567172@qq.com', '15370356433', b'0', '2013-08-01', '我爱昵', '中国');
+INSERT INTO `customer` VALUES (28, 'Miss Wu', '745567172@qq.com', '7758521', 'email', '2020-08-11 15:33:37', 'email', '2020-08-11 15:33:37', 'http://118.25.130.181/data/00/00/rBEADl8ySdCAd4HCAAC7SmqwtG0986.jpg', NULL, 0, 0, '745567172@qq.com', '15370356433', b'0', '2013-08-01', '我爱昵', '中国');
+INSERT INTO `customer` VALUES (29, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 16:11:26', NULL, '2020-08-11 16:11:26', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (30, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 16:16:27', NULL, '2020-08-11 16:16:27', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (31, NULL, '745567172@qq.com', NULL, NULL, '2020-08-11 16:19:19', NULL, '2020-08-11 16:19:19', NULL, NULL, 0, 0, '745567172@qq.com', NULL, b'1', NULL, '这个人很懒什么都没有留下来', '中国');
+INSERT INTO `customer` VALUES (32, 'Mr Xiao', 'm18779334084@163.com', '731fcac05393269c61b4c7d405e678cd', 'email', '2020-08-11 16:22:07', 'email', '2020-08-11 16:22:07', 'http://118.25.130.181/data/00/00/rBEADl8yVS-AEn7eAAC7SmqwtG0426.jpg', NULL, 0, 0, 'm18779334084@163.com', '15840566432', b'0', '2019-11-15', '我爱你吴艳', '北京市-北京城区-丰台区');
 
 -- ----------------------------
 -- Table structure for dept
@@ -126,7 +153,7 @@ CREATE TABLE `log`  (
   `last_update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
   `last_update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 220 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 294 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of log
@@ -350,6 +377,80 @@ INSERT INTO `log` VALUES (216, NULL, '修改成功', 'profile', 'Customer [id=nu
 INSERT INTO `log` VALUES (217, NULL, '修改成功', 'profile', 'Customer [id=null, nickname=xiao, loginname=null, passwd=null, createBy=null, createTime=Thu Jul 30 17:03:19 CST 2020, lastUpdateBy=null, lastUpdateTime=Thu Jul 30 17:03:19 CST 2020, avatar=null, salt=null, status=null, delFlag=null, email=null, mobile=18779334084, sex=true, birth=Thu Jul 30 00:00:00 CST 2020]', 80, '192.168.179.1', NULL, '2020-07-30 17:03:19', NULL, '2020-07-30 17:03:19');
 INSERT INTO `log` VALUES (218, NULL, '修改成功', 'profile', 'Customer [id=null, nickname=xiao, loginname=null, passwd=null, createBy=null, createTime=Thu Jul 30 17:03:34 CST 2020, lastUpdateBy=null, lastUpdateTime=Thu Jul 30 17:03:34 CST 2020, avatar=null, salt=null, status=null, delFlag=null, email=null, mobile=18779334084, sex=true, birth=Thu Jul 30 00:00:00 CST 2020]', 34, '192.168.179.1', NULL, '2020-07-30 17:03:35', NULL, '2020-07-30 17:03:35');
 INSERT INTO `log` VALUES (219, NULL, '修改成功', 'profile', 'Customer [id=null, nickname=xiao, loginname=null, passwd=null, createBy=null, createTime=Thu Jul 30 17:04:03 CST 2020, lastUpdateBy=null, lastUpdateTime=Thu Jul 30 17:04:03 CST 2020, avatar=null, salt=null, status=null, delFlag=null, email=null, mobile=18779334084, sex=true, birth=Thu Jul 30 00:00:00 CST 2020]', 41, '192.168.179.1', NULL, '2020-07-30 17:04:04', NULL, '2020-07-30 17:04:04');
+INSERT INTO `log` VALUES (220, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@71c5e7bf', 21515, '192.168.179.1', NULL, '2020-07-31 14:16:42', NULL, '2020-07-31 14:16:42');
+INSERT INTO `log` VALUES (221, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@481bd6ac', 1076, '192.168.179.1', NULL, '2020-07-31 16:41:37', NULL, '2020-07-31 16:41:37');
+INSERT INTO `log` VALUES (222, NULL, '修改成功', 'profile', 'Customer [id=null, nickname=乔峰, loginname=null, passwd=null, createBy=null, createTime=Fri Jul 31 16:42:22 CST 2020, lastUpdateBy=null, lastUpdateTime=Fri Jul 31 16:42:22 CST 2020, avatar=http://118.25.130.181/data/00/00/rBEADl8j2XCANRzNAAC7SmqwtG0802.jpg, salt=null, status=null, delFlag=null, email=null, mobile=15970356433, sex=true, birth=Mon Jul 31 00:00:00 CST 2017]', 17334, '192.168.179.1', NULL, '2020-07-31 16:42:23', NULL, '2020-07-31 16:42:23');
+INSERT INTO `log` VALUES (223, NULL, '修改成功', 'profile', 'Customer [id=null, nickname=乔峰, loginname=null, passwd=null, createBy=null, createTime=Fri Jul 31 16:43:27 CST 2020, lastUpdateBy=null, lastUpdateTime=Fri Jul 31 16:43:27 CST 2020, avatar=http://118.25.130.181/data/00/00/rBEADl8j2a6AMUAfAAC7SmqwtG0986.jpg, salt=null, status=null, delFlag=null, email=null, mobile=15970356433, sex=true, birth=Mon Jul 31 00:00:00 CST 2017]', 1327, '192.168.179.1', NULL, '2020-07-31 16:43:27', NULL, '2020-07-31 16:43:27');
+INSERT INTO `log` VALUES (224, NULL, '修改成功', 'profile', 'Customer [id=null, nickname=乔峰, loginname=null, passwd=null, createBy=null, createTime=Fri Jul 31 16:48:31 CST 2020, lastUpdateBy=null, lastUpdateTime=Fri Jul 31 16:48:31 CST 2020, avatar=118.25.130.181/data/00/00/rBEADl8j2t2AbgAPAAArUOsiBNw115.jpg, salt=null, status=null, delFlag=null, email=null, mobile=15970356433, sex=true, birth=Mon Jul 31 00:00:00 CST 2017]', 1067, '192.168.179.1', NULL, '2020-07-31 16:48:31', NULL, '2020-07-31 16:48:31');
+INSERT INTO `log` VALUES (225, NULL, '修改成功', 'profile', 'Customer [id=null, nickname=乔峰, loginname=null, passwd=null, createBy=null, createTime=Fri Jul 31 16:59:29 CST 2020, lastUpdateBy=null, lastUpdateTime=Fri Jul 31 16:59:29 CST 2020, avatar=118.25.130.181/data/00/00/rBEADl8j3XCAacfuAAC7SmqwtG0107.jpg, salt=null, status=null, delFlag=null, email=null, mobile=15970356433, sex=true, birth=Mon Jul 31 00:00:00 CST 2017]', 1582, '192.168.179.1', NULL, '2020-07-31 16:59:30', NULL, '2020-07-31 16:59:30');
+INSERT INTO `log` VALUES (226, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@2cfb2dea', 2346, '192.168.179.1', NULL, '2020-08-03 12:19:28', NULL, '2020-08-03 12:19:28');
+INSERT INTO `log` VALUES (227, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@2cfb2dea', 1845, '192.168.179.1', NULL, '2020-08-03 12:21:50', NULL, '2020-08-03 12:21:50');
+INSERT INTO `log` VALUES (228, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@2cfb2dea', 151, '192.168.179.1', NULL, '2020-08-03 12:24:00', NULL, '2020-08-03 12:24:00');
+INSERT INTO `log` VALUES (229, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@595c0811', 491, '192.168.179.1', NULL, '2020-08-03 13:51:41', NULL, '2020-08-03 13:51:41');
+INSERT INTO `log` VALUES (230, '1446778774', '获得用户信息成功', 'getInfo', '1', 18910, '127.0.0.1', '1446778774', '2020-08-03 14:53:55', '1446778774', '2020-08-03 14:53:55');
+INSERT INTO `log` VALUES (231, '1446778774', '获得用户信息成功', 'getInfo', '1', 16, '127.0.0.1', '1446778774', '2020-08-03 14:57:29', '1446778774', '2020-08-03 14:57:29');
+INSERT INTO `log` VALUES (232, '1446778774', '获得用户信息成功', 'getInfo', '1', 5, '127.0.0.1', '1446778774', '2020-08-03 14:58:00', '1446778774', '2020-08-03 14:58:00');
+INSERT INTO `log` VALUES (233, '1446778774', '获得用户信息成功', 'getInfo', '1', 21, '127.0.0.1', '1446778774', '2020-08-03 16:05:36', '1446778774', '2020-08-03 16:05:36');
+INSERT INTO `log` VALUES (234, '1446778774', '获得用户信息成功', 'getInfo', '1', 8, '127.0.0.1', '1446778774', '2020-08-03 16:15:11', '1446778774', '2020-08-03 16:15:11');
+INSERT INTO `log` VALUES (235, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@efc439b', 4619, '192.168.179.1', NULL, '2020-08-04 12:14:41', NULL, '2020-08-04 12:14:41');
+INSERT INTO `log` VALUES (236, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@efc439b', 182, '192.168.179.1', NULL, '2020-08-04 14:15:49', NULL, '2020-08-04 14:15:49');
+INSERT INTO `log` VALUES (237, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@efc439b', 453, '192.168.179.1', NULL, '2020-08-04 16:07:00', NULL, '2020-08-04 16:07:00');
+INSERT INTO `log` VALUES (238, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@318df31e', 3564, '192.168.179.1', NULL, '2020-08-05 09:28:22', NULL, '2020-08-05 09:28:22');
+INSERT INTO `log` VALUES (239, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@318df31e', 239, '192.168.179.1', NULL, '2020-08-05 10:21:37', NULL, '2020-08-05 10:21:37');
+INSERT INTO `log` VALUES (240, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@318df31e', 992, '127.0.0.1', NULL, '2020-08-05 10:28:07', NULL, '2020-08-05 10:28:07');
+INSERT INTO `log` VALUES (241, '1446778774', '获得用户信息成功', 'getInfo', '1', 60799, '127.0.0.1', '1446778774', '2020-08-05 11:36:56', '1446778774', '2020-08-05 11:36:56');
+INSERT INTO `log` VALUES (242, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 14470, '192.168.179.1', NULL, '2020-08-05 12:19:05', NULL, '2020-08-05 12:19:05');
+INSERT INTO `log` VALUES (243, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 130, '192.168.179.1', NULL, '2020-08-05 12:20:48', NULL, '2020-08-05 12:20:48');
+INSERT INTO `log` VALUES (244, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 105, '192.168.179.1', NULL, '2020-08-05 12:21:01', NULL, '2020-08-05 12:21:01');
+INSERT INTO `log` VALUES (245, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 110, '192.168.179.1', NULL, '2020-08-05 12:21:54', NULL, '2020-08-05 12:21:54');
+INSERT INTO `log` VALUES (246, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 130, '192.168.179.1', NULL, '2020-08-05 12:23:58', NULL, '2020-08-05 12:23:58');
+INSERT INTO `log` VALUES (247, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 114, '192.168.179.1', NULL, '2020-08-05 12:24:06', NULL, '2020-08-05 12:24:06');
+INSERT INTO `log` VALUES (248, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 311, '192.168.179.1', NULL, '2020-08-05 14:25:00', NULL, '2020-08-05 14:25:00');
+INSERT INTO `log` VALUES (249, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 131, '192.168.179.1', NULL, '2020-08-05 14:32:14', NULL, '2020-08-05 14:32:14');
+INSERT INTO `log` VALUES (250, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 108, '192.168.179.1', NULL, '2020-08-05 14:41:10', NULL, '2020-08-05 14:41:10');
+INSERT INTO `log` VALUES (251, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 127, '192.168.179.1', NULL, '2020-08-05 14:41:59', NULL, '2020-08-05 14:41:59');
+INSERT INTO `log` VALUES (252, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 121, '192.168.179.1', NULL, '2020-08-05 15:03:56', NULL, '2020-08-05 15:03:56');
+INSERT INTO `log` VALUES (253, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a15400d', 128, '192.168.179.1', NULL, '2020-08-05 15:08:01', NULL, '2020-08-05 15:08:01');
+INSERT INTO `log` VALUES (254, NULL, '获取验证码', 'captcha', '{click=[Ljava.lang.String;@32516b11}', 3575, '127.0.0.1', NULL, '2020-08-10 10:11:26', NULL, '2020-08-10 10:11:26');
+INSERT INTO `log` VALUES (255, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4728bae9', 225, '192.168.179.1', NULL, '2020-08-10 11:17:33', NULL, '2020-08-10 11:17:33');
+INSERT INTO `log` VALUES (256, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4728bae9', 169, '192.168.179.1', NULL, '2020-08-10 11:17:41', NULL, '2020-08-10 11:17:41');
+INSERT INTO `log` VALUES (257, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@4728bae9', 185, '192.168.179.1', NULL, '2020-08-10 11:22:08', NULL, '2020-08-10 11:22:08');
+INSERT INTO `log` VALUES (258, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@4728bae9', 141, '192.168.179.1', NULL, '2020-08-10 11:22:39', NULL, '2020-08-10 11:22:39');
+INSERT INTO `log` VALUES (259, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@69b47b36', 4992, '127.0.0.1', NULL, '2020-08-11 09:36:16', NULL, '2020-08-11 09:36:16');
+INSERT INTO `log` VALUES (260, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@69b47b36', 108, '192.168.179.1', NULL, '2020-08-11 09:41:39', NULL, '2020-08-11 09:41:39');
+INSERT INTO `log` VALUES (261, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@69b47b36', 261, '192.168.179.1', NULL, '2020-08-11 09:43:11', NULL, '2020-08-11 09:43:11');
+INSERT INTO `log` VALUES (262, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@69b47b36', 166, '192.168.179.1', NULL, '2020-08-11 10:04:25', NULL, '2020-08-11 10:04:25');
+INSERT INTO `log` VALUES (263, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@69b47b36', 119, '192.168.179.1', NULL, '2020-08-11 11:00:56', NULL, '2020-08-11 11:00:56');
+INSERT INTO `log` VALUES (264, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@69b47b36', 178, '192.168.179.1', NULL, '2020-08-11 11:01:47', NULL, '2020-08-11 11:01:47');
+INSERT INTO `log` VALUES (265, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@69b47b36', 134, '192.168.179.1', NULL, '2020-08-11 11:37:00', NULL, '2020-08-11 11:37:00');
+INSERT INTO `log` VALUES (266, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@69b47b36', 109, '192.168.179.1', NULL, '2020-08-11 11:43:33', NULL, '2020-08-11 11:43:33');
+INSERT INTO `log` VALUES (267, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@69b47b36', 179, '192.168.179.1', NULL, '2020-08-11 11:44:38', NULL, '2020-08-11 11:44:38');
+INSERT INTO `log` VALUES (268, NULL, '修改成功', 'profile', 'cn.jjvu.xiao.pojo.Customer@7e97b002', 21385, '192.168.179.1', NULL, '2020-08-11 14:36:07', NULL, '2020-08-11 14:36:07');
+INSERT INTO `log` VALUES (269, NULL, '修改成功', 'profile', 'cn.jjvu.xiao.pojo.Customer@7ba9b2ae', 237, '192.168.179.1', NULL, '2020-08-11 14:41:11', NULL, '2020-08-11 14:41:11');
+INSERT INTO `log` VALUES (270, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@746a2411', 214, '192.168.179.1', NULL, '2020-08-11 14:55:28', NULL, '2020-08-11 14:55:28');
+INSERT INTO `log` VALUES (271, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@746a2411', 4273, '192.168.179.1', NULL, '2020-08-11 15:05:47', NULL, '2020-08-11 15:05:47');
+INSERT INTO `log` VALUES (272, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@746a2411', 192, '192.168.179.1', NULL, '2020-08-11 15:05:58', NULL, '2020-08-11 15:05:58');
+INSERT INTO `log` VALUES (273, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@746a2411', 111, '192.168.179.1', NULL, '2020-08-11 15:21:22', NULL, '2020-08-11 15:21:22');
+INSERT INTO `log` VALUES (274, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@746a2411', 144, '192.168.179.1', NULL, '2020-08-11 15:21:39', NULL, '2020-08-11 15:21:39');
+INSERT INTO `log` VALUES (275, NULL, '修改成功', 'profile', 'cn.jjvu.xiao.pojo.Customer@8ca753d', 2448, '192.168.179.1', NULL, '2020-08-11 15:32:15', NULL, '2020-08-11 15:32:15');
+INSERT INTO `log` VALUES (276, '745567172@qq.com', '修改成功', 'profile', 'cn.jjvu.xiao.pojo.Customer@9c2844f', 431, '192.168.179.1', '745567172@qq.com', '2020-08-11 15:33:37', '745567172@qq.com', '2020-08-11 15:33:37');
+INSERT INTO `log` VALUES (277, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4ec9c182', 6149, '192.168.179.1', NULL, '2020-08-11 16:03:46', NULL, '2020-08-11 16:03:46');
+INSERT INTO `log` VALUES (278, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@4ec9c182', 260, '192.168.179.1', NULL, '2020-08-11 16:11:26', NULL, '2020-08-11 16:11:26');
+INSERT INTO `log` VALUES (279, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@f9343e', 825, '192.168.179.1', NULL, '2020-08-11 16:16:08', NULL, '2020-08-11 16:16:08');
+INSERT INTO `log` VALUES (280, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@f9343e', 181, '192.168.179.1', NULL, '2020-08-11 16:16:27', NULL, '2020-08-11 16:16:27');
+INSERT INTO `log` VALUES (281, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@f9343e', 138, '192.168.179.1', NULL, '2020-08-11 16:18:43', NULL, '2020-08-11 16:18:43');
+INSERT INTO `log` VALUES (282, NULL, '注册成功', 'registerByEmail', 'org.apache.catalina.util.ParameterMap@f9343e', 221, '192.168.179.1', NULL, '2020-08-11 16:19:19', NULL, '2020-08-11 16:19:19');
+INSERT INTO `log` VALUES (283, 'm18779334084@163.com', '修改成功', 'profile', 'cn.jjvu.xiao.pojo.Customer@405a56f7', 926, '192.168.179.1', '745567172@qq.com', '2020-08-11 16:22:07', '745567172@qq.com', '2020-08-11 16:22:07');
+INSERT INTO `log` VALUES (284, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@4a040e3', 1876, '127.0.0.1', NULL, '2020-08-11 16:43:20', NULL, '2020-08-11 16:43:20');
+INSERT INTO `log` VALUES (285, NULL, '登录成功', 'login', '登录账号：m18779334084@163.com密码：745567172', 199, '127.0.0.1', NULL, '2020-08-11 16:46:32', NULL, '2020-08-11 16:46:32');
+INSERT INTO `log` VALUES (286, NULL, '登录成功', 'login', '登录账号：m18779334084@163.com密码：7758521', 161, '127.0.0.1', NULL, '2020-08-11 16:46:53', NULL, '2020-08-11 16:46:53');
+INSERT INTO `log` VALUES (287, NULL, '登录成功', 'login', '登录账号：m18779334084@163.com密码：7758521', 23204, '127.0.0.1', NULL, '2020-08-11 16:47:38', NULL, '2020-08-11 16:47:38');
+INSERT INTO `log` VALUES (288, NULL, '登录成功', 'login', '登录账号：m18779334084@163.com密码：7758521', 40243, '127.0.0.1', NULL, '2020-08-11 16:49:52', NULL, '2020-08-11 16:49:52');
+INSERT INTO `log` VALUES (289, NULL, '登录成功', 'login', '登录账号：m18779334084@163.com密码：7758521', 122, '127.0.0.1', NULL, '2020-08-11 16:51:57', NULL, '2020-08-11 16:51:57');
+INSERT INTO `log` VALUES (290, NULL, '登录成功', 'login', '登录账号：m18779334084@163.com密码：7758521', 5200, '127.0.0.1', NULL, '2020-08-11 16:52:29', NULL, '2020-08-11 16:52:29');
+INSERT INTO `log` VALUES (291, NULL, '登录成功', 'login', '登录账号：m18779334084@163.com密码：7758521', 2721, '127.0.0.1', NULL, '2020-08-11 16:53:07', NULL, '2020-08-11 16:53:07');
+INSERT INTO `log` VALUES (292, NULL, '获取验证码', 'captcha', 'org.apache.catalina.util.ParameterMap@1c750c09', 1758, '127.0.0.1', NULL, '2020-08-11 16:55:30', NULL, '2020-08-11 16:55:30');
+INSERT INTO `log` VALUES (293, 'm18779334084@163.com', '获得用户信息成功', 'getInfo', 'm18779334084@163.com', 57, '127.0.0.1', 'm18779334084@163.com', '2020-08-11 16:59:13', 'm18779334084@163.com', '2020-08-11 16:59:13');
 
 -- ----------------------------
 -- Table structure for login_log
@@ -365,7 +466,7 @@ CREATE TABLE `login_log`  (
   `last_update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
   `last_update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of login_log
@@ -413,6 +514,33 @@ INSERT INTO `login_log` VALUES (40, '慕夏', '0', '192.168.179.1', '1', '2020-0
 INSERT INTO `login_log` VALUES (41, '慕夏', '0', '192.168.179.1', '1', '2020-07-29 15:06:55', '1', '2020-07-29 15:06:55');
 INSERT INTO `login_log` VALUES (42, '慕夏', '0', '192.168.179.1', '1', '2020-07-29 15:07:00', '1', '2020-07-29 15:07:00');
 INSERT INTO `login_log` VALUES (43, '慕夏', '0', '192.168.179.1', '1', '2020-07-29 15:07:31', '1', '2020-07-29 15:07:31');
+INSERT INTO `login_log` VALUES (44, '慕夏', '0', '192.168.179.1', '1', '2020-08-04 12:14:53', '1', '2020-08-04 12:14:53');
+INSERT INTO `login_log` VALUES (45, '慕夏', '0', '192.168.179.1', '1', '2020-08-04 14:16:33', '1', '2020-08-04 14:16:33');
+INSERT INTO `login_log` VALUES (46, '慕夏', '0', '192.168.179.1', '1', '2020-08-04 16:12:14', '1', '2020-08-04 16:12:14');
+INSERT INTO `login_log` VALUES (47, '慕夏', '0', '192.168.179.1', '1', '2020-08-04 16:12:46', '1', '2020-08-04 16:12:46');
+INSERT INTO `login_log` VALUES (48, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 09:28:35', '1', '2020-08-05 09:28:35');
+INSERT INTO `login_log` VALUES (49, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 10:26:45', '1', '2020-08-05 10:26:45');
+INSERT INTO `login_log` VALUES (50, '慕夏', '0', '127.0.0.1', '1', '2020-08-05 10:28:17', '1', '2020-08-05 10:28:17');
+INSERT INTO `login_log` VALUES (51, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 12:19:15', '1', '2020-08-05 12:19:15');
+INSERT INTO `login_log` VALUES (52, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 12:21:08', '1', '2020-08-05 12:21:08');
+INSERT INTO `login_log` VALUES (53, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 12:22:08', '1', '2020-08-05 12:22:08');
+INSERT INTO `login_log` VALUES (54, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 12:23:23', '1', '2020-08-05 12:23:23');
+INSERT INTO `login_log` VALUES (55, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 12:24:11', '1', '2020-08-05 12:24:11');
+INSERT INTO `login_log` VALUES (56, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 14:25:20', '1', '2020-08-05 14:25:20');
+INSERT INTO `login_log` VALUES (57, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 14:32:36', '1', '2020-08-05 14:32:36');
+INSERT INTO `login_log` VALUES (58, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 14:41:22', '1', '2020-08-05 14:41:22');
+INSERT INTO `login_log` VALUES (59, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 14:42:12', '1', '2020-08-05 14:42:12');
+INSERT INTO `login_log` VALUES (60, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 15:04:10', '1', '2020-08-05 15:04:10');
+INSERT INTO `login_log` VALUES (61, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 15:04:18', '1', '2020-08-05 15:04:18');
+INSERT INTO `login_log` VALUES (62, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 15:05:33', '1', '2020-08-05 15:05:33');
+INSERT INTO `login_log` VALUES (63, '慕夏', '0', '192.168.179.1', '1', '2020-08-05 15:08:17', '1', '2020-08-05 15:08:17');
+INSERT INTO `login_log` VALUES (64, '慕夏', '0', '127.0.0.1', '1', '2020-08-10 10:14:32', '1', '2020-08-10 10:14:32');
+INSERT INTO `login_log` VALUES (65, '慕夏', '0', '192.168.179.1', '1', '2020-08-10 11:17:59', '1', '2020-08-10 11:17:59');
+INSERT INTO `login_log` VALUES (66, '慕夏', '0', '192.168.179.1', '1', '2020-08-10 11:18:15', '1', '2020-08-10 11:18:15');
+INSERT INTO `login_log` VALUES (67, '慕夏', '0', '192.168.179.1', '1', '2020-08-10 11:18:27', '1', '2020-08-10 11:18:27');
+INSERT INTO `login_log` VALUES (68, '慕夏', '0', '127.0.0.1', '1', '2020-08-11 09:36:49', '1', '2020-08-11 09:36:49');
+INSERT INTO `login_log` VALUES (69, '慕夏', '0', '192.168.179.1', '1', '2020-08-11 09:41:53', '1', '2020-08-11 09:41:53');
+INSERT INTO `login_log` VALUES (70, '慕夏', '0', '127.0.0.1', '1', '2020-08-11 16:55:44', '1', '2020-08-11 16:55:44');
 
 -- ----------------------------
 -- Table structure for menu
@@ -507,7 +635,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'xiao', '慕夏', NULL, '731fcac05393269c61b4c7d405e678cd', '1', 'm18779334084@163.com', '18779334084', NULL, NULL, NULL, '2020-06-02 13:51:41', 'xiao', '2020-06-02 13:51:47', NULL);
+INSERT INTO `user` VALUES (1, 'xiao', '慕夏', 'http://118.25.130.181/data/00/00/rBEADl8j2a6AMUAfAAC7SmqwtG0986.jpg', '731fcac05393269c61b4c7d405e678cd', '1', 'm18779334084@163.com', '18779334084', NULL, NULL, NULL, '2020-06-02 13:51:41', 'xiao', '2020-06-02 13:51:47', NULL);
 
 -- ----------------------------
 -- Table structure for user_role

@@ -1,0 +1,323 @@
+{
+	"info": {
+		"_postman_id": "95bbf776-c43d-4fec-8a6d-3a9467a9f38b",
+		"name": "Live_shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50fb5d5e-4640-425d-9702-5d1edeea9a59",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"if (data.data.token) {",
+							"  tests[\"Body has token\"] = true;",
+							"   postman.setEnvironmentVariable(\"token\", data.data.token);",
+							"}",
+							"else {",
+							"  tests[\"Body has token\"] = false;",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account\": \"xiao\", \"password\": \"745567172\", \"captcha\": \"ngg78\"}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:85/sso/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "85",
+					"path": [
+						"sso",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "验证码",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:85/sso/captcha.jpg?click=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "85",
+					"path": [
+						"sso",
+						"captcha.jpg"
+					],
+					"query": [
+						{
+							"key": "click",
+							"value": "1"
+						}
+					]
+				},
+				"description": "验证码请求"
+			},
+			"response": []
+		},
+		{
+			"name": "提交用户信息",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e2ef3b9-a9e7-4e12-9df9-839ad81eeeac",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"if (data.data.token) {",
+							"  tests[\"Body has token\"] = true;",
+							"   postman.setEnvironmentVariable(\"token\", data.data.token);",
+							"}",
+							"else {",
+							"  tests[\"Body has token\"] = false;",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nickname",
+							"value": "xiao",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "birth",
+							"value": "2020-07-30",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "sex",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "18779334084",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "avator",
+							"description": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:85/profile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "85",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "邮箱验证",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": ""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:85/validateEmail",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "85",
+					"path": [
+						"validateEmail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取移动端用户的信息",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ce14ad2-36ce-4e62-88c0-8a149b27f9a6",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"if (data.data.token) {",
+							"  tests[\"Body has token\"] = true;",
+							"   postman.setEnvironmentVariable(\"token\", data.data.token);",
+							"}",
+							"else {",
+							"  tests[\"Body has token\"] = false;",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4aWFvIiwiZXhwIjoxNTk2NjM3Njk3LCJjcmVhdGVkIjoxNTk2NTk0NDk3MzY1LCJhdXRob3JpdGllcyI6W119.tgHmrHcvu4KITyjuXq3vwv_h9yOJVAL_qQjbDzCaGFA9PyFyzJb1L5MYMVAex2LCkgFdumBDAqPg-N4ODlmd9g"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:85/getInfo?id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "85",
+					"path": [
+						"getInfo"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取用户的详细信息",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4aWFvIiwiZXhwIjoxNTk3MTc5MzQ0LCJjcmVhdGVkIjoxNTk3MTM2MTQ0NTQ5LCJhdXRob3JpdGllcyI6W119.qUcQCT0IRhgwGwmsyol8nmzqcjomZDMZT0JpDy9Cwro7oTZcwGBjpgEbAKJWq7CyYBU0TrjQwJzscRofUcpxdQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:85/customer/getInfo?login=m18779334084@163.com",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "85",
+					"path": [
+						"customer",
+						"getInfo"
+					],
+					"query": [
+						{
+							"key": "login",
+							"value": "m18779334084@163.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "用户登录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account\": \"m18779334084@163.com\", \"password\": \"7758521\", \"captcha\": \"cm356\"}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:85/sso/customerLogin",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "85",
+					"path": [
+						"sso",
+						"customerLogin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

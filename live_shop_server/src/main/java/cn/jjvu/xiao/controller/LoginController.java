@@ -252,8 +252,10 @@ public class LoginController {
          if (null == res) {
         	 log.setTime(System.currentTimeMillis() - startTime);
         	 logService.save(log);
-        	 return HttpResult.error("账号不存在");
+        	 return HttpResult.error("密码不正确");
          }
+//    	 log.setTime(System.currentTimeMillis() - startTime);
+//    	 logService.save(log);
          else if (!PasswordUtils.matches(res.getSalt(), passwd, res.getPasswd())) {
         	 log.setTime(System.currentTimeMillis() - startTime);
         	 logService.save(log);

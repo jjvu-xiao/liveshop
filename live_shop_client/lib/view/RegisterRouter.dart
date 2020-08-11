@@ -105,9 +105,11 @@ class _RegisterRouterState extends State<RegisterRouter> {
   _submitCode() async {
     bool isSuccess = false;
     LogUtil.v("提交注册用户的邮箱与邮箱验证码");
+    String loginname = _telController.text.trim();
+    String code = _codeController.text.trim();
     var jsonData = {
-      "email" : _telController.text,
-      "code" : _codeController.text
+      "email" : loginname,
+      "code" : code
     };
     String callback = await HttpUtil.post(url: "/sso/registerByEmail", data: jsonData);
     Map data = jsonDecode(callback);
@@ -122,10 +124,10 @@ class _RegisterRouterState extends State<RegisterRouter> {
     }
     await Future.delayed(Duration(seconds: 1));
       if (isSuccess)
-//        NavigatorUtil.jump(context, "/")
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditInfoRoute();
-        }));
+        NavigatorUtil.jump(context, "/editInfo?method=email&loginname=$loginname");
+//        Navigator.push(context, MaterialPageRoute(builder: (context) {
+//          return EditInfoRoute();
+//        }));
       else
         return;
   }

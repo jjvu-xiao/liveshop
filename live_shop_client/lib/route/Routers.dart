@@ -17,6 +17,8 @@ class Routers {
 
   static String register = '/register';
 
+  static String editInfo = '/editInfo';
+
   static void configureRoutes(Router router) {
     router.notFoundHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -32,5 +34,7 @@ class Routers {
     router.define(login, handler: loginHanderl);
 
     router.define(register, handler: registerHandler);
+    
+    router.define(editInfo, handler: profileHandler);
   }
 }

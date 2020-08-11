@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:liveshop/login.dart';
+import 'package:liveshop/view/EditInfoRoute.dart';
 import 'package:liveshop/view/HomeRoute.dart';
 import 'package:liveshop/view/RegisterRouter.dart';
 
@@ -45,5 +46,15 @@ Handler loginHanderl = Handler(
 Handler registerHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       return RegisterRouter();
+    }
+);
+
+// 用户信息编辑页面
+
+Handler profileHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      String loginname = params['loginname'].first;
+      String method = params['method'].first;
+      return EditInfoRoute(loginname: loginname, method: method);
     }
 );

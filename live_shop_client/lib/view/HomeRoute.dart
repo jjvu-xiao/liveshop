@@ -54,6 +54,8 @@ class _HomeRouteState extends State<HomeRoute>
 
   String userInfo;
 
+
+
   @override
   Widget build(BuildContext context) {
     EasyLoading.dismiss();
@@ -326,6 +328,7 @@ class _MyDrawerState extends State<MyDrawer> {
       this.nickname = user['nickName'];
       LogUtil.v(nickname);
     });
+
   }
 
   @override

@@ -58,7 +58,16 @@ public class CustomerController {
     	Date now = new Date();
     	boolean isSuccess = false;
     	Log log = new Log();
-    	String msg;  	   	
+    	String msg;  	
+    	String loginname = customer.getLoginname();
+    	log.setCreateBy(loginname);
+		log.setCreateTime(now);
+		log.setIp(ip);
+		log.setLastUpdateBy(loginname);
+		log.setLastUpdateTime(now);
+		log.setUserName(loginname);
+		log.setParams(customer.toString());
+		log.setMethod("profile");
     	try {
     		String originalName = avator.getOriginalFilename();
             logger.debug("编辑个人信息", "头像上传文件原名称：" + originalName);
@@ -69,24 +78,15 @@ public class CustomerController {
 			String url = FILE_UPLOAD_URL + "/" + path;
 			customer.setAvatar(url);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.setOperation(e.getMessage());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.setOperation(e.getMessage());
 		}
     	customer.setCreateTime(now);
     	customer.setLastUpdateTime(now);
     	int count = customerService.save(customer);    	
-    	String loginname = customer.getLoginname();
-    	log.setCreateBy(loginname);
-		log.setCreateTime(now);
-		log.setIp(ip);
-		log.setLastUpdateBy(loginname);
-		log.setLastUpdateTime(now);
-		log.setUserName(loginname);
-		log.setParams(customer.toString());
-		log.setMethod("profile");
     	if (count > 0) {
     		msg = "修改成功";
     		isSuccess = true;
@@ -109,7 +109,7 @@ public class CustomerController {
      * @return 返回用户的所有信息
      */
     @GetMapping("/getInfo")
-    public Object getInfo(@RequestParam Long id, HttpServletRequest req) {
+    public Object getInfo(@RequestParam(name = "login") String login, HttpServletRequest req) {
     	String ip = SecurityUtils.getIRealIPAddr(req);
     	Date now = new Date();
     	boolean isSuccess = false;
@@ -117,8 +117,8 @@ public class CustomerController {
     	String msg;
     	String loginname = null; 
     	Customer customer = null;
-    	if (null != id) {
-    		customer = customerService.findById(id);
+    	if (null != login) {
+    		customer = customerService.getInfo(login);
         	loginname = customer.getLoginname();
         	msg = "获得用户信息成功";
 			isSuccess = true;
@@ -132,7 +132,7 @@ public class CustomerController {
 		log.setLastUpdateBy(loginname);
 		log.setLastUpdateTime(now);
 		log.setUserName(loginname);
-		log.setParams(id.toString());
+		log.setParams(login);
 		log.setMethod("getInfo");
 		log.setOperation(msg);
     	log.setTime(System.currentTimeMillis() - now.getTime());

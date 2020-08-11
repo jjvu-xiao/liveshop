@@ -88,4 +88,12 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return customer;
 	}
+
+	@Override
+	public Customer getInfo(String loginname) {
+		CustomerExample example = new CustomerExample();
+		CustomerExample.Criteria criteria = example.createCriteria();
+		criteria.andLoginnameEqualTo(loginname);
+		return customerMapper.selectByExample(example).get(0);
+	}
 }
