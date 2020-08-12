@@ -15,6 +15,13 @@ import 'package:sqflite/sqflite.dart';
 
 /// 登录页面
 class LoginRoute extends StatefulWidget {
+
+  String loginname;
+
+  String passwd;
+
+  LoginRoute({this.loginname, this.passwd});
+
   @override
   _LoginRouteState createState() => _LoginRouteState();
 }
@@ -42,16 +49,24 @@ class _LoginRouteState extends State<LoginRoute> {
   static const String TAG = "用户登录";
 
   /// 获取图片验证码
-  /// 自动填充上一次登录的用户名，填充后将焦点定位到密码输入框
+  /// 如果是从注册页面跳转过来的，则登录账号跟密码不会为空，采用注册的账号与密码自动填充
+  /// 否则自动填充上一次登录的用户名，填充后将焦点定位到密码输入框
+  /// 如果是第一次使用，则输入框不会有任何数据
   @override
   void initState() {
     captchaImage = Image.network(AppConstants.basicUrl + "/sso/captcha.jpg");
-    _getLastLogin().then((lastLoginname) {
-      if (null != lastLoginname) {
-        _unameController.text = lastLoginname;
-        this._nameAutoFocus = false;
-      }
-    });
+    if (widget.loginname != null && widget.passwd != null) {
+      _unameController.text = widget.loginname;
+      _pwdController.text = widget.passwd;
+    }
+    else {
+      _getLastLogin().then((lastLoginname) {
+        if (null != lastLoginname) {
+          _unameController.text = lastLoginname;
+          this._nameAutoFocus = false;
+        }
+      });
+    }
     super.initState();
   }
 
@@ -236,19 +251,21 @@ class _LoginRouteState extends State<LoginRoute> {
       var loginname = _unameController.text.trim();
       var passwd = _pwdController.text.trim();
       var captcha = _captchaController.text.trim();
-      String callback = await HttpUtil.post(url: AppConstants.BASE_URL + "/sso/login",
+      String callback = await HttpUtil.post(url: AppConstants.BASE_URL + "/sso/customerLogin",
           data:{"account" : loginname, "password" : passwd, "captcha" : captcha});
-      Map data = jsonDecode(callback);
-      Map userInfo = data['data'];
+      Map callbackData = jsonDecode(callback);
+      Map data = callbackData['data'];
+      String token = data['token'];
+      Map userInfo = data['user'];
       LogUtil.v(userInfo, tag: "用户登录");
-      LogUtil.v(data['msg']);
-      if (data['code'] == 200) {
-        EasyLoading.showSuccess(data['msg']);
-        await _saveLastLogin();
+      LogUtil.v(callbackData['msg']);
+      if (callbackData['code'] == 200) {
+        EasyLoading.showSuccess(callbackData['msg']);
+        await _saveLastLogin(token);
         await _saveUserInfo(userInfo);
       }
       else {
-        EasyLoading.showError(data['msg']);
+        EasyLoading.showError(callbackData['msg']);
         return;
       }
       await Future.delayed(Duration(seconds: 1), () {
@@ -260,9 +277,8 @@ class _LoginRouteState extends State<LoginRoute> {
 //        Navigator.push(context, MaterialPageRoute(builder: (context) {
 //          return HomeRoute();
 //        }));
-
-        NavigatorUtil.jump(context, '/index');
-
+        String loginname = userInfo['loginname'];
+        NavigatorUtil.jump(context, '/index?loginname=$loginname');
       });
     }
   }
@@ -276,10 +292,11 @@ class _LoginRouteState extends State<LoginRoute> {
   }
 
   /// 保存上一次登录用户的账号信息
-  void _saveLastLogin() async {
+  void _saveLastLogin(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String loginname = _unameController.text.trim();
     prefs.setString("lastLoginname", loginname);
+    prefs.setString("token", token);
     LogUtil.v("账号\t$loginname\t登录成功", tag: "用户登录");
   }
 

@@ -59,6 +59,7 @@ class LogsInterceptors extends InterceptorsWrapper {
   /// 收到响应数据后，打印响应数据
   @override
   onResponse(Response response)async {
+    EasyLoading.dismiss();
     return response.toString();
   }
 

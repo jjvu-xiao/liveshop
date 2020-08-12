@@ -198,7 +198,6 @@ public class LoginController {
     public Object validateEmail(@RequestBody String email, HttpServletRequest req) {
         long startTime = System.currentTimeMillis();
         String msg = null;
-        boolean isSucess = false;
         email = email.trim();
         if (!ILiveShopStringUtils.isValidEmail(email)) {
             msg = "请输入正确的邮箱";
@@ -261,10 +260,10 @@ public class LoginController {
         	 logService.save(log);
         	 return HttpResult.error("密码不正确");
          }
-        
          JwtAuthenticatioToken token = SecurityUtils.login(req, username, passwd, authenticationManager);
+//         JwtAuthenticatioToken token = SecurityUtils.login(req, res.getLoginname(), res.getPasswd(), authenticationManager);
          Map<String, Object> callback = new HashMap<>();
-         callback.put("token", token);
+         callback.put("token", token.getToken());
          callback.put("user", res);
          logger.debug("用户\t" + res.getLoginname() + "登录成功");
          return HttpResult.ok(callback, "登录成功");

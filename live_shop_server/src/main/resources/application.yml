@@ -70,6 +70,6 @@ pagehelper:
 
 # 文件服务器
 upload:
-  url: 127.0.0.1
+  url: http://127.0.0.1
 
 

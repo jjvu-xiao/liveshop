@@ -18,6 +18,7 @@ import 'package:liveshop/view/HomeRoute.dart';
 import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/util/LogUtil.dart';
 import 'package:liveshop/widget/CommonBottomSheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// 用户编辑信息界面
 class EditInfoRoute extends StatefulWidget {
@@ -582,6 +583,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
     String callback = await HttpUtil.post(url: AppConstants.BASE_URL + "/customer/profile",
         data:formData);
     Map data = jsonDecode(callback);
+    var info = data['data'];
     LogUtil.v(data['msg']);
     if (data['code'] == 200) {
       EasyLoading.showSuccess(data['msg']);
@@ -592,7 +594,7 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
     }
     await Future.delayed(Duration(seconds: 1), () {
       EasyLoading.dismiss();
-      NavigatorUtil.jump(context, '/index');
+      NavigatorUtil.jump(context, '/login?loginname=${widget.loginname}&passwd=$passwd');
 //      Navigator.push(context, MaterialPageRoute(builder: (context) {
 //        return HomeRoute();
 //      }));
@@ -631,5 +633,11 @@ class _EditInfoRouteState extends State<EditInfoRoute> {
       });
     }
   }
-
+  
+//  /// 存储Token到本地的SharedPreference
+//  void _saveToken(String token) async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance();
+//    prefs.setString("token", token);
+//    LogUtil.v(token, tag: "存储token");
+//  }
 }

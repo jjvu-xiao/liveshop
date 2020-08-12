@@ -91,20 +91,4 @@ public class PasswordEncoder {
 		int d2 = n % 16;
 		return hexDigits[d1] + hexDigits[d2];
 	}
-
-//	public static void main(String[] args) {
-//		String salt = "helloworld";
-//		PasswordEncoder encoderMd5 = new PasswordEncoder(salt, "MD5");
-//		String encode = encoderMd5.encode("test");
-//		System.out.println(encode);
-//		boolean passwordValid = encoderMd5.validPassword("1bd98ed329aebc7b2f89424b5a38926e", "test");
-//		System.out.println(passwordValid);
-//
-//		PasswordEncoder encoderSha = new PasswordEncoder(salt, "SHA");
-//		String pass2 = encoderSha.encode("test");
-//		System.out.println(pass2);
-//		boolean passwordValid2 = encoderSha.validPassword("1bd98ed329aebc7b2f89424b5a38926e", "test");
-//		System.out.println(passwordValid2);
-//	}
-
 }

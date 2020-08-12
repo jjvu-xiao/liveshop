@@ -2,15 +2,20 @@ package cn.jjvu.xiao.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+//import org.apache.http.client.methods.HttpGet;
+//import org.apache.http.impl.client.CloseableHttpClient;
+//import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +29,12 @@ import cn.jjvu.xiao.pojo.Customer;
 import cn.jjvu.xiao.pojo.Log;
 import cn.jjvu.xiao.service.CustomerService;
 import cn.jjvu.xiao.service.LogService;
+import cn.jjvu.xiao.utils.PasswordUtils;
 import cn.jjvu.xiao.utils.SecurityUtils;
 
 @RestController
 @RequestMapping(value="/customer")
 public class CustomerController {
-	
-	@Autowired
-    private StringRedisTemplate stringRedisTemplate;
 	
 	@Resource
 	private CustomerService customerService;
@@ -46,10 +49,15 @@ public class CustomerController {
     private LogService logService;
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+    
+    @Resource	
+    private AuthenticationManager authenticationManager;
 	
 	 /**
      * 修改移动端客户信息
      * @param customer 客户信息
+     * 将图片上传至服务器的FastDFS，然后通过算法计算出加密盐的值，然后使用MD5算法将加密盐给用户登记的密码进行加密
+     * 将加密后的密文，跟加密盐一并存入到数据库中
      * @return 提示信息
      */
     @PostMapping(value = "/profile")
@@ -60,6 +68,7 @@ public class CustomerController {
     	Log log = new Log();
     	String msg;  	
     	String loginname = customer.getLoginname();
+    	Map<String, Object> callback = new HashMap<String, Object>();
     	log.setCreateBy(loginname);
 		log.setCreateTime(now);
 		log.setIp(ip);
@@ -86,6 +95,10 @@ public class CustomerController {
 		}
     	customer.setCreateTime(now);
     	customer.setLastUpdateTime(now);
+    	String salt = PasswordUtils.getSalt();
+    	String saltPassword = PasswordUtils.encode(customer.getPasswd(), salt);
+    	customer.setPasswd(saltPassword);
+    	customer.setSalt(salt);
     	int count = customerService.save(customer);    	
     	if (count > 0) {
     		msg = "修改成功";
@@ -97,10 +110,11 @@ public class CustomerController {
     	if (avator.isEmpty()) {
     		msg = "上传头像失败";
     	} 	
+    	callback.put("user", customer);
     	log.setOperation(msg);
     	log.setTime(System.currentTimeMillis() - now.getTime());
     	logService.save(log);
-    	return isSuccess ? HttpResult.ok(customer, "保存成功") : HttpResult.error("保存失败");
+    	return isSuccess ? HttpResult.ok(callback,  "保存成功") : HttpResult.error("保存失败");
     }
     
     /**

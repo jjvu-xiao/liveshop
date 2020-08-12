@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:liveshop/common/AppConstants.dart';
+import 'package:liveshop/util/HttpUtil.dart';
 import 'package:liveshop/view/CaretRoute.dart';
 import 'package:liveshop/view/EditInfoRoute.dart';
 import 'package:liveshop/view/LiveRoute.dart';
@@ -25,7 +27,12 @@ class HomeRoute extends StatefulWidget {
 
   String userInfo;
 
-  HomeRoute({userInfo});
+  // 账号
+  String loginname;
+
+  String token;
+
+  HomeRoute({this.loginname});
 
   @override
   _HomeRouteState createState({userInfo}) => _HomeRouteState();
@@ -96,7 +103,7 @@ class _HomeRouteState extends State<HomeRoute>
             : null,
       ),
 
-      drawer: MyDrawer(userInfo),
+      drawer: MyDrawer(widget.loginname),
       body: Container(
         child: this._selectedIndex != 1
             ? mainMenu[_selectedIndex]
@@ -163,6 +170,7 @@ class _HomeRouteState extends State<HomeRoute>
   @override
   void initState() {
     super.initState();
+
     // 创建Controller
     _tabController = TabController(length: tabs.length, vsync: this);
     _tabController.addListener(() {
@@ -296,44 +304,37 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
 /// 侧边滑动栏
 class MyDrawer extends StatefulWidget {
 
+  String nickname;
+
+  String avatar;
+
+  String loginname;
+
   @override
   _MyDrawerState createState() => _MyDrawerState();
 
-  MyDrawer(String userInfo, {
-    Key key
-  }) : super(key: key);
+  MyDrawer(this.loginname) {
+    SharedPreferences.getInstance().then((prefs) {
+      String token  = prefs.getString("token");
+      Options options = Options(headers: {"token": token});
+      Future task = HttpUtil.get(url: AppConstants.BASE_URL + "/customer/getInfo?login=$loginname",
+          options: options);
+      task.then((callbackJson) {
+//        setState(() {
+          Map callback = jsonDecode(callbackJson);
+          Map data = callback['data'];
+          this.nickname = data['nickname'];
+          this.avatar = data['avatar'];
+//        });
+      });
+    });
+  }
 }
 
 class _MyDrawerState extends State<MyDrawer> {
 
-  String avatar = AppConstants.NATIVE_IMAGE_PATH + "me.jpg";
-
-  String nickname = "杨小前";
-
-  String userInfo;
-
-
-  @override
-  void initState() {
-    _getInfo();
-  }
-
-  void _getInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String userInfo = prefs.getString("userInfo");
-    Map data = jsonDecode(userInfo);
-    Map user = data['user'];
-    setState(() {
-      this.avatar = user['avatar'];
-      this.nickname = user['nickName'];
-      LogUtil.v(nickname);
-    });
-
-  }
-
   @override
   Widget build(BuildContext context) {
-//    _getInfo();
     // TODO: implement build
     return Drawer(
         child: MediaQuery.removePadding(
@@ -347,20 +348,20 @@ class _MyDrawerState extends State<MyDrawer> {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (
-                                    context) {
-                                  return EditInfoRoute();
-                                }));
+//                                Navigator.push(
+//                                    context, MaterialPageRoute(builder: (
+//                                    context) {
+//                                  return EditInfoRoute();
+//                                }));
                               },
                               child: Column(
                                 children: <Widget>[
                                   ClipOval(
-                                    child: Image.network(avatar, width: 80),
-//                                  child: Image.asset(AppConstants.NATIVE_IMAGE_PATH + "me.jpg", width: 80)
+//                                    child: Image.network(this.avatar, width: 80),
+                                    child: widget.avatar == null ? Image.asset(AppConstants.NATIVE_IMAGE_PATH + "me.jpg", width: 80)
+                                        : Image.network(widget.avatar, width: 80)
                                   ),
-//                                Text("杨小前")
-                                  Text(nickname)
+                                  widget.nickname == null ? Text("杨小前") : Text(widget.nickname)
                                 ],
                               )
                           )
@@ -382,5 +383,9 @@ class _MyDrawerState extends State<MyDrawer> {
             ])
         )
     );
+  }
+
+  @override
+  void initState() {
   }
 }

@@ -14,8 +14,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 /**
  * 登录认证过滤器
- * @author Louis
- * @date Jan 14, 2019
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 

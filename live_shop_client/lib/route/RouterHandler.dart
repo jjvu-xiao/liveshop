@@ -15,8 +15,8 @@ import 'package:liveshop/view/RegisterRouter.dart';
 /// 首页
 Handler indexPageHander = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-//    String userInfo = params['userInfo'].first;
-    return HomeRoute();
+    String loginname = params['loginname'].first;
+    return HomeRoute(loginname: loginname);
   },
 );
 
@@ -38,7 +38,9 @@ Handler indexPageHander = Handler(
 // 登陆页面
 Handler loginHanderl = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      return LoginRoute();
+      String loginname = params['loginname'].first;
+      String passwd = params['passwd'].first;
+      return LoginRoute(loginname: loginname, passwd: passwd);
     }
 );
 
@@ -50,7 +52,6 @@ Handler registerHandler = Handler(
 );
 
 // 用户信息编辑页面
-
 Handler profileHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       String loginname = params['loginname'].first;

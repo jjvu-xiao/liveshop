@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 安全用户模型
- * @author Louis
- * @date Jan 14, 2019
  */
 public class JwtUserDetails implements UserDetails {
 
